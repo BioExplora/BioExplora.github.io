@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biología Interactiva</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>Biología Interactiva</h1>
+            <p>Explora el fascinante mundo de la biología</p>
+        </div>
+        <nav>
+            <ul class="menu">
+                <li><a href="#" onclick="mostrarSeccion('inicio')">Inicio</a></li>
+                <li class="dropdown">
+                    <a href="javascript:void(0)" class="dropbtn">Temas</a>
+                    <div class="dropdown-content">
+                        <a href="#" onclick="mostrarSeccion('celula')">Célula</a>
+                        <a href="#" onclick="mostrarSeccion('genetica')">Genética</a>
+                        <a href="#" onclick="mostrarSeccion('evolucion')">Evolución</a>
+                        <a href="#" onclick="mostrarSeccion('ecologia')">Ecología</a>
+                        <a href="#" onclick="mostrarSeccion('anatomia')">Anatomía</a>
+                    </div>
+                </li>
+                <li><a href="#" onclick="mostrarSeccion('actividades')">Actividades</a></li>
+                <li><a href="#" onclick="mostrarSeccion('links')">Recursos</a></li>
+                <li><a href="#" onclick="mostrarSeccion('login')">Iniciar Sesión</a></li>
+                <li><a href="#" onclick="mostrarSeccion('registro')">Registrarse</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Sección de Inicio -->
+        <section id="inicio" class="seccion-activa">
+            <div class="hero">
+                <h2>¡Bienvenido a Biología Interactiva!</h2>
+                <a href="#" onclick="mostrarSeccion('celula')" class="btn">Explorar Temas</a>
+            </div>
+        </section>
+
+        <!-- Sección de Célula -->
+        <section id="celula" class="seccion-oculta">
+            <h2>La Célula</h2>
+            <img src="celula.png" alt="Célula" class="section-image">
+            <p>En el ámbito de la biología, es la unidad más pequeña que puede vivir por sí sola.<br>
+                Forma todos los organismos vivos y los tejidos del cuerpo. Las tres partes principales<br>
+                 de la célula son la membrana celular, el núcleo y el citoplasma. La membrana celular<br>
+                 rodea la célula y controla las sustancias que entran y salen.<br>
+                 <br>
+                 Dentro de la célula está el núcleo que contiene el nucléolo y la mayor parte del ADN<br>
+                 celular, además es donde se produce casi todo el ARN. El citoplasma es el líquido del<br>
+                  interior de la célula que contiene otros elementos diminutos con funciones específicas,<br>
+                   como el aparato de Golgi, las mitocondrias y el retículo endoplasmático. En el citoplasma <br>
+                   ocurren la mayoría de las reacciones químicas, y también es donde se elaboran la mayoría<br> 
+                   de las proteínas. El cuerpo humano tiene más de 30 billones de células.</p>
+            <button onclick="mostrarMas('celula')" class="btn">Leer más</button>
+            <div id="masCelula" class="hidden">
+                <h3>Tipos de Células</h3>
+                <ul>
+                 <li><strong>Células Procariotas:</strong></li>
+                 <p>Las células procariotas son las células que no tienen núcleo celular. Su material genético<br> 
+                (ADN) está suelto en el citoplasma celular, al igual que los ribosomas y todas las enzimas <br> 
+                que llevan acabo las reacciones metabólicas de la célula. Las células procariotas no Tienen<br> 
+                organelas (compartimentos internos delimitados por membranas), como las células eucariotas.</p> 
+                <li><strong>características de la célula procariota</li></strong> 
+                <p>Las células procariotas presentan un aspecto sencillo. Sus principales características son:</p> 
+                <li><strong>No tienen núcleo:</li></strong> 
+                <p>Su material genético está suelto en el citoplasma. <br> 
+                Tienen un solo cromosoma en forma de círculo, que<br>  
+                no está contenido dentro ninguna envoltura.</p> 
+                <li><strong>No tienen organelas:</li></strong> 
+                <p>No tienen compartimentos dentro del citoplasma, porque carecen de membranas internas.<br> 
+                Todas las reacciones químicas del metabolismo procariota ocurren en el citoplasma <br> 
+                celular y en la única membrana que poseen, la membrana plasmática.</p> 
+                <li><strong>Son evolutivamente muy antiguas:</li></strong> 
+                <p>Fueron las primeras formas de vida que aparecieron en la Tierra, hace 3500 millones de años.</p> 
+                <li><strong>Son muy pequeñas:</li></strong> 
+                <p>Pueden medir hasta 10 veces menos que las células eucariotas. Su tamaño varía entre <br> 
+                los 5 y los 0,5 micrones de longitud (las células eucariotas oscilan entre 10 y 100 micrones).</p> 
+                <li><strong>Forman organismos unicelulares:</li></strong> 
+                <p> Son siempre organismos unicelulares que, a veces, se agrupan para formar colonias. Sin embargo,<br> 
+                no forman organizaciones funcionales como sucede en los tejidos de los organismos pluricelulares.</p> 
+                <li><strong>Se reproducen asexualmente:</li></strong> 
+                <p>Se dividen mediante un mecanismo exclusivo de organismos unicelulares, llamado bipartición o fisión binaria.</p> 
+                <!--separaarrrrrrr--> 
+ 
+                <li><strong>Células Eucariotas:</strong> Tienen núcleo definido. Ejemplo: células humanas.</li>
+                <p>Se cree que las células eucariotas surgieron debido a la fusión entre una bacteria (organismo <br>
+                    unicelular procariota que tiene pared celular de peptidoglicano) y una archaea (organismo unicelular<br>
+                     procariota que tiene pared celular de glicoproteínas y proteínas). Esta es la teoría más aceptada, <br>
+                     pues se ha podido probar que en las células eucariotas algunos genes provienen de las bacterias <br>
+                     y otros de las archaeas. En este sentido, el ADN del núcleo de las células eucariotas es semejante<br>
+                      al de las archaeas, mientras que la composición de la membrana y las mitocondrias es similar a la de las bacterias.</p>
+                <li><strong>Tipos de célula eucariota:</strong>
+                <p>Existen diversos tipos de células eucariotas:</p>
+                <li><strong>Células vegetales:</li></strong>
+                <p>Son aquellas células que tienen una pared celular (compuesta de celulosa y proteínas)<br>
+                     que recubre su membrana plasmática y les otorga rigidez, protección y resistencia. Además, las células<br> 
+                     vegetales tienen cloroplastos, que son organelas que contienen la clorofila (la biomolécula necesaria <br>
+                     para llevar a cabo el proceso de fotosíntesis); y una vacuola central grande, que mantiene la forma <br>
+                     celular y controla el almacenamiento y la degradación de sustancias.</p>
+
+                </ul>
+                <h3>Partes de la Célula</h3>
+                <ul>
+                    <li><strong>Núcleo:</strong> Contiene el ADN.</li>
+                    <li><strong>Mitocondrias:</strong> Producen energía.</li>
+                    <li><strong>Ribosomas:</strong> Sintetizan proteínas.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Sección de Genética -->
+        <section id="genetica" class="seccion-oculta">
+            <h2>Genética</h2>
+            <img src="gene.png" alt="Genética" class="section-image">
+            <p>La genética es el estudio de la herencia biológica...</p>
+            <button onclick="mostrarMas('genetica')" class="btn">Leer más</button>
+            <div id="masGenetica" class="hidden">
+                <h3>Conceptos Básicos</h3>
+                <ul>
+                    <li><strong>ADN:</strong> Molécula que almacena la información genética.</li>
+                    <li><strong>Gen:</strong> Segmento de ADN que codifica una proteína.</li>
+                    <li><strong>Cromosoma:</strong> Estructura que contiene el ADN.</li>
+                </ul>
+                <h3>Leyes de Mendel</h3>
+                <ul>
+                    <li><strong>Ley de la Segregación:</strong> Los alelos se separan durante la formación de gametos.</li>
+                    <li><strong>Ley de la Independencia:</strong> Los genes se distribuyen independientemente.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Sección de Evolución -->
+        <section id="evolucion" class="seccion-oculta">
+            <h2>Evolución</h2>
+            <img src="images/evolucion.jpg" alt="Evolución" class="section-image">
+            <p>La evolución es el proceso por el cual las especies cambian con el tiempo...</p>
+            <button onclick="mostrarMas('evolucion')" class="btn">Leer más</button>
+            <div id="masEvolucion" class="hidden">
+                <h3>Teoría de la Evolución</h3>
+                <p>Charles Darwin propuso que las especies evolucionan mediante la selección natural.</p>
+                <h3>Evidencias de la Evolución</h3>
+                <ul>
+                    <li><strong>Fósiles:</strong> Restos de organismos antiguos.</li>
+                    <li><strong>Anatomía Comparada:</strong> Similitudes entre especies.</li>
+                    <li><strong>Biología Molecular:</strong> Similitudes en el ADN.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Sección de Ecología -->
+        <section id="ecologia" class="seccion-oculta">
+            <h2>Ecología</h2>
+            <img src="images/ecologia.jpg" alt="Ecología" class="section-image">
+            <p>La ecología estudia las interacciones entre los organismos y su entorno...</p>
+            <button onclick="mostrarMas('ecologia')" class="btn">Leer más</button>
+            <div id="masEcologia" class="hidden">
+                <h3>Niveles de Organización</h3>
+                <ul>
+                    <li><strong>Individuo:</strong> Un solo organismo.</li>
+                    <li><strong>Población:</strong> Grupo de individuos de la misma especie.</li>
+                    <li><strong>Ecosistema:</strong> Comunidad de organismos y su entorno.</li>
+                </ul>
+                <h3>Problemas Ambientales</h3>
+                <ul>
+                    <li><strong>Cambio Climático:</strong> Aumento de la temperatura global.</li>
+                    <li><strong>Deforestación:</strong> Pérdida de bosques.</li>
+                    <li><strong>Contaminación:</strong> Presencia de sustancias nocivas en el ambiente.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Sección de Anatomía -->
+        <section id="anatomia" class="seccion-oculta">
+            <h2>Anatomía Humana</h2>
+            <img src="images/anatomia.jpg" alt="Anatomía" class="section-image">
+            <p>La anatomía estudia la estructura del cuerpo humano...</p>
+            <button onclick="mostrarMas('anatomia')" class="btn">Leer más</button>
+            <div id="masAnatomia" class="hidden">
+                <h3>Sistemas del Cuerpo</h3>
+                <ul>
+                    <li><strong>Sistema Nervioso:</strong> Controla las funciones del cuerpo.</li>
+                    <li><strong>Sistema Circulatorio:</strong> Transporta sangre y nutrientes.</li>
+                    <li><strong>Sistema Digestivo:</strong> Procesa los alimentos.</li>
+                </ul>
+                <h3>Órganos Principales</h3>
+                <ul>
+                    <li><strong>Corazón:</strong> Bombea la sangre.</li>
+                    <li><strong>Pulmones:</strong> Intercambian oxígeno y dióxido de carbono.</li>
+                    <li><strong>Hígado:</strong> Desintoxica el cuerpo.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Sección de Actividades -->
+        <section id="actividades" class="seccion-oculta">
+            <h2>Actividades Interactivas</h2>
+            <p>Participa en nuestras actividades para aprender más sobre biología.</p>
+            <button onclick="iniciarQuiz()" class="btn">Comenzar Quiz</button>
+            <button onclick="iniciarSopaLetras()" class="btn">Sopa de Letras</button>
+            <div id="actividadResultado" class="hidden"></div>
+        </section>
+
+        <!-- Sección de Recursos (Links) -->
+        <section id="links" class="seccion-oculta">
+            <h2>Recursos Externos</h2>
+            <p>Explora estos enlaces para aprender más sobre biología:</p>
+            <ul>
+                <li><a href="https://es.khanacademy.org/science/biology" target="_blank">Khan Academy - Biología</a></li>
+                <li><a href="https://www.nationalgeographic.com.es/ciencia/biologia" target="_blank">National Geographic - Biología</a></li>
+                <li><a href="https://www.biologia.edu.ar/" target="_blank">Biología.edu.ar</a></li>
+                <li><a href="https://concepto.de/celula-procariota/" target="_blank">Concepto - Biología</a></li>
+            </ul>
+        </section>
+
+        <!-- Sección de Inicio de Sesión -->
+        <section id="login" class="seccion-oculta">
+            <h2>Iniciar Sesión</h2>
+            <form id="loginForm" class="form">
+                <label for="username">Usuario:</label>
+                <input type="text" id="username" name="username" required>
+                <label for="password">Contraseña:</label>
+                <input type="password" id="password" name="password" required>
+                <button type="submit" class="btn">Iniciar Sesión</button>
+            </form>
+        </section>
+
+        <!-- Sección de Registro -->
+        <section id="registro" class="seccion-oculta">
+            <h2>Registrarse</h2>
+            <form id="registroForm" class="form">
+                <label for="newUsername">Usuario:</label>
+                <input type="text" id="newUsername" name="newUsername" required>
+                <label for="newPassword">Contraseña:</label>
+                <input type="password" id="newPassword" name="newPassword" required>
+                <button type="submit" class="btn">Registrarse</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Biología Interactiva. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
