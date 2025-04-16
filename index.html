@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BioExplora - De la Célula a la Evolución</title>
+    <title>BioExplora - Del Átomo al Ecosistema</title>
     <style>
         :root {
             --primary-color: #29b884;
@@ -11,6 +11,7 @@
             --white: #ffffff;
             --dark-text: #2c3e50;
             --light-bg: #f5f7fa;
+            --transition: all 0.3s ease;
         }
 
         * {
@@ -27,37 +28,76 @@
             overflow-x: hidden;
         }
 
-        /* Header mejorado */
+        /* Header mejorado con animación */
         header {
             background: linear-gradient(135deg, var(--primary-color), #1fa374);
             color: var(--white);
             text-align: center;
-            padding: 4rem 0 3rem;
+            padding: 5rem 0 4rem;
             position: relative;
             overflow: hidden;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+            margin-bottom: 2rem;
         }
 
         .header-content {
             position: relative;
             z-index: 2;
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
             padding: 0 2rem;
         }
 
         h1 {
-            font-size: 2.8rem;
-            margin-bottom: 1rem;
-            font-weight: 700;
+            font-size: 3.2rem;
+            margin-bottom: 1.5rem;
+            font-weight: 800;
             animation: fadeInDown 1s ease-out;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
         .subtitle {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
+            font-size: 1.5rem;
+            margin-bottom: 2.5rem;
             opacity: 0;
             animation: fadeIn 1s ease-out 0.5s forwards;
+            font-weight: 300;
+        }
+
+        .header-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.8rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            animation: fadeIn 1s ease-out 1s forwards;
+            opacity: 0;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: var(--dark-text);
+            box-shadow: 0 4px 15px rgba(250, 214, 68, 0.3);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
         }
 
         /* Animación de células mejorada */
@@ -86,7 +126,12 @@
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            transition: var(--transition);
+        }
+
+        nav.scrolled {
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
         }
 
         .nav-container {
@@ -101,13 +146,21 @@
         .logo {
             color: var(--white);
             font-weight: bold;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             text-decoration: none;
-            padding: 1rem 0;
+            padding: 1.2rem 0;
+            display: flex;
+            align-items: center;
+            transition: var(--transition);
         }
 
         .logo span {
             color: var(--accent-color);
+            margin-left: 0.3rem;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
         }
 
         .menu-btn {
@@ -115,9 +168,14 @@
             background: none;
             border: none;
             color: var(--white);
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             cursor: pointer;
             padding: 1rem;
+            transition: var(--transition);
+        }
+
+        .menu-btn:hover {
+            transform: rotate(90deg);
         }
 
         .menu-list {
@@ -132,37 +190,55 @@
         .menu-list a {
             color: var(--white);
             text-decoration: none;
-            padding: 1.2rem 1.5rem;
+            padding: 1.5rem 1.8rem;
             display: block;
-            transition: all 0.3s ease;
+            transition: var(--transition);
             font-weight: 500;
+            position: relative;
+            font-size: 1.1rem;
         }
 
-        .menu-list a:hover {
-            background-color: rgba(255,255,255,0.1);
+        .menu-list a::after {
+            content: '';
+            position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-color);
+            transition: var(--transition);
+        }
+
+        .menu-list a:hover::after {
+            width: 50%;
         }
 
         .menu-list .active {
-            background-color: rgba(255,255,255,0.1);
             font-weight: 600;
+        }
+
+        .menu-list .active::after {
+            width: 50%;
         }
 
         /* Contenido principal mejorado */
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 2rem;
+            padding: 3rem 2rem;
         }
 
         section {
-            margin-bottom: 3rem;
+            margin-bottom: 4rem;
             background-color: var(--white);
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
             overflow: hidden;
             opacity: 0;
             transform: translateY(30px);
             transition: all 0.8s ease;
+            position: relative;
         }
 
         section.visible {
@@ -173,100 +249,147 @@
         .section-header {
             background: linear-gradient(to right, var(--primary-color), #1fa374);
             color: var(--white);
-            padding: 1.5rem 2rem;
+            padding: 2rem 2.5rem;
+            position: relative;
         }
 
         .section-header h2 {
-            font-size: 2rem;
-            margin-bottom: 0;
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-header p {
+            opacity: 0.9;
+            font-weight: 300;
         }
 
         .section-content {
-            padding: 2rem;
+            padding: 2.5rem;
         }
 
         /* Animación de ADN mejorada */
         .dna-container {
             width: 100%;
             height: 200px;
-            margin: 2rem 0;
+            margin: 3rem 0;
             position: relative;
             overflow: hidden;
             background-color: #f5f5f5;
-            border-radius: 8px;
+            border-radius: 10px;
             display: flex;
             justify-content: center;
             align-items: center;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.1);
         }
 
         .dna-strand {
-            width: 80%;
-            height: 80%;
-            background: url('https://cdn.pixabay.com/photo/2017/01/31/14/26/dna-2025549_960_720.png') center/contain no-repeat;
+            width: 2000%;
+            height: 1000%;
+            background: url('https://www.clarin.com/2015/04/10/S1GGdUMRQg_1256x620.jpg') center/contain no-repeat;
             animation: rotateDNA 30s linear infinite;
         }
 
         /* Galería mejorada */
         .gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 2rem;
-            margin: 2rem 0;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2.5rem;
+            margin: 2.5rem 0;
         }
 
         .card {
             background-color: var(--white);
-            border-radius: 8px;
+            border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: var(--transition);
+            position: relative;
         }
 
         .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+        }
+
+        .card-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background-color: var(--accent-color);
+            color: var(--dark-text);
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 2;
         }
 
         .card-img {
             width: 100%;
-            height: 180px;
+            height: 220px;
             background-size: cover;
             background-position: center;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .card:hover .card-img {
+            transform: scale(1.05);
         }
 
         .card-info {
-            padding: 1.5rem;
+            padding: 1.8rem;
         }
 
         .card-title {
             color: var(--primary-color);
             font-weight: bold;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.8rem;
+            font-size: 1.3rem;
+        }
+
+        .card-text {
+            margin-bottom: 1.2rem;
+            color: #555;
+        }
+
+        .card-link {
+            display: inline-block;
+            color: var(--primary-color);
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .card-link:hover {
+            color: #1fa374;
+            transform: translateX(5px);
         }
 
         /* Línea de tiempo mejorada */
         .timeline {
             position: relative;
             max-width: 100%;
-            margin: 3rem 0;
+            margin: 4rem 0;
         }
 
         .timeline::before {
             content: '';
             position: absolute;
-            width: 4px;
-            background-color: var(--primary-color);
+            width: 6px;
+            background: linear-gradient(to bottom, var(--primary-color), var(--accent-color));
             top: 0;
             bottom: 0;
             left: 50%;
-            margin-left: -2px;
+            margin-left: -3px;
+            border-radius: 10px;
         }
 
         .timeline-item {
-            padding: 10px 40px;
+            padding: 15px 50px;
             position: relative;
             width: 50%;
-            margin-bottom: 2rem;
+            margin-bottom: 3rem;
             opacity: 0;
             transition: all 0.8s ease;
         }
@@ -285,25 +408,128 @@
         }
 
         .timeline-content {
-            padding: 20px;
+            padding: 25px;
             background-color: var(--white);
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
             position: relative;
+            transition: var(--transition);
+        }
+
+        .timeline-content:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
         }
 
         .timeline-date {
             color: var(--accent-color);
             font-weight: bold;
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+        }
+
+        .timeline-title {
+            font-size: 1.4rem;
+            margin-bottom: 0.8rem;
+            color: var(--primary-color);
+        }
+
+        /* Nuevas secciones añadidas */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .feature {
+            background-color: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-title {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--dark-text);
+        }
+
+        /* Formulario de contacto */
+        .contact-form {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
             margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark-text);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(41, 184, 132, 0.2);
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .submit-btn:hover {
+            background-color: #1fa374;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
         /* Footer mejorado */
         footer {
-            background-color: var(--primary-color);
+            background: linear-gradient(to right, #1a3b2d, var(--primary-color));
             color: var(--white);
-            padding: 3rem 0;
+            padding: 4rem 0 2rem;
             text-align: center;
+            clip-path: polygon(0 10%, 100% 0, 100% 100%, 0 100%);
+            margin-top: 5rem;
         }
 
         .footer-content {
@@ -311,14 +537,27 @@
             margin: 0 auto;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
+            gap: 3rem;
             padding: 0 2rem;
             text-align: left;
         }
 
         .footer-column h3 {
             color: var(--accent-color);
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.8rem;
+            font-size: 1.4rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--accent-color);
         }
 
         .footer-links {
@@ -326,24 +565,51 @@
         }
 
         .footer-links li {
-            margin-bottom: 0.8rem;
+            margin-bottom: 1rem;
         }
 
         .footer-links a {
-            color: var(--white);
+            color: rgba(255,255,255,0.8);
             text-decoration: none;
-            transition: all 0.3s ease;
+            transition: var(--transition);
+            display: inline-block;
         }
 
         .footer-links a:hover {
             color: var(--accent-color);
-            padding-left: 5px;
+            transform: translateX(5px);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: var(--white);
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background-color: var(--accent-color);
+            color: var(--dark-text);
+            transform: translateY(-3px);
         }
 
         .copyright {
-            margin-top: 3rem;
-            padding-top: 1.5rem;
+            margin-top: 4rem;
+            padding-top: 2rem;
             border-top: 1px solid rgba(255,255,255,0.2);
+            color: rgba(255,255,255,0.7);
+            font-size: 0.9rem;
         }
 
         /* Animaciones mejoradas */
@@ -355,7 +621,7 @@
         @keyframes fadeInDown {
             from { 
                 opacity: 0;
-                transform: translateY(-20px);
+                transform: translateY(-30px);
             }
             to { 
                 opacity: 1;
@@ -387,31 +653,64 @@
             to { transform: rotate(360deg); }
         }
 
+        /* Efecto de scroll suave */
+        html {
+            scroll-behavior: smooth;
+        }
+
         /* Responsive mejorado */
+        @media (max-width: 1200px) {
+            .container {
+                padding: 2rem;
+            }
+        }
+
         @media (max-width: 992px) {
+            h1 {
+                font-size: 2.8rem;
+            }
+            
+            .subtitle {
+                font-size: 1.3rem;
+            }
+            
             .timeline::before {
                 left: 31px;
             }
 
             .timeline-item {
                 width: 100%;
-                padding-left: 70px;
-                padding-right: 25px;
+                padding-left: 80px;
+                padding-right: 30px;
                 text-align: left;
             }
 
             .timeline-item:nth-child(even) {
                 left: 0;
             }
+            
+            .section-content {
+                padding: 2rem;
+            }
         }
 
         @media (max-width: 768px) {
             h1 {
-                font-size: 2.2rem;
+                font-size: 2.4rem;
             }
 
             .subtitle {
                 font-size: 1.1rem;
+            }
+            
+            .header-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 80%;
+                text-align: center;
             }
 
             .menu-btn {
@@ -420,12 +719,14 @@
 
             .menu-list {
                 position: fixed;
-                top: 80px;
+                top: 85px;
                 left: -100%;
                 width: 100%;
                 flex-direction: column;
                 background-color: var(--primary-color);
                 transition: all 0.5s ease;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+                padding: 1rem 0;
             }
 
             .menu-list.show {
@@ -433,41 +734,385 @@
             }
 
             .menu-list a {
-                padding: 1rem 2rem;
+                padding: 1.2rem 2rem;
+            }
+            
+            .menu-list a::after {
+                bottom: 0.8rem;
             }
 
             .gallery {
                 grid-template-columns: 1fr;
             }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+            
+            footer {
+                clip-path: polygon(0 5%, 100% 0, 100% 100%, 0 100%);
+            }
         }
 
         @media (max-width: 576px) {
             .header-content {
-                padding: 0 1rem;
+                padding: 0 1.5rem;
             }
-
+            
             h1 {
-                font-size: 1.8rem;
+                font-size: 2rem;
             }
-
+            
             .section-header, .section-content {
                 padding: 1.5rem;
             }
+            
+            .card-info {
+                padding: 1.5rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        /* Estilos para el buscador */
+        .search-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .search-box {
+            display: flex;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-radius: 50px;
+            overflow: hidden;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            border: none;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .search-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .search-btn:hover {
+            background-color: #1fa374;
+        }
+
+        /* Estilos para el carrusel */
+        .carousel {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+            border-radius: 10px;
+            margin: 2rem 0;
+        }
+
+        .carousel-inner {
+            display: flex;
+            transition: transform 0.5s ease;
+            height: 100%;
+        }
+
+        .carousel-item {
+            min-width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .carousel-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 1.5rem;
+        }
+
+        .carousel-caption h3 {
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .carousel-control {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.3);
+            color: white;
+            border: none;
+            padding: 1rem;
+            cursor: pointer;
+            z-index: 10;
+            transition: var(--transition);
+        }
+
+        .carousel-control:hover {
+            background: rgba(255,255,255,0.5);
+        }
+
+        .carousel-control.prev {
+            left: 1rem;
+        }
+
+        .carousel-control.next {
+            right: 1rem;
+        }
+
+        .carousel-indicators {
+            position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0.5rem;
+            z-index: 10;
+        }
+
+        .carousel-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .carousel-indicator.active {
+            background: var(--accent-color);
+        }
+
+        /* Estilos para el acordeón */
+        .accordion {
+            margin: 2rem 0;
+        }
+
+        .accordion-item {
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .accordion-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1.2rem 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        .accordion-header:hover {
+            background-color: #1fa374;
+        }
+
+        .accordion-header::after {
+            content: '+';
+            font-size: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .accordion-header.active::after {
+            content: '-';
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background-color: white;
+        }
+
+        .accordion-content-inner {
+            padding: 1.5rem;
+        }
+
+        /* Estilos para las pestañas */
+        .tabs {
+            margin: 2rem 0;
+        }
+
+        .tab-header {
+            display: flex;
+            border-bottom: 2px solid #eee;
+        }
+
+        .tab-btn {
+            padding: 1rem 1.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            color: #777;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .tab-btn::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        .tab-btn.active {
+            color: var(--primary-color);
+        }
+
+        .tab-btn.active::after {
+            width: 100%;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 1.5rem 0;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Estilos para el modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.show {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background-color: white;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transform: translateY(-50px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal.show .modal-content {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #777;
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            color: var(--primary-color);
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        /* Estilos para el contador */
+        .counter-container {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .counter-box {
+            text-align: center;
+            padding: 1.5rem;
+            border-radius: 10px;
+            background-color: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            min-width: 150px;
+        }
+
+        .counter-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .counter-label {
+            color: #777;
+            font-size: 0.9rem;
         }
     </style>
+    <!-- Font Awesome para íconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <header>
         <div class="cell-animation"></div>
         <div class="header-content">
-            <h1>BioVida</h1>
-            <p class="subtitle">Del átomo al ecosistema: un viaje por la vida</p>
+            <h1>BioExplora</h1>
+            <p class="subtitle">Del átomo al ecosistema: un viaje científico por la vida</p>
+            <div class="header-buttons">
+                <a href="#explorar" class="btn btn-primary">Explorar Contenido</a>
+                <a href="#contacto" class="btn btn-secondary">Contacto</a>
+            </div>
         </div>
     </header>
 
-    <nav>
+    <nav id="navbar">
         <div class="nav-container">
-            <a href="#" class="logo">Bio<span>Vida</span></a>
+            <a href="#" class="logo">Bio<span>Explora</span></a>
             <button class="menu-btn">☰</button>
             <ul class="menu-list">
                 <li><a href="#inicio" class="active">Inicio</a></li>
@@ -476,6 +1121,7 @@
                 <li><a href="#organismos">Organismos</a></li>
                 <li><a href="#ecologia">Ecología</a></li>
                 <li><a href="#evolucion">Evolución</a></li>
+                <li><a href="#contacto">Contacto</a></li>
             </ul>
         </div>
     </nav>
@@ -484,45 +1130,194 @@
         <section id="inicio">
             <div class="section-header">
                 <h2>Descubre el Mundo de la Biología</h2>
+                <p>Explora los misterios de la vida a través de nuestros recursos educativos</p>
             </div>
             <div class="section-content">
-                <p>La biología es la ciencia que estudia la vida en todas sus formas, desde los organismos más pequeños hasta los ecosistemas más complejos. En esta página exploraremos los diferentes niveles de organización biológica, desde las células hasta la evolución de las especies.</p>
+                <p>La biología es la ciencia que estudia la vida en todas sus formas, desde los organismos más pequeños hasta los ecosistemas más complejos. En esta página exploraremos los diferentes niveles de organización biológica, desde las moléculas hasta la biosfera, pasando por células, tejidos, órganos y sistemas.</p>
+                
+                <!-- Carrusel de imágenes -->
+                <div class="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item" style="background-image: url('https://cdn.pixabay.com/photo/2016/11/29/08/41/microscope-1868618_1280.jpg');">
+                            <div class="carousel-caption">
+                                <h3>Microscopía Avanzada</h3>
+                                <p>Descubre el mundo invisible que nos rodea con las últimas técnicas de microscopía.</p>
+                            </div>
+                        </div>
+                        <div class="carousel-item" style="background-image: url('https://cdn.pixabay.com/photo/2017/01/31/14/26/dna-2025870_1280.png');">
+                            <div class="carousel-caption">
+                                <h3>Investigación Genética</h3>
+                                <p>Explora los secretos del ADN y cómo determina nuestras características.</p>
+                            </div>
+                        </div>
+                        <div class="carousel-item" style="background-image: url('https://cdn.pixabay.com/photo/2016/11/14/05/21/terrestrial-1822441_1280.jpg');">
+                            <div class="carousel-caption">
+                                <h3>Biodiversidad</h3>
+                                <p>Conoce la increíble variedad de vida en nuestro planeta.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-control prev">❮</button>
+                    <button class="carousel-control next">❯</button>
+                    <div class="carousel-indicators">
+                        <div class="carousel-indicator active"></div>
+                        <div class="carousel-indicator"></div>
+                        <div class="carousel-indicator"></div>
+                    </div>
+                </div>
                 
                 <div class="dna-container">
                     <div class="dna-strand"></div>
                 </div>
                 
-                <p>El ADN es la molécula que contiene las instrucciones genéticas para el desarrollo y funcionamiento de todos los organismos vivos conocidos. Su descubrimiento revolucionó nuestra comprensión de la herencia y la evolución.</p>
+                <p>El ADN (ácido desoxirribonucleico) es la molécula que contiene las instrucciones genéticas para el desarrollo, funcionamiento, crecimiento y reproducción de todos los organismos vivos conocidos. Su descubrimiento revolucionó nuestra comprensión de la herencia y la evolución, convirtiéndose en uno de los hallazgos científicos más importantes del siglo XX.</p>
+                
+                <!-- Contador de visitas -->
+                <div class="counter-container">
+                    <div class="counter-box">
+                        <div class="counter-number" id="species-counter">0</div>
+                        <div class="counter-label">Especies documentadas</div>
+                    </div>
+                    <div class="counter-box">
+                        <div class="counter-number" id="discoveries-counter">0</div>
+                        <div class="counter-label">Descubrimientos recientes</div>
+                    </div>
+                    <div class="counter-box">
+                        <div class="counter-number" id="students-counter">0</div>
+                        <div class="counter-label">Estudiantes activos</div>
+                    </div>
+                </div>
+                
+                <div class="features">
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-microscope"></i>
+                        </div>
+                        <h3 class="feature-title">Microbiología</h3>
+                        <p>Explora el mundo invisible de bacterias, virus y otros microorganismos que son fundamentales para la vida en la Tierra.</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-dna"></i>
+                        </div>
+                        <h3 class="feature-title">Genómica</h3>
+                        <p>Descubre cómo la secuenciación del genoma está revolucionando la medicina, agricultura y conservación.</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-tree"></i>
+                        </div>
+                        <h3 class="feature-title">Biodiversidad</h3>
+                        <p>Conoce la increíble variedad de vida en nuestro planeta y los esfuerzos para conservarla.</p>
+                    </div>
+                </div>
             </div>
         </section>
 
         <section id="celulas">
             <div class="section-header">
                 <h2>La Unidad de la Vida: La Célula</h2>
+                <p>Estructura y función de los componentes celulares</p>
             </div>
             <div class="section-content">
-                <p>Todos los seres vivos están compuestos por células, la unidad básica de estructura y función. Existen dos tipos principales de células:</p>
+                <p>Todos los seres vivos están compuestos por células, la unidad básica de estructura y función. La teoría celular, formulada en el siglo XIX, establece que:</p>
+                
+                <ul style="margin-bottom: 2rem;">
+                    <li>Todos los organismos están compuestos por una o más células</li>
+                    <li>La célula es la unidad básica de estructura y organización en los organismos</li>
+                    <li>Todas las células provienen de células preexistentes</li>
+                </ul>
+                
+                <p>Existen dos tipos principales de células que difieren en su complejidad:</p>
                 
                 <div class="gallery">
                     <div class="card">
-                        <div class="card-img" style="background-image: url('https://happylearning.tv/wp-content/uploads/2024/01/portada-2-la-celula.png')"></div>
+                        <div class="card-badge">Eucariota</div>
+                        <div class="card-img" style="background-image: url('https://cdn.pixabay.com/photo/2017/02/12/21/29/cell-2061201_960_720.png')"></div>
                         <div class="card-info">
                             <div class="card-title">Célula Animal</div>
-                            <p>Célula eucariota con núcleo definido y diversos organelos, característica de los organismos del reino animal.</p>
+                            <p class="card-text">Célula eucariota con núcleo definido y diversos organelos membranosos como mitocondrias, retículo endoplasmático y aparato de Golgi, característica de los organismos del reino animal.</p>
+                            <a href="#" class="card-link">Ver más detalles <i class="fas fa-arrow-right"></i></a>
                         </div>
                     </div>
                     <div class="card">
+                        <div class="card-badge">Eucariota</div>
                         <div class="card-img" style="background-image: url('https://cdn.pixabay.com/photo/2016/11/30/12/16/cell-1873186_960_720.png')"></div>
                         <div class="card-info">
                             <div class="card-title">Célula Vegetal</div>
-                            <p>Célula eucariota con cloroplastos para la fotosíntesis y pared celular de celulosa.</p>
+                            <p class="card-text">Célula eucariota con cloroplastos para la fotosíntesis, pared celular de celulosa y grandes vacuolas centrales que regulan la presión osmótica.</p>
+                            <a href="#" class="card-link">Ver más detalles <i class="fas fa-arrow-right"></i></a>
                         </div>
                     </div>
                     <div class="card">
+                        <div class="card-badge">Procariota</div>
                         <div class="card-img" style="background-image: url('https://cdn.pixabay.com/photo/2017/01/31/14/26/bacteria-2025498_960_720.png')"></div>
                         <div class="card-info">
                             <div class="card-title">Bacteria</div>
-                            <p>Organismo procariota unicelular sin núcleo definido, con gran diversidad metabólica.</p>
+                            <p class="card-text">Organismo procariota unicelular sin núcleo definido ni organelos membranosos, con gran diversidad metabólica y roles ecológicos esenciales.</p>
+                            <a href="#" class="card-link">Ver más detalles <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3 style="margin-top: 3rem;">Procesos Celulares Fundamentales</h3>
+                <p>Las células llevan a cabo numerosos procesos esenciales para la vida, incluyendo:</p>
+                
+                <div class="features" style="margin-top: 2rem;">
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-exchange-alt"></i>
+                        </div>
+                        <h3 class="feature-title">Metabolismo</h3>
+                        <p>Conjunto de reacciones químicas que permiten a la célula obtener energía y construir componentes celulares.</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-divide"></i>
+                        </div>
+                        <h3 class="feature-title">División Celular</h3>
+                        <p>Proceso por el cual una célula madre se divide para formar células hijas (mitosis y meiosis).</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-signal"></i>
+                        </div>
+                        <h3 class="feature-title">Señalización</h3>
+                        <p>Mecanismos de comunicación celular que coordinan actividades entre células.</p>
+                    </div>
+                </div>
+
+                <!-- Acordeón de preguntas frecuentes -->
+                <h3 style="margin-top: 3rem;">Preguntas Frecuentes sobre Células</h3>
+                <div class="accordion">
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <span>¿Cuál es la diferencia entre célula animal y vegetal?</span>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="accordion-content-inner">
+                                <p>Las células vegetales tienen cloroplastos para la fotosíntesis, una pared celular rígida de celulosa y una gran vacuola central. Las células animales carecen de estos componentes pero tienen centriolos, que las vegetales no poseen.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <span>¿Qué es la membrana celular y cuál es su función?</span>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="accordion-content-inner">
+                                <p>La membrana celular es una bicapa lipídica que rodea la célula. Sus funciones principales son: delimitar y proteger la célula, regular el intercambio de sustancias con el exterior y permitir la comunicación celular.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <span>¿Cómo se produce la energía en las células?</span>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="accordion-content-inner">
+                                <p>La energía celular se produce principalmente en las mitocondrias mediante el proceso de respiración celular, donde se convierte la energía química de los nutrientes en ATP, la molécula energética de la célula.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -532,47 +1327,185 @@
         <section id="genetica">
             <div class="section-header">
                 <h2>Genética: El Lenguaje de la Vida</h2>
+                <p>Desde Mendel hasta la ingeniería genética</p>
             </div>
             <div class="section-content">
-                <p>La genética estudia cómo los caracteres se transmiten de generación en generación a través del ADN.</p>
+                <p>La genética estudia cómo los caracteres hereditarios se transmiten de generación en generación a través del ADN, y cómo esta información se expresa en los organismos. Esta disciplina tiene aplicaciones en medicina, agricultura, conservación y muchas otras áreas.</p>
                 
-                <h3>Conceptos Clave</h3>
-                <ul>
-                    <li><strong>Gen:</strong> Unidad básica de herencia</li>
-                    <li><strong>Cromosoma:</strong> Estructura que contiene el ADN</li>
-                    <li><strong>ADN:</strong> Ácido desoxirribonucleico, portador de la información genética</li>
-                    <li><strong>ARN:</strong> Ácido ribonucleico, participa en la síntesis de proteínas</li>
-                </ul>
+                <!-- Pestañas interactivas -->
+                <div class="tabs">
+                    <div class="tab-header">
+                        <button class="tab-btn active" data-tab="conceptos">Conceptos Básicos</button>
+                        <button class="tab-btn" data-tab="aplicaciones">Aplicaciones</button>
+                        <button class="tab-btn" data-tab="avances">Avances Recientes</button>
+                    </div>
+                    <div class="tab-content active" id="conceptos">
+                        <h3>Conceptos Fundamentales de Genética</h3>
+                        <p>La genética se basa en varios principios fundamentales:</p>
+                        <ul>
+                            <li><strong>Gen:</strong> Unidad básica de herencia compuesta por una secuencia de ADN.</li>
+                            <li><strong>Cromosoma:</strong> Estructura que contiene el ADN empaquetado con proteínas.</li>
+                            <li><strong>Alelo:</strong> Variante de un gen que determina características específicas.</li>
+                            <li><strong>Genotipo:</strong> Constitución genética de un organismo.</li>
+                            <li><strong>Fenotipo:</strong> Expresión observable del genotipo influenciada por el ambiente.</li>
+                        </ul>
+                    </div>
+                    <div class="tab-content" id="aplicaciones">
+                        <h3>Aplicaciones de la Genética</h3>
+                        <p>La genética moderna tiene numerosas aplicaciones prácticas:</p>
+                        <ul>
+                            <li><strong>Medicina:</strong> Diagnóstico de enfermedades genéticas, terapia génica, medicina personalizada.</li>
+                            <li><strong>Agricultura:</strong> Desarrollo de cultivos mejorados, resistencia a plagas, mayor productividad.</li>
+                            <li><strong>Forensia:</strong> Identificación mediante huellas genéticas en investigaciones criminales.</li>
+                            <li><strong>Conservación:</strong> Estudio de la diversidad genética en especies amenazadas.</li>
+                        </ul>
+                    </div>
+                    <div class="tab-content" id="avances">
+                        <h3>Avances Recientes en Genética</h3>
+                        <p>Algunos de los avances más significativos incluyen:</p>
+                        <ul>
+                            <li><strong>CRISPR-Cas9:</strong> Técnica de edición genética precisa que revoluciona la investigación.</li>
+                            <li><strong>Secuenciación masiva:</strong> Tecnologías que permiten secuenciar genomas completos rápidamente y a bajo costo.</li>
+                            <li><strong>Epigenética:</strong> Estudio de cambios heredables en la expresión génica sin alterar la secuencia de ADN.</li>
+                            <li><strong>Genómica personalizada:</strong> Uso de información genética individual para guiar decisiones médicas.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <h3>Conceptos Clave de la Genética</h3>
+                <div class="gallery" style="margin-top: 2rem;">
+                    <div class="card">
+                        <div class="card-img" style="background-image: url('https://cdn.pixabay.com/photo/2017/01/31/14/26/dna-2025870_1280.png')"></div>
+                        <div class="card-info">
+                            <div class="card-title">Estructura del ADN</div>
+                            <p class="card-text">La doble hélice descubierta por Watson y Crick, compuesta por nucleótidos con bases nitrogenadas (A, T, C, G).</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-img" style="background-image: url('https://cdn.pixabay.com/photo/2017/09/07/08/57/dna-2725273_960_720.jpg')"></div>
+                        <div class="card-info">
+                            <div class="card-title">Herencia Mendeliana</div>
+                            <p class="card-text">Leyes de la herencia que describen cómo se transmiten los caracteres de padres a hijos.</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-img" style="background-image: url('https://cdn.pixabay.com/photo/2017/03/31/17/39/dna-2192239_960_720.png')"></div>
+                        <div class="card-info">
+                            <div class="card-title">Expresión Génica</div>
+                            <p class="card-text">Proceso por el cual la información del ADN se convierte en proteínas funcionales.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3 style="margin-top: 3rem;">Áreas de la Genética Moderna</h3>
+                <div class="features" style="margin-top: 1.5rem;">
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-user-md"></i>
+                        </div>
+                        <h3 class="feature-title">Genética Médica</h3>
+                        <p>Estudio de las bases genéticas de enfermedades humanas y desarrollo de terapias génicas.</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-dna"></i>
+                        </div>
+                        <h3 class="feature-title">Genómica</h3>
+                        <p>Estudio de genomas completos, incluyendo la secuenciación y análisis de ADN.</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <h3 class="feature-title">Biotecnología</h3>
+                        <p>Aplicación de técnicas genéticas en agricultura, industria y medicina.</p>
+                    </div>
+                </div>
+                
+                <div style="background-color: #f9f9f9; border-left: 4px solid var(--primary-color); padding: 1.5rem; margin: 2rem 0; border-radius: 0 6px 6px 0;">
+                    <h4 style="margin-bottom: 0.8rem; color: var(--primary-color);">¿Sabías que?</h4>
+                    <p>El Proyecto Genoma Humano, completado en 2003, secuenció por primera vez todo el ADN humano, revelando aproximadamente 20,000-25,000 genes. Este hito científico ha revolucionado nuestra comprensión de las enfermedades y la evolución humana.</p>
+                </div>
             </div>
         </section>
 
         <section id="organismos">
             <div class="section-header">
                 <h2>Diversidad de Organismos</h2>
+                <p>Clasificación y características de los seres vivos</p>
             </div>
             <div class="section-content">
-                <p>La Tierra alberga una increíble variedad de organismos, desde microscópicos hasta los más grandes seres vivos.</p>
+                <p>La Tierra alberga una increíble variedad de organismos, desde microscópicos hasta los más grandes seres vivos. Los biólogos clasifican esta diversidad en un sistema jerárquico de categorías taxonómicas, siendo los reinos los grupos más amplios.</p>
                 
+                <h3>Los Cinco Reinos</h3>
                 <div class="gallery">
                     <div class="card">
                         <div class="card-img" style="background-image: url('https://cdn.pixabay.com/photo/2017/01/14/12/59/elephant-1978281_960_720.jpg')"></div>
                         <div class="card-info">
-                            <div class="card-title">Animales</div>
-                            <p>Organismos pluricelulares, heterótrofos, con capacidad de movimiento.</p>
+                            <div class="card-title">Animalia</div>
+                            <p class="card-text">Organismos pluricelulares, heterótrofos, con capacidad de movimiento en alguna etapa de su vida. Incluye desde esponjas hasta mamíferos.</p>
+                            <a href="#" class="card-link">Explorar reino <i class="fas fa-arrow-right"></i></a>
                         </div>
                     </div>
                     <div class="card">
                         <div class="card-img" style="background-image: url('https://cdn.pixabay.com/photo/2018/01/29/07/11/flower-3115353_960_720.jpg')"></div>
                         <div class="card-info">
-                            <div class="card-title">Plantas</div>
-                            <p>Organismos pluricelulares, autótrofos mediante fotosíntesis.</p>
+                            <div class="card-title">Plantae</div>
+                            <p class="card-text">Organismos pluricelulares, autótrofos mediante fotosíntesis, con paredes celulares de celulosa. Incluye musgos, helechos, coníferas y plantas con flores.</p>
+                            <a href="#" class="card-link">Explorar reino <i class="fas fa-arrow-right"></i></a>
                         </div>
                     </div>
                     <div class="card">
                         <div class="card-img" style="background-image: url('https://cdn.pixabay.com/photo/2016/10/22/20/34/mushrooms-1761927_960_720.jpg')"></div>
                         <div class="card-info">
-                            <div class="card-title">Hongos</div>
-                            <p>Organismos descomponedores esenciales para los ecosistemas.</p>
+                            <div class="card-title">Fungi</div>
+                            <p class="card-text">Organismos heterótrofos con paredes celulares de quitina. Incluye levaduras, mohos y setas, importantes descomponedores en los ecosistemas.</p>
+                            <a href="#" class="card-link">Explorar reino <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-img" style="background-image: url('https://cdn.pixabay.com/photo/2017/01/31/14/26/bacteria-2025498_960_720.png')"></div>
+                        <div class="card-info">
+                            <div class="card-title">Monera</div>
+                            <p class="card-text">Organismos procariotas unicelulares (bacterias y arqueas) con gran diversidad metabólica y roles ecológicos esenciales.</p>
+                            <a href="#" class="card-link">Explorar reino <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-img" style="background-image: url('https://cdn.pixabay.com/photo/2013/07/18/20/25/seaweed-164595_960_720.jpg')"></div>
+                        <div class="card-info">
+                            <div class="card-title">Protista</div>
+                            <p class="card-text">Organismos eucariotas principalmente unicelulares que no son animales, plantas ni hongos. Incluye algas y protozoos.</p>
+                            <a href="#" class="card-link">Explorar reino <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3 style="margin-top: 3rem;">Biodiversidad y Conservación</h3>
+                <p>La biodiversidad se refiere a la variedad de vida en la Tierra a todos los niveles, desde genes hasta ecosistemas. Actualmente enfrenta amenazas como:</p>
+                
+                <ul style="margin: 1.5rem 0;">
+                    <li>Pérdida de hábitat por actividades humanas</li>
+                    <li>Cambio climático</li>
+                    <li>Contaminación</li>
+                    <li>Especies invasoras</li>
+                    <li>Sobreexplotación de recursos</li>
+                </ul>
+                
+                <div style="background-color: #f0f8ff; padding: 1.5rem; border-radius: 8px; margin: 2rem 0;">
+                    <h4 style="color: var(--primary-color); margin-bottom: 1rem;">Estrategias de Conservación</h4>
+                    <div class="features" style="margin-top: 1rem; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+                        <div class="feature" style="box-shadow: none; background: transparent; text-align: left;">
+                            <h4 style="font-size: 1.1rem; color: var(--primary-color);"><i class="fas fa-tree" style="margin-right: 0.5rem;"></i> Áreas Protegidas</h4>
+                            <p>Creación de parques nacionales y reservas naturales</p>
+                        </div>
+                        <div class="feature" style="box-shadow: none; background: transparent; text-align: left;">
+                            <h4 style="font-size: 1.1rem; color: var(--primary-color);"><i class="fas fa-dna" style="margin-right: 0.5rem;"></i> Bancos de Germoplasma</h4>
+                            <p>Preservación de material genético de especies amenazadas</p>
+                        </div>
+                        <div class="feature" style="box-shadow: none; background: transparent; text-align: left;">
+                            <h4 style="font-size: 1.1rem; color: var(--primary-color);"><i class="fas fa-book" style="margin-right: 0.5rem;"></i> Educación Ambiental</h4>
+                            <p>Concienciación sobre la importancia de la biodiversidad</p>
                         </div>
                     </div>
                 </div>
@@ -582,80 +1515,331 @@
         <section id="ecologia">
             <div class="section-header">
                 <h2>Ecología: Relaciones en la Naturaleza</h2>
+                <p>Interacciones entre organismos y su ambiente</p>
             </div>
             <div class="section-content">
-                <p>La ecología estudia las relaciones entre los organismos y su entorno, así como los flujos de energía y materia en los ecosistemas.</p>
+                <p>La ecología estudia las relaciones entre los organismos y su entorno físico, así como las interacciones entre diferentes especies. Estos estudios son fundamentales para entender y resolver problemas ambientales.</p>
                 
-                <h3>Niveles de Organización</h3>
-                <ol>
-                    <li>Individuo</li>
-                    <li>Población</li>
-                    <li>Comunidad</li>
-                    <li>Ecosistema</li>
-                    <li>Biósfera</li>
-                </ol>
+                <h3>Niveles de Organización Ecológica</h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-date">Nivel 1</div>
+                            <h3 class="timeline-title">Individuo</h3>
+                            <p>Un organismo individual de una especie particular.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-date">Nivel 2</div>
+                            <h3 class="timeline-title">Población</h3>
+                            <p>Grupo de individuos de la misma especie que viven en un área determinada.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-date">Nivel 3</div>
+                            <h3 class="timeline-title">Comunidad</h3>
+                            <p>Conjunto de poblaciones de diferentes especies que interactúan en un área.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-date">Nivel 4</div>
+                            <h3 class="timeline-title">Ecosistema</h3>
+                            <p>Comunidad de organismos junto con su ambiente físico.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-date">Nivel 5</div>
+                            <h3 class="timeline-title">Bioma</h3>
+                            <p>Grandes comunidades ecológicas caracterizadas por tipos particulares de vegetación.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-date">Nivel 6</div>
+                            <h3 class="timeline-title">Biosfera</h3>
+                            <p>Zona del planeta donde existe vida, incluyendo todos los ecosistemas.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3 style="margin-top: 3rem;">Flujo de Energía y Ciclos Biogeoquímicos</h3>
+                <div class="gallery" style="margin-top: 2rem;">
+                    <div class="card">
+                        <div class="card-img" style="background-image: url('https://cdn.pixabay.com/photo/2017/06/05/15/01/food-chain-2374709_960_720.png')"></div>
+                        <div class="card-info">
+                            <div class="card-title">Cadenas Alimentarias</div>
+                            <p class="card-text">Transferencia de energía de un organismo a otro a través de relaciones alimentarias.</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-img" style="background-image: url('https://cdn.pixabay.com/photo/2017/02/01/11/27/ecology-2029502_960_720.png')"></div>
+                        <div class="card-info">
+                            <div class="card-title">Ciclo del Carbono</div>
+                            <p class="card-text">Movimiento del carbono entre la atmósfera, océanos, biosfera y geosfera.</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-img" style="background-image: url('https://cdn.pixabay.com/photo/2017/02/01/11/28/water-cycle-2029507_960_720.png')"></div>
+                        <div class="card-info">
+                            <div class="card-title">Ciclo del Agua</div>
+                            <p class="card-text">Circulación continua del agua entre la atmósfera, superficie terrestre y subsuelo.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
         <section id="evolucion">
             <div class="section-header">
                 <h2>Evolución: El Proceso que Da Forma a la Vida</h2>
+                <p>Desde el origen de las especies hasta la biodiversidad actual</p>
             </div>
             <div class="section-content">
-                <p>La teoría de la evolución por selección natural explica cómo las especies cambian a lo largo del tiempo.</p>
+                <p>La teoría de la evolución por selección natural, propuesta por Charles Darwin y Alfred Russel Wallace, explica cómo las especies cambian a lo largo del tiempo y cómo la diversidad de vida surge de un ancestro común.</p>
                 
-                <div class="timeline">
+                <h3>Evidencias de la Evolución</h3>
+                <div class="features" style="margin-top: 2rem;">
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-bone"></i>
+                        </div>
+                        <h3 class="feature-title">Fósiles</h3>
+                        <p>Restos o huellas de organismos del pasado que muestran cambios evolutivos.</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-dna"></i>
+                        </div>
+                        <h3 class="feature-title">Genética</h3>
+                        <p>Similitudes en el ADN entre especies relacionadas.</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-map-marked-alt"></i>
+                        </div>
+                        <h3 class="feature-title">Biogeografía</h3>
+                        <p>Distribución geográfica de las especies.</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-syringe"></i>
+                        </div>
+                        <h3 class="feature-title">Anatomía Comparada</h3>
+                        <p>Estructuras homólogas en diferentes especies.</p>
+                    </div>
+                </div>
+                
+                <h3 style="margin-top: 3rem;">Mecanismos de la Evolución</h3>
+                <div class="gallery" style="margin-top: 2rem;">
+                    <div class="card">
+                        <div class="card-img" style="background-image: url('https://cdn.pixabay.com/photo/2017/01/31/14/26/adaptation-2025860_960_720.png')"></div>
+                        <div class="card-info">
+                            <div class="card-title">Selección Natural</div>
+                            <p class="card-text">Los organismos con características ventajosas tienen mayor probabilidad de sobrevivir y reproducirse.</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-img" style="background-image: url('https://cdn.pixabay.com/photo/2017/01/31/14/26/genetics-2025859_960_720.png')"></div>
+                        <div class="card-info">
+                            <div class="card-title">Deriva Genética</div>
+                            <p class="card-text">Cambios aleatorios en las frecuencias génicas de poblaciones pequeñas.</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-img" style="background-image: url('https://cdn.pixabay.com/photo/2017/01/31/14/26/migration-2025861_960_720.png')"></div>
+                        <div class="card-info">
+                            <div class="card-title">Flujo Génico</div>
+                            <p class="card-text">Transferencia de genes entre poblaciones a través de migración.</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-img" style="background-image: url('https://cdn.pixabay.com/photo/2017/01/31/14/26/mutation-2025862_960_720.png')"></div>
+                        <div class="card-info">
+                            <div class="card-title">Mutaciones</div>
+                            <p class="card-text">Cambios en la secuencia de ADN que pueden introducir nueva variación genética.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline" style="margin-top: 4rem;">
                     <div class="timeline-item">
                         <div class="timeline-content">
                             <div class="timeline-date">Hace 3.5 mil millones de años</div>
-                            <h3>Primeras formas de vida</h3>
+                            <h3 class="timeline-title">Primeras formas de vida</h3>
                             <p>Aparecen los primeros organismos procariotas en los océanos primitivos.</p>
                         </div>
                     </div>
                     <div class="timeline-item">
                         <div class="timeline-content">
+                            <div class="timeline-date">Hace 2.1 mil millones de años</div>
+                            <h3 class="timeline-title">Primeros eucariotas</h3>
+                            <p>Surgimiento de células con núcleo verdadero.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
                             <div class="timeline-date">Hace 540 millones de años</div>
-                            <h3>Explosión cámbrica</h3>
+                            <h3 class="timeline-title">Explosión cámbrica</h3>
                             <p>Rápida diversificación de formas de vida complejas en los océanos.</p>
                         </div>
                     </div>
                     <div class="timeline-item">
                         <div class="timeline-content">
+                            <div class="timeline-date">Hace 360 millones de años</div>
+                            <h3 class="timeline-title">Colonización terrestre</h3>
+                            <p>Plantas y animales comienzan a adaptarse a la vida en tierra firme.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-date">Hace 65 millones de años</div>
+                            <h3 class="timeline-title">Extinción de dinosaurios</h3>
+                            <p>Evento de extinción masiva que permitió el auge de los mamíferos.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
                             <div class="timeline-date">Hace 300,000 años</div>
-                            <h3>Aparece el Homo sapiens</h3>
+                            <h3 class="timeline-title">Aparece el Homo sapiens</h3>
                             <p>Los humanos modernos evolucionan en África.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
+
+        <section id="contacto">
+            <div class="section-header">
+                <h2>Contacto</h2>
+                <p>¿Tienes preguntas o comentarios? Escríbenos</p>
+            </div>
+            <div class="section-content">
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="nombre" class="form-label">Nombre</label>
+                            <input type="text" id="nombre" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="form-label">Correo Electrónico</label>
+                            <input type="email" id="email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="asunto" class="form-label">Asunto</label>
+                            <input type="text" id="asunto" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="mensaje" class="form-label">Mensaje</label>
+                            <textarea id="mensaje" class="form-control" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Enviar Mensaje</button>
+                    </form>
+                </div>
+                
+                <div class="features" style="margin-top: 3rem;">
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h3 class="feature-title">Correo Electrónico</h3>
+                        <p>info@bioexplora.com</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <h3 class="feature-title">Teléfono</h3>
+                        <p>+34 123 456 789</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <h3 class="feature-title">Dirección</h3>
+                        <p>Calle de la Ciencia, 123<br>Madrid, España</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Modal de suscripción -->
+    <div class="modal" id="subscribeModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Suscríbete a nuestro boletín</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Recibe las últimas noticias y artículos sobre biología directamente en tu correo electrónico.</p>
+                <form id="subscribeForm" style="margin-top: 1.5rem;">
+                    <div class="form-group">
+                        <label for="subscribeName" class="form-label">Nombre</label>
+                        <input type="text" id="subscribeName" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subscribeEmail" class="form-label">Correo Electrónico</label>
+                        <input type="email" id="subscribeEmail" class="form-control" required>
+                    </div>
+                    <div class="form-group" style="margin-top: 1.5rem;">
+                        <button type="submit" class="submit-btn">Suscribirse</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 
     <footer>
         <div class="footer-content">
             <div class="footer-column">
-                <h3>BioVida</h3>
-                <p>Explorando los misterios de la vida desde la célula hasta la evolución.</p>
+                <h3>BioExplora</h3>
+                <p>Explorando los misterios de la vida desde la célula hasta la evolución. Nuestra misión es hacer la biología accesible y fascinante para todos.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+                <button id="subscribeBtn" style="margin-top: 1.5rem; background: var(--accent-color); color: var(--dark-text); border: none; padding: 0.8rem 1.5rem; border-radius: 50px; cursor: pointer; font-weight: 600; transition: var(--transition);">Suscríbete</button>
             </div>
             <div class="footer-column">
-                <h3>Enlaces</h3>
+                <h3>Enlaces Rápidos</h3>
                 <ul class="footer-links">
                     <li><a href="#inicio">Inicio</a></li>
                     <li><a href="#celulas">Células</a></li>
                     <li><a href="#genetica">Genética</a></li>
+                    <li><a href="#organismos">Organismos</a></li>
+                    <li><a href="#ecologia">Ecología</a></li>
+                    <li><a href="#evolucion">Evolución</a></li>
                 </ul>
             </div>
             <div class="footer-column">
-                <h3>Contacto</h3>
+                <h3>Recursos</h3>
                 <ul class="footer-links">
-                    <li><a href="#">Sobre nosotros</a></li>
-                    <li><a href="#">Contáctanos</a></li>
-                    <li><a href="#">Privacidad</a></li>
+                    <li><a href="#" class="resource-link" data-resource="glosario">Glosario Biológico</a></li>
+                    <li><a href="#" class="resource-link" data-resource="infografias">Infografías</a></li>
+                    <li><a href="#" class="resource-link" data-resource="videos">Videos Educativos</a></li>
+                    <li><a href="#" class="resource-link" data-resource="articulos">Artículos Científicos</a></li>
+                    <li><a href="#" class="resource-link" data-resource="cursos">Cursos Online</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Legal</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Términos de uso</a></li>
+                    <li><a href="#">Política de privacidad</a></li>
+                    <li><a href="#">Cookies</a></li>
+                    <li><a href="#">Aviso legal</a></li>
                 </ul>
             </div>
         </div>
         <div class="copyright">
-            <p>&copy; 2023 BioVida. Todos los derechos reservados.</p>
+            <p>&copy; 2023 BioExplora. Todos los derechos reservados. Diseñado con <i class="fas fa-heart" style="color: #ff6b6b;"></i> para amantes de la ciencia.</p>
         </div>
     </footer>
 
@@ -665,21 +1849,21 @@
             const cellAnimation = document.querySelector('.cell-animation');
             const cellTypes = ['animal-cell', 'plant-cell'];
             
-            for (let i = 0; i < 12; i++) {
+            for (let i = 0; i < 15; i++) {
                 const cell = document.createElement('div');
                 const randomType = cellTypes[Math.floor(Math.random() * cellTypes.length)];
                 cell.className = `floating-cell ${randomType}`;
                 
                 // Tamaño y posición aleatorios
-                const size = Math.random() * 70 + 40;
+                const size = Math.random() * 80 + 50;
                 cell.style.width = `${size}px`;
                 cell.style.height = `${size}px`;
                 cell.style.left = `${Math.random() * 100}%`;
                 cell.style.bottom = `-${size}px`;
                 
                 // Animación aleatoria
-                cell.style.animationDelay = `${Math.random() * 20}s`;
-                cell.style.animationDuration = `${Math.random() * 15 + 15}s`;
+                cell.style.animationDelay = `${Math.random() * 25}s`;
+                cell.style.animationDuration = `${Math.random() * 20 + 20}s`;
                 
                 cellAnimation.appendChild(cell);
             }
@@ -704,22 +1888,19 @@
             const menuList = document.querySelector('.menu-list');
             const menuLinks = document.querySelectorAll('.menu-list a');
 
-            menuBtn.addEventListener('click', () => menuList.classList.toggle('show'));
+            menuBtn.addEventListener('click', () => {
+                menuBtn.classList.toggle('active');
+                menuList.classList.toggle('show');
+            });
 
             // Cerrar menú al hacer clic en un enlace (mobile)
             menuLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
                     if (window.innerWidth <= 768) {
                         menuList.classList.remove('show');
+                        menuBtn.classList.remove('active');
                     }
                 });
-            });
-
-            // Cerrar menú al hacer clic fuera
-            document.addEventListener('click', (e) => {
-                if (!e.target.closest('.nav-container') && window.innerWidth <= 768) {
-                    menuList.classList.remove('show');
-                }
             });
 
             // Cambiar ítem activo del menú al hacer scroll
@@ -727,7 +1908,7 @@
                 const scrollPosition = window.scrollY;
                 
                 sections.forEach(section => {
-                    const sectionTop = section.offsetTop - 100;
+                    const sectionTop = section.offsetTop - 150;
                     const sectionBottom = sectionTop + section.offsetHeight;
                     
                     if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
@@ -740,7 +1921,242 @@
                         });
                     }
                 });
+                
+                // Efecto de navbar al hacer scroll
+                if (window.scrollY > 50) {
+                    document.querySelector('nav').classList.add('scrolled');
+                } else {
+                    document.querySelector('nav').classList.remove('scrolled');
+                }
             });
+
+            // Smooth scroll para enlaces internos
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Carrusel de imágenes
+            const carousel = document.querySelector('.carousel-inner');
+            const carouselItems = document.querySelectorAll('.carousel-item');
+            const prevBtn = document.querySelector('.carousel-control.prev');
+            const nextBtn = document.querySelector('.carousel-control.next');
+            const indicators = document.querySelectorAll('.carousel-indicator');
+            
+            let currentIndex = 0;
+            const itemCount = carouselItems.length;
+            
+            function updateCarousel() {
+                carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
+                
+                // Actualizar indicadores
+                indicators.forEach((indicator, index) => {
+                    if (index === currentIndex) {
+                        indicator.classList.add('active');
+                    } else {
+                        indicator.classList.remove('active');
+                    }
+                });
+            }
+            
+            nextBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex + 1) % itemCount;
+                updateCarousel();
+            });
+            
+            prevBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex - 1 + itemCount) % itemCount;
+                updateCarousel();
+            });
+            
+            // Navegación por indicadores
+            indicators.forEach((indicator, index) => {
+                indicator.addEventListener('click', () => {
+                    currentIndex = index;
+                    updateCarousel();
+                });
+            });
+            
+            // Autoavance del carrusel
+            let carouselInterval = setInterval(() => {
+                currentIndex = (currentIndex + 1) % itemCount;
+                updateCarousel();
+            }, 5000);
+            
+            // Pausar al pasar el mouse
+            carousel.parentElement.addEventListener('mouseenter', () => {
+                clearInterval(carouselInterval);
+            });
+            
+            carousel.parentElement.addEventListener('mouseleave', () => {
+                carouselInterval = setInterval(() => {
+                    currentIndex = (currentIndex + 1) % itemCount;
+                    updateCarousel();
+                }, 5000);
+            });
+
+            // Acordeón interactivo
+            const accordionHeaders = document.querySelectorAll('.accordion-header');
+            
+            accordionHeaders.forEach(header => {
+                header.addEventListener('click', () => {
+                    const item = header.parentElement;
+                    const content = header.nextElementSibling;
+                    
+                    // Cerrar otros items
+                    document.querySelectorAll('.accordion-item').forEach(otherItem => {
+                        if (otherItem !== item) {
+                            otherItem.querySelector('.accordion-header').classList.remove('active');
+                            otherItem.querySelector('.accordion-content').style.maxHeight = null;
+                        }
+                    });
+                    
+                    // Alternar el actual
+                    header.classList.toggle('active');
+                    
+                    if (header.classList.contains('active')) {
+                        content.style.maxHeight = content.scrollHeight + 'px';
+                    } else {
+                        content.style.maxHeight = null;
+                    }
+                });
+            });
+
+            // Pestañas interactivas
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const tabId = btn.getAttribute('data-tab');
+                    
+                    // Desactivar todos los botones y contenidos
+                    tabBtns.forEach(tabBtn => tabBtn.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    
+                    // Activar el seleccionado
+                    btn.classList.add('active');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+
+            // Contador animado
+            function animateCounter(element, target, duration = 2000) {
+                const start = 0;
+                const increment = target / (duration / 16);
+                let current = start;
+                
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        clearInterval(timer);
+                        current = target;
+                    }
+                    element.textContent = Math.floor(current).toLocaleString();
+                }, 16);
+            }
+            
+            // Iniciar contadores cuando son visibles
+            const counterObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateCounter(document.getElementById('species-counter'), 8750000);
+                        animateCounter(document.getElementById('discoveries-counter'), 1243);
+                        animateCounter(document.getElementById('students-counter'), 56892);
+                        counterObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+            
+            counterObserver.observe(document.querySelector('.counter-container'));
+
+            // Modal de suscripción
+            const subscribeModal = document.getElementById('subscribeModal');
+            const subscribeBtn = document.getElementById('subscribeBtn');
+            const modalClose = document.querySelector('.modal-close');
+            
+            subscribeBtn.addEventListener('click', () => {
+                subscribeModal.classList.add('show');
+                setTimeout(() => {
+                    subscribeModal.style.opacity = '1';
+                }, 10);
+            });
+            
+            modalClose.addEventListener('click', () => {
+                subscribeModal.style.opacity = '0';
+                setTimeout(() => {
+                    subscribeModal.classList.remove('show');
+                }, 300);
+            });
+            
+            // Cerrar modal al hacer clic fuera del contenido
+            subscribeModal.addEventListener('click', (e) => {
+                if (e.target === subscribeModal) {
+                    subscribeModal.style.opacity = '0';
+                    setTimeout(() => {
+                        subscribeModal.classList.remove('show');
+                    }, 300);
+                }
+            });
+
+            // Formulario de contacto
+            const contactForm = document.getElementById('contactForm');
+            
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                // Simular envío
+                alert('Gracias por tu mensaje. Nos pondremos en contacto contigo pronto.');
+                contactForm.reset();
+            });
+
+            // Formulario de suscripción
+            const subscribeForm = document.getElementById('subscribeForm');
+            
+            subscribeForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                // Simular suscripción
+                alert('¡Gracias por suscribirte a nuestro boletín!');
+                subscribeForm.reset();
+                subscribeModal.style.opacity = '0';
+                setTimeout(() => {
+                    subscribeModal.classList.remove('show');
+                }, 300);
+            });
+
+            // Enlaces de recursos
+            document.querySelectorAll('.resource-link').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const resource = link.getAttribute('data-resource');
+                    
+                    // Simular carga de recurso
+                    alert(`Cargando recurso: ${resource}. En una implementación real, esto mostraría el contenido seleccionado.`);
+                });
+            });
+
+            // Mostrar modal de suscripción después de 30 segundos
+            setTimeout(() => {
+                if (!localStorage.getItem('subscriptionShown')) {
+                    subscribeModal.classList.add('show');
+                    setTimeout(() => {
+                        subscribeModal.style.opacity = '1';
+                    }, 10);
+                    localStorage.setItem('subscriptionShown', 'true');
+                }
+            }, 30000);
         });
     </script>
 </body>
