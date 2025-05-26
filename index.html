@@ -1,2163 +1,1358 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BioExplora - Del Átomo al Ecosistema</title>
-    <style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BIOEXMA - Plataforma Educativa Celular</title>
+  <style>
+    /* Reset y base */
+    * {
+      box-sizing: border-box;
+    }
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f0f5f2;
+      color: #2b2b2b;
+      scroll-behavior: smooth;
+    }
+
+    /* Header fijo */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 70px;
+      background: linear-gradient(135deg, #64ad64, #47d082);
+      color: white;
+      display: flex;
+      align-items: center;
+      padding: 0 2rem;
+      font-size: 1.6rem;
+      font-weight: 700;
+      z-index: 200;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      border-bottom: 3px solid #f7d060;
+    }
+    header .highlight {
+      color: #f7d060;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    }
+
+    /* Contenedor principal */
+    #main-content {
+      display: flex;
+      margin-top: 70px; /* para no tapar por el header */
+      height: calc(100vh - 70px);
+    }
+
+    /* Sidebar */
+    .sidebar {
+      position: fixed;
+      right: 0;
+      top: 70px;
+      width: 300px;
+      height: calc(100vh - 70px);
+      background: linear-gradient(145deg, #47d082, #64ad64);
+      overflow-y: auto;
+      padding: 1.5rem 1rem;
+      box-shadow: -3px 0 12px rgba(0,0,0,0.1);
+      border-left: 4px solid #f7d060;
+      z-index: 150;
+      font-weight: 600;
+    }
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .sidebar li + li {
+      margin-top: 0.5rem;
+    }
+    .sidebar a {
+      color: white;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      padding: 0.8rem 1rem;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      font-size: 1rem;
+      background: rgba(255,255,255,0.1);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    .sidebar a:hover {
+      background: rgba(255,255,255,0.2);
+      transform: translateX(-5px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .sidebar a.active {
+      background: #f7d060;
+      color: #64ad64;
+      font-weight: 700;
+    }
+    .sidebar a::before {
+      content: "";
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      margin-right: 12px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      filter: brightness(0) invert(1);
+    }
+    .sidebar a.active::before {
+      filter: none;
+    }
+
+    /* Iconos para cada enlace */
+    .sidebar a[href="#teoria"]::before {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/2913/2913059.png');
+    }
+    .sidebar a[href="#tipos"]::before {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/4392/4392525.png');
+    }
+    .sidebar a[href="#partes"]::before {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/4392/4392529.png');
+    }
+    .sidebar a[href="#organelos"]::before {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/3652/3652191.png');
+    }
+    .sidebar a[href="#funciones"]::before {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/3652/3652286.png');
+    }
+    .sidebar a[href="#reproduccion"]::before {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/4392/4392545.png');
+    }
+    .sidebar a[href="#transporte"]::before {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/3652/3652271.png');
+    }
+    .sidebar a[href="#diferenciacion"]::before {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/3652/3652261.png');
+    }
+    .sidebar a[href="#cultivo"]::before {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/4392/4392539.png');
+    }
+    .sidebar a[href="#comparacion"]::before {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/4392/4392533.png');
+    }
+    .sidebar a[href="#videos"]::before {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/4392/4392553.png');
+    }
+
+    /* Contenido principal */
+    main {
+      flex: 1;
+      overflow-y: auto;
+      padding: 2rem 3rem 2rem 3rem;
+      max-width: calc(100vw - 300px);
+      background-color: #fff;
+      box-shadow: inset 0 0 20px rgba(0,0,0,0.05);
+    }
+
+    main > section {
+      display: none;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+      max-width: 900px;
+      margin: 0 auto;
+      animation: fadeIn 0.5s ease forwards;
+    }
+    main > section.active {
+      display: flex;
+    }
+    main > section h2 {
+      color: #64ad64;
+      font-size: 2.3rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 3px solid #f7d060;
+      width: 100%;
+      display: flex;
+      align-items: center;
+    }
+    main > section h2::before {
+      content: "";
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      margin-right: 15px;
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+    main > section p {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+      color: #444;
+    }
+    main > section ul {
+      padding-left: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    main > section li {
+      margin-bottom: 0.8rem;
+      line-height: 1.6;
+    }
+
+    /* Iconos para cada sección */
+    section#teoria h2::before {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/2913/2913059.png');
+    }
+    section#tipos h2::before {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/4392/4392525.png');
+    }
+    section#partes h2::before {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/4392/4392529.png');
+    }
+    section#organelos h2::before {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/3652/3652191.png');
+    }
+    section#funciones h2::before {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/3652/3652286.png');
+    }
+    section#reproduccion h2::before {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/4392/4392545.png');
+    }
+    section#transporte h2::before {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/3652/3652271.png');
+    }
+    section#diferenciacion h2::before {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/3652/3652261.png');
+    }
+    section#cultivo h2::before {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/4392/4392539.png');
+    }
+    section#comparacion h2::before {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/4392/4392533.png');
+    }
+    section#videos h2::before {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/4392/4392553.png');
+    }
+
+    /* Video gallery */
+    .video-gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    .video-gallery iframe {
+      flex-shrink: 0;
+      width: 420px;
+      height: 236px;
+      border-radius: 12px;
+      border: 0;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .video-gallery iframe:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+
+    /* Botón de inicio */
+    #welcome-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: linear-gradient(135deg, #1a5d1a, #7fb77e);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+      text-align: center;
+      z-index: 300;
+    }
+    #welcome-screen.hidden {
+      display: none;
+    }
+    #welcome-screen h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    }
+    #welcome-screen .highlight {
+      color: #f7d060;
+    }
+    #welcome-screen p {
+      font-size: 1.35rem;
+      max-width: 600px;
+      margin-bottom: 2.5rem;
+      font-weight: 500;
+      line-height: 1.6;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    }
+    #start-btn {
+      padding: 1.2rem 3rem;
+      background: #f7d060;
+      color: #1a5d1a;
+      border: none;
+      border-radius: 50px;
+      font-size: 1.3rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+      position: relative;
+      overflow: hidden;
+    }
+    #start-btn:hover {
+      background: #ffdf73;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.25);
+    }
+    #start-btn:active {
+      transform: translateY(1px);
+    }
+    #start-btn::after {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: rgba(255,255,255,0.1);
+      transform: rotate(45deg);
+      transition: all 0.5s ease;
+    }
+    #start-btn:hover::after {
+      left: 100%;
+    }
+
+    /* Animación */
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(15px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    /* Imágenes de referencia */
+    .ref-image {
+      display: block;
+      margin: 1.5rem auto;
+      max-width: 90%;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+      border: 2px solid #e0e0e0;
+      transition: transform 0.3s ease;
+    }
+    .ref-image:hover {
+      transform: scale(1.02);
+    }
+
+    /* Estilos para ejercicios y quizzes */
+    .ejercicios {
+      background: linear-gradient(to right, #f0f8ff, #e6f2ff);
+      border-left: 6px solid #4682B4;
+      padding: 20px 25px;
+      margin: 25px 0;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      width: 100%;
+    }
+
+    .ejercicios h3 {
+      margin-top: 0;
+      color: #1e3c72;
+      font-size: 1.3rem;
+      display: flex;
+      align-items: center;
+    }
+    .ejercicios h3::before {
+      content: "📝";
+      margin-right: 10px;
+    }
+
+    .ejercicios ol {
+      padding-left: 25px;
+    }
+    .ejercicios li {
+      margin-bottom: 12px;
+      padding-left: 5px;
+    }
+
+    .quiz {
+      background: linear-gradient(to right, #fff3e0, #ffebcc);
+      border-left: 6px solid #ff8c00;
+      padding: 20px 25px;
+      margin: 25px 0 40px 0;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      width: 100%;
+    }
+
+    .quiz h1 {
+      margin-top: 0;
+      color: #b35e00;
+      font-size: 1.3rem;
+      display: flex;
+      align-items: center;
+    }
+    
+    .quiz h1::before {
+      content: "❓";
+      margin-right: 10px;
+    }
+
+    .quiz label {
+      cursor: pointer;
+      display: block;
+      margin: 8px 0 15px 25px;
+      user-select: none;
+      position: relative;
+      padding-left: 30px;
+      transition: color 0.2s ease;
+    }
+    .quiz label:hover {
+      color: #ff8c00;
+    }
+
+    .quiz input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+    }
+    
+    .quiz input[type="radio"] + label::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 2px;
+      width: 18px;
+      height: 18px;
+      border: 2px solid #ff8c00;
+      border-radius: 50%;
+      background-color: white;
+    }
+    
+    .quiz input[type="radio"]:checked + label::before {
+      background-color: #ff8c00;
+      box-shadow: inset 0 0 0 3px white;
+    }
+
+    .quiz button.check-quiz {
+      background: linear-gradient(to bottom, #ff8c00, #e67e00);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-weight: 600;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+      font-size: 1rem;
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+    }
+    .quiz button.check-quiz::before {
+      content: "✓";
+      margin-right: 8px;
+      font-size: 1.1rem;
+    }
+    .quiz button.check-quiz:hover {
+      background: linear-gradient(to bottom, #ff9500, #f57c00);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+    }
+    .quiz button.check-quiz:active {
+      transform: translateY(1px);
+    }
+
+    .quiz-result {
+      margin-top: 15px;
+      font-weight: 700;
+      padding: 10px 15px;
+      border-radius: 6px;
+      display: inline-block;
+    } 
+   
+   /* Responsive básico */
+    @media(max-width: 1024px) {
+      .sidebar {
+        width: 250px;
+      }
+      main {
+        max-width: calc(100vw - 250px);
+        padding: 1.5rem 2rem;
+      }
+    }
+
+    @media(max-width: 768px) {
+      #main-content {
+        flex-direction: column;
+        margin-top: 70px;
+        height: auto;
+      }
+      .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+        border-left: none;
+        border-top: 3px solid #f7d060;
+        padding: 1rem;
+        display: flex;
+        justify-content: center;
+      }
+      .sidebar ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        width: 100%;
+        justify-content: center;
+      }
+      .sidebar li {
+        width: 45%;
+        margin-top: 0;
+      }
+      .sidebar a {
+        padding: 0.7rem;
+        font-size: 0.9rem;
+      }
+      .sidebar a:hover {
+        transform: translateY(-3px);
+      }
+      main {
+        max-width: 100vw;
+        padding: 1.5rem 1rem;
+        height: auto;
+      }
+      .video-gallery iframe {
+        width: 100%;
+        height: 225px;
+      }
+      #welcome-screen h1 {
+        font-size: 2.5rem;
+      }
+      #welcome-screen p {
+        font-size: 1.1rem;
+      }
+    }
+
+    @media(max-width: 480px) {
+      header {
+        height: 60px;
+        font-size: 1.3rem;
+        padding: 0 1rem;
+      }
+      #main-content {
+        margin-top: 60px;
+      }
+      .sidebar li {
+        width: 100%;
+      }
+      main > section h2 {
+        font-size: 1.8rem;
+      }
+      .ejercicios, .quiz {
+        padding: 15px;
+      }
+    }
         :root {
-            --primary-color: #29b884;
-            --accent-color: #fad644;
-            --white: #ffffff;
-            --dark-text: #2c3e50;
-            --light-bg: #f5f7fa;
-            --transition: all 0.3s ease;
+            --verde-medio: #2E8B57;
+            --verde-claro: #7FB77E;
+            --amarillo: #F7D060;
+            --blanco: #F8F9FA;
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background-color: var(--light-bg);
-            color: var(--dark-text);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* Header mejorado con animación */
-        header {
-            background: linear-gradient(135deg, var(--primary-color), #1fa374);
-            color: var(--white);
-            text-align: center;
-            padding: 5rem 0 4rem;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
-            margin-bottom: 2rem;
-        }
-
-        .header-content {
-            position: relative;
-            z-index: 2;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
+        
+    
+        
         h1 {
-            font-size: 3.2rem;
-            margin-bottom: 1.5rem;
-            font-weight: 800;
-            animation: fadeInDown 1s ease-out;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .subtitle {
-            font-size: 1.5rem;
-            margin-bottom: 2.5rem;
-            opacity: 0;
-            animation: fadeIn 1s ease-out 0.5s forwards;
-            font-weight: 300;
-        }
-
-        .header-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 0.8rem 1.8rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: var(--transition);
-            animation: fadeIn 1s ease-out 1s forwards;
-            opacity: 0;
-        }
-
-        .btn-primary {
-            background-color: var(--accent-color);
-            color: var(--dark-text);
-            box-shadow: 0 4px 15px rgba(250, 214, 68, 0.3);
-        }
-
-        .btn-secondary {
-            background-color: transparent;
-            color: var(--white);
-            border: 2px solid var(--white);
-        }
-
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-        }
-
-        /* Animación de células mejorada */
-        .cell-animation {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: 1;
-            opacity: 0.15;
-        }
-
-        .floating-cell {
-            position: absolute;
-            background-size: contain;
-            background-repeat: no-repeat;
-            opacity: 0;
-            animation: floatCell 20s linear infinite;
-            filter: drop-shadow(0 0 8px rgba(255,255,255,0.3));
-        }
-
-        /* Menú de navegación mejorado */
-        nav {
-            background-color: var(--primary-color);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
-            transition: var(--transition);
-        }
-
-        nav.scrolled {
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-        }
-
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .logo {
-            color: var(--white);
-            font-weight: bold;
-            font-size: 1.8rem;
-            text-decoration: none;
-            padding: 1.2rem 0;
-            display: flex;
-            align-items: center;
-            transition: var(--transition);
-        }
-
-        .logo span {
-            color: var(--accent-color);
-            margin-left: 0.3rem;
-        }
-
-        .logo:hover {
-            transform: scale(1.05);
-        }
-
-        .menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--white);
-            font-size: 1.8rem;
-            cursor: pointer;
-            padding: 1rem;
-            transition: var(--transition);
-        }
-
-        .menu-btn:hover {
-            transform: rotate(90deg);
-        }
-
-        .menu-list {
-            display: flex;
-            list-style: none;
-        }
-
-        .menu-list li {
-            position: relative;
-        }
-
-        .menu-list a {
-            color: var(--white);
-            text-decoration: none;
-            padding: 1.5rem 1.8rem;
-            display: block;
-            transition: var(--transition);
-            font-weight: 500;
-            position: relative;
-            font-size: 1.1rem;
-        }
-
-        .menu-list a::after {
-            content: '';
-            position: absolute;
-            bottom: 1rem;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 2px;
-            background-color: var(--accent-color);
-            transition: var(--transition);
-        }
-
-        .menu-list a:hover::after {
-            width: 50%;
-        }
-
-        .menu-list .active {
-            font-weight: 600;
-        }
-
-        .menu-list .active::after {
-            width: 50%;
-        }
-
-        /* Contenido principal mejorado */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 3rem 2rem;
-        }
-
-        section {
-            margin-bottom: 4rem;
-            background-color: var(--white);
-            border-radius: 12px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
-            overflow: hidden;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease;
-            position: relative;
-        }
-
-        section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .section-header {
-            background: linear-gradient(to right, var(--primary-color), #1fa374);
-            color: var(--white);
-            padding: 2rem 2.5rem;
-            position: relative;
-        }
-
-        .section-header h2 {
-            font-size: 2.2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .section-header p {
-            opacity: 0.9;
-            font-weight: 300;
-        }
-
-        .section-content {
-            padding: 2.5rem;
-        }
-
-        /* Animación de ADN mejorada */
-        .dna-container {
-            width: 100%;
-            height: 200px;
-            margin: 3rem 0;
-            position: relative;
-            overflow: hidden;
-            background-color: #f5f5f5;
-            border-radius: 10px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: inset 0 0 15px rgba(0,0,0,0.1);
-        }
-
-        .dna-strand {
-            width: 2000%;
-            height: 1000%;
-            background: url('https://www.clarin.com/2015/04/10/S1GGdUMRQg_1256x620.jpg') center/contain no-repeat;
-            animation: rotateDNA 30s linear infinite;
-        }
-
-        /* Galería mejorada */
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 2.5rem;
-            margin: 2.5rem 0;
-        }
-
-        .card {
-            background-color: var(--white);
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-            transition: var(--transition);
-            position: relative;
-        }
-
-        .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.12);
-        }
-
-        .card-badge {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background-color: var(--accent-color);
-            color: var(--dark-text);
-            padding: 0.3rem 0.8rem;
-            border-radius: 50px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            z-index: 2;
-        }
-
-        .card-img {
-            width: 100%;
-            height: 220px;
-            background-size: cover;
-            background-position: center;
-            transition: var(--transition);
-            position: relative;
-        }
-
-        .card:hover .card-img {
-            transform: scale(1.05);
-        }
-
-        .card-info {
-            padding: 1.8rem;
-        }
-
-        .card-title {
-            color: var(--primary-color);
-            font-weight: bold;
-            margin-bottom: 0.8rem;
-            font-size: 1.3rem;
-        }
-
-        .card-text {
-            margin-bottom: 1.2rem;
-            color: #555;
-        }
-
-        .card-link {
-            display: inline-block;
-            color: var(--primary-color);
-            font-weight: 600;
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        .card-link:hover {
-            color: #1fa374;
-            transform: translateX(5px);
-        }
-
-        /* Línea de tiempo mejorada */
-        .timeline {
-            position: relative;
-            max-width: 100%;
-            margin: 4rem 0;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            width: 6px;
-            background: linear-gradient(to bottom, var(--primary-color), var(--accent-color));
-            top: 0;
-            bottom: 0;
-            left: 50%;
-            margin-left: -3px;
-            border-radius: 10px;
-        }
-
-        .timeline-item {
-            padding: 15px 50px;
-            position: relative;
-            width: 50%;
-            margin-bottom: 3rem;
-            opacity: 0;
-            transition: all 0.8s ease;
-        }
-
-        .timeline-item.visible {
-            opacity: 1;
-        }
-
-        .timeline-item:nth-child(odd) {
-            left: 0;
-            text-align: right;
-        }
-
-        .timeline-item:nth-child(even) {
-            left: 50%;
-        }
-
-        .timeline-content {
-            padding: 25px;
-            background-color: var(--white);
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-            position: relative;
-            transition: var(--transition);
-        }
-
-        .timeline-content:hover {
-            transform: scale(1.02);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-        }
-
-        .timeline-date {
-            color: var(--accent-color);
-            font-weight: bold;
-            margin-bottom: 0.8rem;
-            font-size: 1.1rem;
-        }
-
-        .timeline-title {
-            font-size: 1.4rem;
-            margin-bottom: 0.8rem;
-            color: var(--primary-color);
-        }
-
-        /* Nuevas secciones añadidas */
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin: 3rem 0;
-        }
-
-        .feature {
-            background-color: var(--white);
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            transition: var(--transition);
+            color: var(--verde-oscuro);
             text-align: center;
+            margin-bottom: 30px;
         }
-
-        .feature:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        }
-
-        .feature-icon {
-            font-size: 3rem;
-            color: var(--primary-color);
-            margin-bottom: 1.5rem;
-        }
-
-        .feature-title {
-            font-size: 1.4rem;
-            margin-bottom: 1rem;
-            color: var(--dark-text);
-        }
-
-        /* Formulario de contacto */
-        .contact-form {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            color: var(--dark-text);
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 0.8rem 1rem;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            font-size: 1rem;
-            transition: var(--transition);
-        }
-
-        .form-control:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(41, 184, 132, 0.2);
-        }
-
-        textarea.form-control {
-            min-height: 150px;
-            resize: vertical;
-        }
-
-        .submit-btn {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 1rem 2rem;
-            font-size: 1.1rem;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .submit-btn:hover {
-            background-color: #1fa374;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        /* Footer mejorado */
-        footer {
-            background: linear-gradient(to right, #1a3b2d, var(--primary-color));
-            color: var(--white);
-            padding: 4rem 0 2rem;
-            text-align: center;
-            clip-path: polygon(0 10%, 100% 0, 100% 100%, 0 100%);
-            margin-top: 5rem;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 3rem;
-            padding: 0 2rem;
-            text-align: left;
-        }
-
-        .footer-column h3 {
-            color: var(--accent-color);
-            margin-bottom: 1.8rem;
-            font-size: 1.4rem;
-            position: relative;
-            display: inline-block;
-        }
-
-        .footer-column h3::after {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            left: 0;
-            width: 50px;
-            height: 3px;
-            background-color: var(--accent-color);
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 1rem;
-        }
-
-        .footer-links a {
-            color: rgba(255,255,255,0.8);
-            text-decoration: none;
-            transition: var(--transition);
-            display: inline-block;
-        }
-
-        .footer-links a:hover {
-            color: var(--accent-color);
-            transform: translateX(5px);
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-
-        .social-links a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255,255,255,0.1);
-            border-radius: 50%;
-            color: var(--white);
-            transition: var(--transition);
-        }
-
-        .social-links a:hover {
-            background-color: var(--accent-color);
-            color: var(--dark-text);
-            transform: translateY(-3px);
-        }
-
-        .copyright {
-            margin-top: 4rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255,255,255,0.2);
-            color: rgba(255,255,255,0.7);
-            font-size: 0.9rem;
-        }
-
-        /* Animaciones mejoradas */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes fadeInDown {
-            from { 
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to { 
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes floatCell {
-            0% { 
-                opacity: 0;
-                transform: translateY(0) rotate(0deg) scale(0.5);
-            }
-            10% {
-                opacity: 0.6;
-                transform: translateY(-20px) rotate(5deg) scale(0.7);
-            }
-            90% {
-                opacity: 0.6;
-                transform: translateY(-300px) rotate(15deg) scale(1);
-            }
-            100% {
-                opacity: 0;
-                transform: translateY(-350px) rotate(20deg) scale(1.1);
-            }
-        }
-
-        @keyframes rotateDNA {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        /* Efecto de scroll suave */
-        html {
-            scroll-behavior: smooth;
-        }
-
-        /* Responsive mejorado */
-        @media (max-width: 1200px) {
-            .container {
-                padding: 2rem;
-            }
-        }
-
-        @media (max-width: 992px) {
-            h1 {
-                font-size: 2.8rem;
-            }
-            
-            .subtitle {
-                font-size: 1.3rem;
-            }
-            
-            .timeline::before {
-                left: 31px;
-            }
-
-            .timeline-item {
-                width: 100%;
-                padding-left: 80px;
-                padding-right: 30px;
-                text-align: left;
-            }
-
-            .timeline-item:nth-child(even) {
-                left: 0;
-            }
-            
-            .section-content {
-                padding: 2rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2.4rem;
-            }
-
-            .subtitle {
-                font-size: 1.1rem;
-            }
-            
-            .header-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .btn {
-                width: 80%;
-                text-align: center;
-            }
-
-            .menu-btn {
-                display: block;
-            }
-
-            .menu-list {
-                position: fixed;
-                top: 85px;
-                left: -100%;
-                width: 100%;
-                flex-direction: column;
-                background-color: var(--primary-color);
-                transition: all 0.5s ease;
-                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-                padding: 1rem 0;
-            }
-
-            .menu-list.show {
-                left: 0;
-            }
-
-            .menu-list a {
-                padding: 1.2rem 2rem;
-            }
-            
-            .menu-list a::after {
-                bottom: 0.8rem;
-            }
-
-            .gallery {
-                grid-template-columns: 1fr;
-            }
-            
-            .features {
-                grid-template-columns: 1fr;
-            }
-            
-            footer {
-                clip-path: polygon(0 5%, 100% 0, 100% 100%, 0 100%);
-            }
-        }
-
-        @media (max-width: 576px) {
-            .header-content {
-                padding: 0 1.5rem;
-            }
-            
-            h1 {
-                font-size: 2rem;
-            }
-            
-            .section-header, .section-content {
-                padding: 1.5rem;
-            }
-            
-            .card-info {
-                padding: 1.5rem;
-            }
-            
-            .footer-content {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-        }
-
-        /* Estilos para el buscador */
-        .search-container {
-            max-width: 800px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-        }
-
-        .search-box {
-            display: flex;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            border-radius: 50px;
-            overflow: hidden;
-        }
-
-        .search-input {
-            flex: 1;
-            padding: 1rem 1.5rem;
-            border: none;
-            font-size: 1rem;
-            outline: none;
-        }
-
-        .search-btn {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 0 1.5rem;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .search-btn:hover {
-            background-color: #1fa374;
-        }
-
-        /* Estilos para el carrusel */
-        .carousel {
-            position: relative;
-            width: 100%;
-            height: 400px;
-            overflow: hidden;
-            border-radius: 10px;
-            margin: 2rem 0;
-        }
-
-        .carousel-inner {
-            display: flex;
-            transition: transform 0.5s ease;
-            height: 100%;
-        }
-
-        .carousel-item {
-            min-width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
-            position: relative;
-        }
-
-        .carousel-caption {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(0,0,0,0.7);
-            color: white;
-            padding: 1.5rem;
-        }
-
-        .carousel-caption h3 {
-            color: var(--accent-color);
-            margin-bottom: 0.5rem;
-        }
-
-        .carousel-control {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255,255,255,0.3);
-            color: white;
-            border: none;
-            padding: 1rem;
-            cursor: pointer;
-            z-index: 10;
-            transition: var(--transition);
-        }
-
-        .carousel-control:hover {
-            background: rgba(255,255,255,0.5);
-        }
-
-        .carousel-control.prev {
-            left: 1rem;
-        }
-
-        .carousel-control.next {
-            right: 1rem;
-        }
-
-        .carousel-indicators {
-            position: absolute;
-            bottom: 1rem;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 0.5rem;
-            z-index: 10;
-        }
-
-        .carousel-indicator {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.5);
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .carousel-indicator.active {
-            background: var(--accent-color);
-        }
-
-        /* Estilos para el acordeón */
-        .accordion {
-            margin: 2rem 0;
-        }
-
-        .accordion-item {
-            margin-bottom: 1rem;
+        
+        .quiz-container {
+            background-color: white;
             border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
-
-        .accordion-header {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 1.2rem 1.5rem;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: var(--transition);
-        }
-
-        .accordion-header:hover {
-            background-color: #1fa374;
-        }
-
-        .accordion-header::after {
-            content: '+';
-            font-size: 1.5rem;
-            transition: var(--transition);
-        }
-
-        .accordion-header.active::after {
-            content: '-';
-        }
-
-        .accordion-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-            background-color: white;
-        }
-
-        .accordion-content-inner {
-            padding: 1.5rem;
-        }
-
-        /* Estilos para las pestañas */
-        .tabs {
-            margin: 2rem 0;
-        }
-
-        .tab-header {
-            display: flex;
-            border-bottom: 2px solid #eee;
-        }
-
-        .tab-btn {
-            padding: 1rem 1.5rem;
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-weight: 600;
-            color: #777;
-            position: relative;
-            transition: var(--transition);
-        }
-
-        .tab-btn::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--primary-color);
-            transition: var(--transition);
-        }
-
-        .tab-btn.active {
-            color: var(--primary-color);
-        }
-
-        .tab-btn.active::after {
-            width: 100%;
-        }
-
-        .tab-content {
-            display: none;
-            padding: 1.5rem 0;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        /* Estilos para el modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.7);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .modal.show {
-            display: flex;
-            opacity: 1;
-        }
-
-        .modal-content {
-            background-color: white;
-            border-radius: 10px;
-            width: 90%;
-            max-width: 800px;
-            max-height: 90vh;
-            overflow-y: auto;
-            position: relative;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            transform: translateY(-50px);
-            transition: transform 0.3s ease;
-        }
-
-        .modal.show .modal-content {
-            transform: translateY(0);
-        }
-
-        .modal-header {
-            padding: 1.5rem;
+        
+        .question {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
             border-bottom: 1px solid #eee;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
         }
-
-        .modal-title {
-            color: var(--primary-color);
-            font-size: 1.5rem;
+        
+        .question-text {
+            font-weight: 500;
+            margin-bottom: 15px;
+            color: var(--verde-oscuro);
         }
-
-        .modal-close {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
+        
+        .options label {
+            display: block;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 4px;
+            background-color: #f5f5f5;
             cursor: pointer;
-            color: #777;
-            transition: var(--transition);
+            transition: all 0.3s;
         }
-
-        .modal-close:hover {
-            color: var(--primary-color);
+        
+        .options label:hover {
+            background-color: #e9e9e9;
         }
-
-        .modal-body {
-            padding: 1.5rem;
+        
+        .options input[type="radio"] {
+            margin-right: 10px;
         }
-
-        /* Estilos para el contador */
-        .counter-container {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin: 2rem 0;
+        
+        button {
+            background-color: var(--verde-medio);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            display: block;
+            margin: 30px auto 0;
+            transition: background-color 0.3s;
         }
-
-        .counter-box {
+        
+        button:hover {
+            background-color: var(--verde-oscuro);
+        }
+        
+        .result {
             text-align: center;
-            padding: 1.5rem;
-            border-radius: 10px;
-            background-color: white;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            min-width: 150px;
-        }
-
-        .counter-number {
-            font-size: 2.5rem;
+            margin-top: 20px;
             font-weight: bold;
-            color: var(--primary-color);
-            margin-bottom: 0.5rem;
+            font-size: 18px;
+            padding: 15px;
+            border-radius: 4px;
+            display: none;
         }
-
-        .counter-label {
-            color: #777;
-            font-size: 0.9rem;
+        
+        .correct {
+            background-color: #E8F5E9;
+            color: var(--verde-oscuro);
+            border-left: 4px solid var(--verde-medio);
         }
-    </style>
-    <!-- Font Awesome para íconos -->
-    <link rel="stylesheet" href="https://cdn.euroinnova.edu.es/img/subidasEditor/fondo-medico-3d-celulas-virus-cadena-adn_1048-8470-1612411584.webp">
+        
+        .incorrect {
+            background-color: #FFEBEE;
+            color: #D32F2F;
+            border-left: 4px solid #E53935;
+        }
+        
+        .feedback {
+            font-size: 14px;
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 4px;
+            display: none;
+        }
+  </style>
 </head>
 <body>
-    <header>
-        <div class="cell-animation"></div>
-        <div class="header-content">
-            <h1>BioExplora</h1>
-            <p class="subtitle">Del átomo al ecosistema: un viaje científico por la vida</p>
-            <div class="header-buttons">
-                <a href="#explorar" class="btn btn-primary">Explorar Contenido</a>
-                <a href="#contacto" class="btn btn-secondary">Contacto</a>
-            </div>
+
+  <div id="welcome-screen" class="screen">
+    <h1>Bienvenido a <span class="highlight">BIOEXMA</span></h1>
+    <p>Una plataforma educativa para explorar el fascinante mundo de la célula y sus procesos.</p>
+    <button id="start-btn">Continuar</button>
+  </div>
+
+  <header>
+    BIOEXMA - <span class="highlight">Explora la Célula</span>
+  </header>
+
+  <div id="main-content" class="hidden">
+    <aside class="sidebar" role="navigation" aria-label="Menú de navegación">
+      <nav class="menu">
+        <ul>
+          <li><a href="#teoria" class="active">Teoría Celular</a></li>
+          <li><a href="#tipos">Tipos de Células</a></li>
+          <li><a href="#partes">Partes de la Célula</a></li>
+          <li><a href="#organelos">Organelos Celulares</a></li>
+          <li><a href="#funciones">Funciones Celulares</a></li>
+          <li><a href="#reproduccion">Reproducción Celular</a></li>
+          <li><a href="#transporte">Transporte Celular</a></li>
+          <li><a href="#diferenciacion">Diferenciación Celular</a></li>
+          <li><a href="#cultivo">Cultivo Celular</a></li>
+          <li><a href="#comparacion">Comparación Animal/Vegetal</a></li>
+          <li><a href="#videos">Videos Referenciales</a></li>
+        </ul>
+      </nav>
+    </aside>
+<!--teoria celular primera parte-->
+    <main>
+      <section id="teoria" class="active" tabindex="0">
+        <h2>Teoría Celular</h2>
+            <h3>¿Qué es la Teoría Celular?</h3><br>
+ <p>La teoría celular es uno de los principios fundamentales de la biología moderna.
+ Establece que la célula es la unidad básica de estructura, función y organización
+  de todos los seres vivos. Gracias a esta teoría, los científicos comprenden que 
+  todos los organismos, desde los más simples (como las bacterias) hasta los más 
+  complejos (como los seres humanos), están formados por células.
+Esta teoría no solo describe la estructura de los seres vivos, sino que también
+ explica cómo crecen, se reproducen y funcionan los organismos a partir de las células. Además, ha permitido 
+ el desarrollo de otras disciplinas, como la medicina celular, la genética, la inmunología, la embriología y la biotecnología.
+Origen y Desarrollo Histórico
+El desarrollo de la teoría celular fue posible gracias a la invención del microscopio óptico a finales del 
+siglo XVII. Robert Hooke, en 1665, fue el primero en utilizar el término “célula” al observar láminas 
+delgadas de corcho. Aunque lo que vio eran solo las paredes celulares de células muertas, su hallazgo
+ inició el camino hacia la comprensión del mundo microscópico.
+Durante el siglo XIX, el estudio de las células se intensificó gracias a los avances tecnológicos y 
+al trabajo de científicos como Matthias Schleiden, Theodor Schwann y Rudolf Virchow, quienes fueron 
+los principales formuladores de la teoría celular clásica.
+Postulados de la Teoría Celular Clásica Los tres postulados originales que dieron forma a la teoría celular fueron:
+<ol>
+ <li>Todos los seres vivos están compuestos por una o más células.
+   Esta idea fue propuesta por Schleiden, quien observó que las plantas están formadas por células, y 
+   luego Schwann la aplicó también a los animales.</li>
+ <li>La célula es la unidad estructural y funcional de los seres vivos.
+   Schwann sostuvo que las células no solo forman los tejidos, sino que también realizan todas las funciones vitales.
+  <li>Todas las células provienen de otras células preexistentes.En 1855, Rudolf Virchow refutó la teoría de la
+     generación espontánea y afirmó que cada célula se origina por división de otra célula. Esta idea se resume en la frase "Omnis cellula e cellula". Postulados de la Teoría Celular Moderna Con los avances en microscopía electrónica, biología molecular y genética, la teoría celular fue actualizada para incluir nuevos principios:
+   <li>La célula contiene la información hereditaria en su ADN, que se transmite de generación en generación.</li>
+   Gracias a los estudios sobre la estructura del ADN, se comprendió que las células son portadoras del material genético.
+   <li>Todas las funciones vitales ocurren dentro de las células o en su entorno inmediato.</li>
+   Esto incluye procesos como el metabolismo, la respiración celular, la síntesis de proteínas y la reproducción celular.
+   <li>Todas las células tienen una composición química similar.</li>
+  A pesar de la diversidad de organismos, todas las células están formadas por los mismos elementos químicos básicos 
+   comparten estructuras fundamentales como membranas, citoplasma y material genético.</li>
+   </ol>
+<h3>Científicos que Contribuyeron a la Teoría Celular</h3>
+<ul>
+ <li>Matthias Schleiden (1804–1881)
+Botánico alemán. En 1838 observó que todas las plantas están compuestas por células. Defendía la idea de que el crecimiento 
+vegetal ocurría por generación de nuevas células desde el núcleo.</li>
+<li>Theodor Schwann (1810–1882)
+Zoólogo alemán. En 1839 extendió los descubrimientos de Schleiden al reino animal, concluyendo que *todos los seres vivos 
+están formados por células. También introdujo el concepto de "unidad funcional" de la célula.</li>
+ <li>Rudolf Virchow (1821–1902)
+Médico alemán. En 1855 completó la teoría con el tercer postulado: toda célula se origina de otra célula preexistente, 
+lo cual fue esencial para rechazar la teoría de la generación espontánea.</li>
+</ul>
+  <h3>Importancia de la Teoría Celular.</h3>
+La teoría celular no solo cambió la forma de entender la vida, sino que también ha tenido un impacto directo en áreas como:
+Medicina: permite comprender cómo surgen las enfermedades a nivel celular, como el cáncer.
+Genética: al estudiar cómo se transmite la información genética.
+Biotecnología: gracias a la manipulación celular para producir medicamentos, vacunas y alimentos transgénicos.
+Ecología: ayuda a entender cómo interactúan las células con su entorno y entre sí, en organismos y ecosistemas.
+Conclusión
+La teoría celular ha sido una de las revoluciones científicas más importantes de la historia. Hoy en día, sigue siendo 
+la base del estudio de la vida. Con cada nuevo descubrimiento en biología celular y molecular, se amplía nuestro conocimiento 
+sobre cómo funciona la vida a nivel microscópico, confirmando que la célula es la unidad esencial de toda forma de vida.
+</p>
+        <img src="teoriacelular.png" alt="Fundadores de la teoría celular" class="ref-image" loading="lazy" />
+        
+        <div class="ejercicios">
+          <h3>Ejercicios</h3>
+          <ol>
+            <li>Enumera los tres postulados de la teoría celular.</li>
+            <li>¿Por qué es importante la teoría celular para la biología?</li>
+            <li>Explica con tus palabras qué significa que "la célula es la unidad básica de la vida".</li>
+          </ol>
         </div>
-    </header>
 
-    <nav id="navbar">
-        <div class="nav-container">
-            <a href="#" class="logo">Bio<span>Explora</span></a>
-            <button class="menu-btn">☰</button>
-            <ul class="menu-list">
-                <li><a href="#inicio" class="active">Inicio</a></li>
-                <li><a href="#celulas">Células</a></li>
-                <li><a href="#genetica">Genética</a></li>
-                <li><a href="#organismos">Organismos</a></li>
-                <li><a href="#ecologia">Ecología</a></li>
-                <li><a href="#evolucion">Evolución</a></li>
-                <li><a href="#contacto">Contacto</a></li>
-            </ul>
+        <div class="quiz" data-topic="teoria">
+          <h3>Quiz</h3>
+          <form>
+            <label>1. ¿Quiénes fueron los principales contribuidores a la teoría celular?</label><br />
+            <input type="radio" name="q1" value="a" id="teoria-q1a" /> <label for="teoria-q1a">Darwin y Mendel</label><br />
+            <input type="radio" name="q1" value="b" id="teoria-q1b" /> <label for="teoria-q1b">Schleiden y Schwann</label><br />
+            <input type="radio" name="q1" value="c" id="teoria-q1c" /> <label for="teoria-q1c">Watson y Crick</label><br />
+            <button type="button" class="check-quiz">Verificar respuestas</button>
+            <p class="quiz-result"></p>
+          </form>
         </div>
-    </nav>
-
-    <div class="container">
-        <section id="inicio">
-            <div class="section-header">
-                <h2>Descubre el Mundo de la Biología</h2>
-                <p>Explora los misterios de la vida a través de nuestros recursos educativos</p>
+        <h1>Mini Quiz: Teoría Celular</h1>
+    
+    <div class="quiz-container">
+        <div class="question">
+            <div class="question-text">1. ¿Quién fue el primer científico en utilizar el término "célula"?</div>
+            <div class="options">
+                <label><input type="radio" name="q1" value="a"> Matthias Schleiden</label>
+                <label><input type="radio" name="q1" value="b"> Robert Hooke</label>
+                <label><input type="radio" name="q1" value="c"> Theodor Schwann</label>
+                <label><input type="radio" name="q1" value="d"> Rudolf Virchow</label>
             </div>
-            <div class="section-content">
-                <p>La biología es la ciencia que estudia la vida en todas sus formas, desde los organismos más pequeños hasta los ecosistemas más complejos. En esta página exploraremos los diferentes niveles de organización biológica, desde las moléculas hasta la biosfera, pasando por células, tejidos, órganos y sistemas.</p>
-                
-                <!-- Carrusel de imágenes -->
-                <div class="carousel">
-                    <div class="carousel-inner">
-                        <div class="carousel-item" style="background-image: url('https://cdn.pixabay.com/photo/2016/11/29/08/41/microscope-1868618_1280.jpg');">
-                            <div class="carousel-caption">
-                                <h3>Microscopía Avanzada</h3>
-                                <p>Descubre el mundo invisible que nos rodea con las últimas técnicas de microscopía.</p>
-                            </div>
-                        </div>
-                        <div class="carousel-item" style="background-image: url('https://cdn.pixabay.com/photo/2017/01/31/14/26/dna-2025870_1280.png');">
-                            <div class="carousel-caption">
-                                <h3>Investigación Genética</h3>
-                                <p>Explora los secretos del ADN y cómo determina nuestras características.</p>
-                            </div>
-                        </div>
-                        <div class="carousel-item" style="background-image: url('https://cdn.pixabay.com/photo/2016/11/14/05/21/terrestrial-1822441_1280.jpg');">
-                            <div class="carousel-caption">
-                                <h3>Biodiversidad</h3>
-                                <p>Conoce la increíble variedad de vida en nuestro planeta.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="carousel-control prev">❮</button>
-                    <button class="carousel-control next">❯</button>
-                    <div class="carousel-indicators">
-                        <div class="carousel-indicator active"></div>
-                        <div class="carousel-indicator"></div>
-                        <div class="carousel-indicator"></div>
-                    </div>
-                </div>
-                
-                <div class="dna-container">
-                    <div class="dna-strand"></div>
-                </div>
-                
-                <p>El ADN (ácido desoxirribonucleico) es la molécula que contiene las instrucciones genéticas para el desarrollo, funcionamiento, crecimiento y reproducción de todos los organismos vivos conocidos. Su descubrimiento revolucionó nuestra comprensión de la herencia y la evolución, convirtiéndose en uno de los hallazgos científicos más importantes del siglo XX.</p>
-                
-                <!-- Contador de visitas -->
-                <div class="counter-container">
-                    <div class="counter-box">
-                        <div class="counter-number" id="species-counter">0</div>
-                        <div class="counter-label">Especies documentadas</div>
-                    </div>
-                    <div class="counter-box">
-                        <div class="counter-number" id="discoveries-counter">0</div>
-                        <div class="counter-label">Descubrimientos recientes</div>
-                    </div>
-                    <div class="counter-box">
-                        <div class="counter-number" id="students-counter">0</div>
-                        <div class="counter-label">Estudiantes activos</div>
-                    </div>
-                </div>
-                
-                <div class="features">
-                    <div class="feature">
-                        <div class="feature-icon">
-                            <i class="fas fa-microscope"></i>
-                        </div>
-                        <h3 class="feature-title">Microbiología</h3>
-                        <p>Explora el mundo invisible de bacterias, virus y otros microorganismos que son fundamentales para la vida en la Tierra.</p>
-                    </div>
-                    <div class="feature">
-                        <div class="feature-icon">
-                            <i class="fas fa-dna"></i>
-                        </div>
-                        <h3 class="feature-title">Genómica</h3>
-                        <p>Descubre cómo la secuenciación del genoma está revolucionando la medicina, agricultura y conservación.</p>
-                    </div>
-                    <div class="feature">
-                        <div class="feature-icon">
-                            <i class="fas fa-tree"></i>
-                        </div>
-                        <h3 class="feature-title">Biodiversidad</h3>
-                        <p>Conoce la increíble variedad de vida en nuestro planeta y los esfuerzos para conservarla.</p>
-                    </div>
-                </div>
+            <div class="feedback" id="feedback-q1"></div>
+        </div>
+        
+        <div class="question">
+            <div class="question-text">2. ¿Cuál de estos NO es un postulado de la teoría celular clásica?</div>
+            <div class="options">
+                <label><input type="radio" name="q2" value="a"> Todos los seres vivos están compuestos por células</label>
+                <label><input type="radio" name="q2" value="b"> La célula es la unidad básica de la vida</label>
+                <label><input type="radio" name="q2" value="c"> Todas las células tienen núcleo</label>
+                <label><input type="radio" name="q2" value="d"> Las células provienen de células preexistentes</label>
             </div>
-        </section>
-
-        <section id="celulas">
-            <div class="section-header">
-                <h2>La Unidad de la Vida: La Célula</h2>
-                <p>Estructura y función de los componentes celulares</p>
+            <div class="feedback" id="feedback-q2"></div>
+        </div>
+        
+        <div class="question">
+            <div class="question-text">3. ¿Qué científico completó la teoría celular con el principio "Omnis cellula e cellula"?</div>
+            <div class="options">
+                <label><input type="radio" name="q3" value="a"> Louis Pasteur</label>
+                <label><input type="radio" name="q3" value="b"> Robert Hooke</label>
+                <label><input type="radio" name="q3" value="c"> Rudolf Virchow</label>
+                <label><input type="radio" name="q3" value="d"> Anton van Leeuwenhoek</label>
             </div>
-            <div class="section-content">
-                <p>Todos los seres vivos están compuestos por células, la unidad básica de estructura y función. La teoría celular, formulada en el siglo XIX, establece que:</p>
-                
-                <ul style="margin-bottom: 2rem;">
-                    <li>Todos los organismos están compuestos por una o más células</li>
-                    <li>La célula es la unidad básica de estructura y organización en los organismos</li>
-                    <li>Todas las células provienen de células preexistentes</li>
-                </ul>
-                
-                <p>Existen dos tipos principales de células que difieren en su complejidad:</p>
-                
-                <div class="gallery">
-                    <div class="card">
-                        <div class="card-badge">Eucariota</div>
-                        <div class="card-img" style="background-image: url('https://cdn.pixabay.com/photo/2017/02/12/21/29/cell-2061201_960_720.png')"></div>
-                        <div class="card-info">
-                            <div class="card-title">Célula Animal</div>
-                            <p class="card-text">Célula eucariota con núcleo definido y diversos organelos membranosos como mitocondrias, retículo endoplasmático y aparato de Golgi, característica de los organismos del reino animal.</p>
-                            <a href="#" class="card-link">Ver más detalles <i class="fas fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-badge">Eucariota</div>
-                        <div class="card-img" style="background-image: url('https://cdn.pixabay.com/photo/2016/11/30/12/16/cell-1873186_960_720.png')"></div>
-                        <div class="card-info">
-                            <div class="card-title">Célula Vegetal</div>
-                            <p class="card-text">Célula eucariota con cloroplastos para la fotosíntesis, pared celular de celulosa y grandes vacuolas centrales que regulan la presión osmótica.</p>
-                            <a href="#" class="card-link">Ver más detalles <i class="fas fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-badge">Procariota</div>
-                        <div class="card-img" style="background-image: url('https://cdn.pixabay.com/photo/2017/01/31/14/26/bacteria-2025498_960_720.png')"></div>
-                        <div class="card-info">
-                            <div class="card-title">Bacteria</div>
-                            <p class="card-text">Organismo procariota unicelular sin núcleo definido ni organelos membranosos, con gran diversidad metabólica y roles ecológicos esenciales.</p>
-                            <a href="#" class="card-link">Ver más detalles <i class="fas fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-                
-                <h3 style="margin-top: 3rem;">Procesos Celulares Fundamentales</h3>
-                <p>Las células llevan a cabo numerosos procesos esenciales para la vida, incluyendo:</p>
-                
-                <div class="features" style="margin-top: 2rem;">
-                    <div class="feature">
-                        <div class="feature-icon">
-                            <i class="fas fa-exchange-alt"></i>
-                        </div>
-                        <h3 class="feature-title">Metabolismo</h3>
-                        <p>Conjunto de reacciones químicas que permiten a la célula obtener energía y construir componentes celulares.</p>
-                    </div>
-                    <div class="feature">
-                        <div class="feature-icon">
-                            <i class="fas fa-divide"></i>
-                        </div>
-                        <h3 class="feature-title">División Celular</h3>
-                        <p>Proceso por el cual una célula madre se divide para formar células hijas (mitosis y meiosis).</p>
-                    </div>
-                    <div class="feature">
-                        <div class="feature-icon">
-                            <i class="fas fa-signal"></i>
-                        </div>
-                        <h3 class="feature-title">Señalización</h3>
-                        <p>Mecanismos de comunicación celular que coordinan actividades entre células.</p>
-                    </div>
-                </div>
-
-                <!-- Acordeón de preguntas frecuentes -->
-                <h3 style="margin-top: 3rem;">Preguntas Frecuentes sobre Células</h3>
-                <div class="accordion">
-                    <div class="accordion-item">
-                        <div class="accordion-header">
-                            <span>¿Cuál es la diferencia entre célula animal y vegetal?</span>
-                        </div>
-                        <div class="accordion-content">
-                            <div class="accordion-content-inner">
-                                <p>Las células vegetales tienen cloroplastos para la fotosíntesis, una pared celular rígida de celulosa y una gran vacuola central. Las células animales carecen de estos componentes pero tienen centriolos, que las vegetales no poseen.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="accordion-item">
-                        <div class="accordion-header">
-                            <span>¿Qué es la membrana celular y cuál es su función?</span>
-                        </div>
-                        <div class="accordion-content">
-                            <div class="accordion-content-inner">
-                                <p>La membrana celular es una bicapa lipídica que rodea la célula. Sus funciones principales son: delimitar y proteger la célula, regular el intercambio de sustancias con el exterior y permitir la comunicación celular.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="accordion-item">
-                        <div class="accordion-header">
-                            <span>¿Cómo se produce la energía en las células?</span>
-                        </div>
-                        <div class="accordion-content">
-                            <div class="accordion-content-inner">
-                                <p>La energía celular se produce principalmente en las mitocondrias mediante el proceso de respiración celular, donde se convierte la energía química de los nutrientes en ATP, la molécula energética de la célula.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="feedback" id="feedback-q3"></div>
+        </div>
+        
+        <div class="question">
+            <div class="question-text">4. ¿Qué postulado MODERNO de la teoría celular se refiere a la información hereditaria?</div>
+            <div class="options">
+                <label><input type="radio" name="q4" value="a"> Todas las células tienen una composición química similar</label>
+                <label><input type="radio" name="q4" value="b"> La célula contiene ADN que se transmite a descendientes</label>
+                <label><input type="radio" name="q4" value="c"> Las funciones vitales ocurren dentro de las células</label>
+                <label><input type="radio" name="q4" value="d"> Las células pueden generarse espontáneamente</label>
             </div>
-        </section>
-
-        <section id="genetica">
-            <div class="section-header">
-                <h2>Genética: El Lenguaje de la Vida</h2>
-                <p>Desde Mendel hasta la ingeniería genética</p>
+            <div class="feedback" id="feedback-q4"></div>
+        </div>
+        
+        <div class="question">
+            <div class="question-text">5. ¿Qué científico extendió los descubrimientos celulares de las plantas a los animales?</div>
+            <div class="options">
+                <label><input type="radio" name="q5" value="a"> Matthias Schleiden</label>
+                <label><input type="radio" name="q5" value="b"> Theodor Schwann</label>
+                <label><input type="radio" name="q5" value="c"> Robert Brown</label>
+                <label><input type="radio" name="q5" value="d"> Gregor Mendel</label>
             </div>
-            <div class="section-content">
-                <p>La genética estudia cómo los caracteres hereditarios se transmiten de generación en generación a través del ADN, y cómo esta información se expresa en los organismos. Esta disciplina tiene aplicaciones en medicina, agricultura, conservación y muchas otras áreas.</p>
-                
-                <!-- Pestañas interactivas -->
-                <div class="tabs">
-                    <div class="tab-header">
-                        <button class="tab-btn active" data-tab="conceptos">Conceptos Básicos</button>
-                        <button class="tab-btn" data-tab="aplicaciones">Aplicaciones</button>
-                        <button class="tab-btn" data-tab="avances">Avances Recientes</button>
-                    </div>
-                    <div class="tab-content active" id="conceptos">
-                        <h3>Conceptos Fundamentales de Genética</h3>
-                        <p>La genética se basa en varios principios fundamentales:</p>
-                        <ul>
-                            <li><strong>Gen:</strong> Unidad básica de herencia compuesta por una secuencia de ADN.</li>
-                            <li><strong>Cromosoma:</strong> Estructura que contiene el ADN empaquetado con proteínas.</li>
-                            <li><strong>Alelo:</strong> Variante de un gen que determina características específicas.</li>
-                            <li><strong>Genotipo:</strong> Constitución genética de un organismo.</li>
-                            <li><strong>Fenotipo:</strong> Expresión observable del genotipo influenciada por el ambiente.</li>
-                        </ul>
-                    </div>
-                    <div class="tab-content" id="aplicaciones">
-                        <h3>Aplicaciones de la Genética</h3>
-                        <p>La genética moderna tiene numerosas aplicaciones prácticas:</p>
-                        <ul>
-                            <li><strong>Medicina:</strong> Diagnóstico de enfermedades genéticas, terapia génica, medicina personalizada.</li>
-                            <li><strong>Agricultura:</strong> Desarrollo de cultivos mejorados, resistencia a plagas, mayor productividad.</li>
-                            <li><strong>Forensia:</strong> Identificación mediante huellas genéticas en investigaciones criminales.</li>
-                            <li><strong>Conservación:</strong> Estudio de la diversidad genética en especies amenazadas.</li>
-                        </ul>
-                    </div>
-                    <div class="tab-content" id="avances">
-                        <h3>Avances Recientes en Genética</h3>
-                        <p>Algunos de los avances más significativos incluyen:</p>
-                        <ul>
-                            <li><strong>CRISPR-Cas9:</strong> Técnica de edición genética precisa que revoluciona la investigación.</li>
-                            <li><strong>Secuenciación masiva:</strong> Tecnologías que permiten secuenciar genomas completos rápidamente y a bajo costo.</li>
-                            <li><strong>Epigenética:</strong> Estudio de cambios heredables en la expresión génica sin alterar la secuencia de ADN.</li>
-                            <li><strong>Genómica personalizada:</strong> Uso de información genética individual para guiar decisiones médicas.</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <h3>Conceptos Clave de la Genética</h3>
-                <div class="gallery" style="margin-top: 2rem;">
-                    <div class="card">
-                        <div class="card-img" style="background-image: url('https://cdn.pixabay.com/photo/2017/01/31/14/26/dna-2025870_1280.png')"></div>
-                        <div class="card-info">
-                            <div class="card-title">Estructura del ADN</div>
-                            <p class="card-text">La doble hélice descubierta por Watson y Crick, compuesta por nucleótidos con bases nitrogenadas (A, T, C, G).</p>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-img" style="background-image: url('https://cdn.pixabay.com/photo/2017/09/07/08/57/dna-2725273_960_720.jpg')"></div>
-                        <div class="card-info">
-                            <div class="card-title">Herencia Mendeliana</div>
-                            <p class="card-text">Leyes de la herencia que describen cómo se transmiten los caracteres de padres a hijos.</p>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-img" style="background-image: url('https://cdn.pixabay.com/photo/2017/03/31/17/39/dna-2192239_960_720.png')"></div>
-                        <div class="card-info">
-                            <div class="card-title">Expresión Génica</div>
-                            <p class="card-text">Proceso por el cual la información del ADN se convierte en proteínas funcionales.</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <h3 style="margin-top: 3rem;">Áreas de la Genética Moderna</h3>
-                <div class="features" style="margin-top: 1.5rem;">
-                    <div class="feature">
-                        <div class="feature-icon">
-                            <i class="fas fa-user-md"></i>
-                        </div>
-                        <h3 class="feature-title">Genética Médica</h3>
-                        <p>Estudio de las bases genéticas de enfermedades humanas y desarrollo de terapias génicas.</p>
-                    </div>
-                    <div class="feature">
-                        <div class="feature-icon">
-                            <i class="fas fa-dna"></i>
-                        </div>
-                        <h3 class="feature-title">Genómica</h3>
-                        <p>Estudio de genomas completos, incluyendo la secuenciación y análisis de ADN.</p>
-                    </div>
-                    <div class="feature">
-                        <div class="feature-icon">
-                            <i class="fas fa-leaf"></i>
-                        </div>
-                        <h3 class="feature-title">Biotecnología</h3>
-                        <p>Aplicación de técnicas genéticas en agricultura, industria y medicina.</p>
-                    </div>
-                </div>
-                
-                <div style="background-color: #f9f9f9; border-left: 4px solid var(--primary-color); padding: 1.5rem; margin: 2rem 0; border-radius: 0 6px 6px 0;">
-                    <h4 style="margin-bottom: 0.8rem; color: var(--primary-color);">¿Sabías que?</h4>
-                    <p>El Proyecto Genoma Humano, completado en 2003, secuenció por primera vez todo el ADN humano, revelando aproximadamente 20,000-25,000 genes. Este hito científico ha revolucionado nuestra comprensión de las enfermedades y la evolución humana.</p>
-                </div>
+            <div class="feedback" id="feedback-q5"></div>
+        </div>
+        
+        <div class="question">
+            <div class="question-text">6. ¿Qué estructura celular observó Robert Hooke en el corcho?</div>
+            <div class="options">
+                <label><input type="radio" name="q6" value="a"> Núcleos celulares</label>
+                <label><input type="radio" name="q6" value="b"> Paredes celulares de células muertas</label>
+                <label><input type="radio" name="q6" value="c"> Cloroplastos</label>
+                <label><input type="radio" name="q6" value="d"> Mitocondrias</label>
             </div>
-        </section>
-
-        <section id="organismos">
-            <div class="section-header">
-                <h2>Diversidad de Organismos</h2>
-                <p>Clasificación y características de los seres vivos</p>
+            <div class="feedback" id="feedback-q6"></div>
+        </div>
+        
+        <div class="question">
+            <div class="question-text">7. ¿Cuál de estas áreas NO se ha beneficiado directamente de la teoría celular?</div>
+            <div class="options">
+                <label><input type="radio" name="q7" value="a"> Medicina</label>
+                <label><input type="radio" name="q7" value="b"> Astrología</label>
+                <label><input type="radio" name="q7" value="c"> Genética</label>
+                <label><input type="radio" name="q7" value="d"> Biotecnología</label>
             </div>
-            <div class="section-content">
-                <p>La Tierra alberga una increíble variedad de organismos, desde microscópicos hasta los más grandes seres vivos. Los biólogos clasifican esta diversidad en un sistema jerárquico de categorías taxonómicas, siendo los reinos los grupos más amplios.</p>
-                
-                <h3>Los Cinco Reinos</h3>
-                <div class="gallery">
-                    <div class="card">
-                        <div class="card-img" style="background-image: url('https://cdn.pixabay.com/photo/2017/01/14/12/59/elephant-1978281_960_720.jpg')"></div>
-                        <div class="card-info">
-                            <div class="card-title">Animalia</div>
-                            <p class="card-text">Organismos pluricelulares, heterótrofos, con capacidad de movimiento en alguna etapa de su vida. Incluye desde esponjas hasta mamíferos.</p>
-                            <a href="#" class="card-link">Explorar reino <i class="fas fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-img" style="background-image: url('https://cdn.pixabay.com/photo/2018/01/29/07/11/flower-3115353_960_720.jpg')"></div>
-                        <div class="card-info">
-                            <div class="card-title">Plantae</div>
-                            <p class="card-text">Organismos pluricelulares, autótrofos mediante fotosíntesis, con paredes celulares de celulosa. Incluye musgos, helechos, coníferas y plantas con flores.</p>
-                            <a href="#" class="card-link">Explorar reino <i class="fas fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-img" style="background-image: url('https://cdn.pixabay.com/photo/2016/10/22/20/34/mushrooms-1761927_960_720.jpg')"></div>
-                        <div class="card-info">
-                            <div class="card-title">Fungi</div>
-                            <p class="card-text">Organismos heterótrofos con paredes celulares de quitina. Incluye levaduras, mohos y setas, importantes descomponedores en los ecosistemas.</p>
-                            <a href="#" class="card-link">Explorar reino <i class="fas fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-img" style="background-image: url('https://cdn.pixabay.com/photo/2017/01/31/14/26/bacteria-2025498_960_720.png')"></div>
-                        <div class="card-info">
-                            <div class="card-title">Monera</div>
-                            <p class="card-text">Organismos procariotas unicelulares (bacterias y arqueas) con gran diversidad metabólica y roles ecológicos esenciales.</p>
-                            <a href="#" class="card-link">Explorar reino <i class="fas fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-img" style="background-image: url('https://cdn.pixabay.com/photo/2013/07/18/20/25/seaweed-164595_960_720.jpg')"></div>
-                        <div class="card-info">
-                            <div class="card-title">Protista</div>
-                            <p class="card-text">Organismos eucariotas principalmente unicelulares que no son animales, plantas ni hongos. Incluye algas y protozoos.</p>
-                            <a href="#" class="card-link">Explorar reino <i class="fas fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-                
-                <h3 style="margin-top: 3rem;">Biodiversidad y Conservación</h3>
-                <p>La biodiversidad se refiere a la variedad de vida en la Tierra a todos los niveles, desde genes hasta ecosistemas. Actualmente enfrenta amenazas como:</p>
-                
-                <ul style="margin: 1.5rem 0;">
-                    <li>Pérdida de hábitat por actividades humanas</li>
-                    <li>Cambio climático</li>
-                    <li>Contaminación</li>
-                    <li>Especies invasoras</li>
-                    <li>Sobreexplotación de recursos</li>
-                </ul>
-                
-                <div style="background-color: #f0f8ff; padding: 1.5rem; border-radius: 8px; margin: 2rem 0;">
-                    <h4 style="color: var(--primary-color); margin-bottom: 1rem;">Estrategias de Conservación</h4>
-                    <div class="features" style="margin-top: 1rem; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
-                        <div class="feature" style="box-shadow: none; background: transparent; text-align: left;">
-                            <h4 style="font-size: 1.1rem; color: var(--primary-color);"><i class="fas fa-tree" style="margin-right: 0.5rem;"></i> Áreas Protegidas</h4>
-                            <p>Creación de parques nacionales y reservas naturales</p>
-                        </div>
-                        <div class="feature" style="box-shadow: none; background: transparent; text-align: left;">
-                            <h4 style="font-size: 1.1rem; color: var(--primary-color);"><i class="fas fa-dna" style="margin-right: 0.5rem;"></i> Bancos de Germoplasma</h4>
-                            <p>Preservación de material genético de especies amenazadas</p>
-                        </div>
-                        <div class="feature" style="box-shadow: none; background: transparent; text-align: left;">
-                            <h4 style="font-size: 1.1rem; color: var(--primary-color);"><i class="fas fa-book" style="margin-right: 0.5rem;"></i> Educación Ambiental</h4>
-                            <p>Concienciación sobre la importancia de la biodiversidad</p>
-                        </div>
-                    </div>
-                </div>
+            <div class="feedback" id="feedback-q7"></div>
+        </div>
+        
+        <div class="question">
+            <div class="question-text">8. ¿Qué instrumento fue crucial para el desarrollo de la teoría celular?</div>
+            <div class="options">
+                <label><input type="radio" name="q8" value="a"> Telescopio</label>
+                <label><input type="radio" name="q8" value="b"> Microscopio</label>
+                <label><input type="radio" name="q8" value="c"> Termómetro</label>
+                <label><input type="radio" name="q8" value="d"> Barómetro</label>
             </div>
-        </section>
-
-        <section id="ecologia">
-            <div class="section-header">
-                <h2>Ecología: Relaciones en la Naturaleza</h2>
-                <p>Interacciones entre organismos y su ambiente</p>
+            <div class="feedback" id="feedback-q8"></div>
+        </div>
+        
+        <div class="question">
+            <div class="question-text">9. ¿Qué postulado moderno establece que todas las células tienen composición química similar?</div>
+            <div class="options">
+                <label><input type="radio" name="q9" value="a"> Postulado de estructura</label>
+                <label><input type="radio" name="q9" value="b"> Postulado de composición</label>
+                <label><input type="radio" name="q9" value="c"> Postulado de función</label>
+                <label><input type="radio" name="q9" value="d"> Postulado de origen</label>
             </div>
-            <div class="section-content">
-                <p>La ecología estudia las relaciones entre los organismos y su entorno físico, así como las interacciones entre diferentes especies. Estos estudios son fundamentales para entender y resolver problemas ambientales.</p>
-                
-                <h3>Niveles de Organización Ecológica</h3>
-                <div class="timeline">
-                    <div class="timeline-item">
-                        <div class="timeline-content">
-                            <div class="timeline-date">Nivel 1</div>
-                            <h3 class="timeline-title">Individuo</h3>
-                            <p>Un organismo individual de una especie particular.</p>
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-content">
-                            <div class="timeline-date">Nivel 2</div>
-                            <h3 class="timeline-title">Población</h3>
-                            <p>Grupo de individuos de la misma especie que viven en un área determinada.</p>
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-content">
-                            <div class="timeline-date">Nivel 3</div>
-                            <h3 class="timeline-title">Comunidad</h3>
-                            <p>Conjunto de poblaciones de diferentes especies que interactúan en un área.</p>
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-content">
-                            <div class="timeline-date">Nivel 4</div>
-                            <h3 class="timeline-title">Ecosistema</h3>
-                            <p>Comunidad de organismos junto con su ambiente físico.</p>
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-content">
-                            <div class="timeline-date">Nivel 5</div>
-                            <h3 class="timeline-title">Bioma</h3>
-                            <p>Grandes comunidades ecológicas caracterizadas por tipos particulares de vegetación.</p>
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-content">
-                            <div class="timeline-date">Nivel 6</div>
-                            <h3 class="timeline-title">Biosfera</h3>
-                            <p>Zona del planeta donde existe vida, incluyendo todos los ecosistemas.</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <h3 style="margin-top: 3rem;">Flujo de Energía y Ciclos Biogeoquímicos</h3>
-                <div class="gallery" style="margin-top: 2rem;">
-                    <div class="card">
-                        <div class="card-img" style="background-image: url('https://cdn.pixabay.com/photo/2017/06/05/15/01/food-chain-2374709_960_720.png')"></div>
-                        <div class="card-info">
-                            <div class="card-title">Cadenas Alimentarias</div>
-                            <p class="card-text">Transferencia de energía de un organismo a otro a través de relaciones alimentarias.</p>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-img" style="background-image: url('https://cdn.pixabay.com/photo/2017/02/01/11/27/ecology-2029502_960_720.png')"></div>
-                        <div class="card-info">
-                            <div class="card-title">Ciclo del Carbono</div>
-                            <p class="card-text">Movimiento del carbono entre la atmósfera, océanos, biosfera y geosfera.</p>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-img" style="background-image: url('https://cdn.pixabay.com/photo/2017/02/01/11/28/water-cycle-2029507_960_720.png')"></div>
-                        <div class="card-info">
-                            <div class="card-title">Ciclo del Agua</div>
-                            <p class="card-text">Circulación continua del agua entre la atmósfera, superficie terrestre y subsuelo.</p>
-                        </div>
-                    </div>
-                </div>
+            <div class="feedback" id="feedback-q9"></div>
+        </div>
+        
+        <div class="question">
+            <div class="question-text">10. ¿Qué concepto refutó Virchow con su principio "Omnis cellula e cellula"?</div>
+            <div class="options">
+                <label><input type="radio" name="q10" value="a"> Evolución de las especies</label>
+                <label><input type="radio" name="q10" value="b"> Generación espontánea</label>
+                <label><input type="radio" name="q10" value="c"> Teoría atómica</label>
+                <label><input type="radio" name="q10" value="d"> Teoría de los gérmenes</label>
             </div>
-        </section>
-
-        <section id="evolucion">
-            <div class="section-header">
-                <h2>Evolución: El Proceso que Da Forma a la Vida</h2>
-                <p>Desde el origen de las especies hasta la biodiversidad actual</p>
-            </div>
-            <div class="section-content">
-                <p>La teoría de la evolución por selección natural, propuesta por Charles Darwin y Alfred Russel Wallace, explica cómo las especies cambian a lo largo del tiempo y cómo la diversidad de vida surge de un ancestro común.</p>
-                
-                <h3>Evidencias de la Evolución</h3>
-                <div class="features" style="margin-top: 2rem;">
-                    <div class="feature">
-                        <div class="feature-icon">
-                            <i class="fas fa-bone"></i>
-                        </div>
-                        <h3 class="feature-title">Fósiles</h3>
-                        <p>Restos o huellas de organismos del pasado que muestran cambios evolutivos.</p>
-                    </div>
-                    <div class="feature">
-                        <div class="feature-icon">
-                            <i class="fas fa-dna"></i>
-                        </div>
-                        <h3 class="feature-title">Genética</h3>
-                        <p>Similitudes en el ADN entre especies relacionadas.</p>
-                    </div>
-                    <div class="feature">
-                        <div class="feature-icon">
-                            <i class="fas fa-map-marked-alt"></i>
-                        </div>
-                        <h3 class="feature-title">Biogeografía</h3>
-                        <p>Distribución geográfica de las especies.</p>
-                    </div>
-                    <div class="feature">
-                        <div class="feature-icon">
-                            <i class="fas fa-syringe"></i>
-                        </div>
-                        <h3 class="feature-title">Anatomía Comparada</h3>
-                        <p>Estructuras homólogas en diferentes especies.</p>
-                    </div>
-                </div>
-                
-                <h3 style="margin-top: 3rem;">Mecanismos de la Evolución</h3>
-                <div class="gallery" style="margin-top: 2rem;">
-                    <div class="card">
-                        <div class="card-img" style="background-image: url('https://cdn.pixabay.com/photo/2017/01/31/14/26/adaptation-2025860_960_720.png')"></div>
-                        <div class="card-info">
-                            <div class="card-title">Selección Natural</div>
-                            <p class="card-text">Los organismos con características ventajosas tienen mayor probabilidad de sobrevivir y reproducirse.</p>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-img" style="background-image: url('https://cdn.pixabay.com/photo/2017/01/31/14/26/genetics-2025859_960_720.png')"></div>
-                        <div class="card-info">
-                            <div class="card-title">Deriva Genética</div>
-                            <p class="card-text">Cambios aleatorios en las frecuencias génicas de poblaciones pequeñas.</p>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-img" style="background-image: url('https://cdn.pixabay.com/photo/2017/01/31/14/26/migration-2025861_960_720.png')"></div>
-                        <div class="card-info">
-                            <div class="card-title">Flujo Génico</div>
-                            <p class="card-text">Transferencia de genes entre poblaciones a través de migración.</p>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-img" style="background-image: url('https://cdn.pixabay.com/photo/2017/01/31/14/26/mutation-2025862_960_720.png')"></div>
-                        <div class="card-info">
-                            <div class="card-title">Mutaciones</div>
-                            <p class="card-text">Cambios en la secuencia de ADN que pueden introducir nueva variación genética.</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="timeline" style="margin-top: 4rem;">
-                    <div class="timeline-item">
-                        <div class="timeline-content">
-                            <div class="timeline-date">Hace 3.5 mil millones de años</div>
-                            <h3 class="timeline-title">Primeras formas de vida</h3>
-                            <p>Aparecen los primeros organismos procariotas en los océanos primitivos.</p>
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-content">
-                            <div class="timeline-date">Hace 2.1 mil millones de años</div>
-                            <h3 class="timeline-title">Primeros eucariotas</h3>
-                            <p>Surgimiento de células con núcleo verdadero.</p>
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-content">
-                            <div class="timeline-date">Hace 540 millones de años</div>
-                            <h3 class="timeline-title">Explosión cámbrica</h3>
-                            <p>Rápida diversificación de formas de vida complejas en los océanos.</p>
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-content">
-                            <div class="timeline-date">Hace 360 millones de años</div>
-                            <h3 class="timeline-title">Colonización terrestre</h3>
-                            <p>Plantas y animales comienzan a adaptarse a la vida en tierra firme.</p>
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-content">
-                            <div class="timeline-date">Hace 65 millones de años</div>
-                            <h3 class="timeline-title">Extinción de dinosaurios</h3>
-                            <p>Evento de extinción masiva que permitió el auge de los mamíferos.</p>
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-content">
-                            <div class="timeline-date">Hace 300,000 años</div>
-                            <h3 class="timeline-title">Aparece el Homo sapiens</h3>
-                            <p>Los humanos modernos evolucionan en África.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="contacto">
-            <div class="section-header">
-                <h2>Contacto</h2>
-                <p>¿Tienes preguntas o comentarios? Escríbenos</p>
-            </div>
-            <div class="section-content">
-                <div class="contact-form">
-                    <form id="contactForm">
-                        <div class="form-group">
-                            <label for="nombre" class="form-label">Nombre</label>
-                            <input type="text" id="nombre" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email" class="form-label">Correo Electrónico</label>
-                            <input type="email" id="email" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="asunto" class="form-label">Asunto</label>
-                            <input type="text" id="asunto" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="mensaje" class="form-label">Mensaje</label>
-                            <textarea id="mensaje" class="form-control" required></textarea>
-                        </div>
-                        <button type="submit" class="submit-btn">Enviar Mensaje</button>
-                    </form>
-                </div>
-                
-                <div class="features" style="margin-top: 3rem;">
-                    <div class="feature">
-                        <div class="feature-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <h3 class="feature-title">Correo Electrónico</h3>
-                        <p>info@bioexplora.com</p>
-                    </div>
-                    <div class="feature">
-                        <div class="feature-icon">
-                            <i class="fas fa-phone"></i>
-                        </div>
-                        <h3 class="feature-title">Teléfono</h3>
-                        <p>+34 123 456 789</p>
-                    </div>
-                    <div class="feature">
-                        <div class="feature-icon">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <h3 class="feature-title">Dirección</h3>
-                        <p>Calle de la Ciencia, 123<br>Madrid, España</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+            <div class="feedback" id="feedback-q10"></div>
+        </div>
+        
+        <button id="check-answers">Verificar Respuestas</button>
+        
+        <div class="result" id="quiz-result"></div>
     </div>
+      </section>
+<!--tipos de celula-->
+      <section id="tipos" tabindex="0">
+        <h2>Tipos de Células</h2>
+        <p>Existen dos tipos principales de células:</p>
+        <ul>
+          <li><strong>Células procariotas:</strong> Son células simples, sin núcleo definido, y su material genético está disperso en el citoplasma. Ejemplos: bacterias y arqueas.</li>
+          <li><strong>Células eucariotas:</strong> Son más complejas y tienen un núcleo definido que contiene el ADN. Se encuentran en plantas, animales, hongos y protistas.</li>
+        </ul>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Prokaryote_vs_Eukaryote_cell.svg/800px-Prokaryote_vs_Eukaryote_cell.svg.png" alt="Comparación células procariotas y eucariotas" class="ref-image" loading="lazy" />
 
-    <!-- Modal de suscripción -->
-    <div class="modal" id="subscribeModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title">Suscríbete a nuestro boletín</h3>
-                <button class="modal-close">&times;</button>
-            </div>
-            <div class="modal-body">
-                <p>Recibe las últimas noticias y artículos sobre biología directamente en tu correo electrónico.</p>
-                <form id="subscribeForm" style="margin-top: 1.5rem;">
-                    <div class="form-group">
-                        <label for="subscribeName" class="form-label">Nombre</label>
-                        <input type="text" id="subscribeName" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="subscribeEmail" class="form-label">Correo Electrónico</label>
-                        <input type="email" id="subscribeEmail" class="form-control" required>
-                    </div>
-                    <div class="form-group" style="margin-top: 1.5rem;">
-                        <button type="submit" class="submit-btn">Suscribirse</button>
-                    </div>
-                </form>
-            </div>
+        <div class="ejercicios">
+          <h3>Ejercicios</h3>
+          <ol>
+            <li>¿Cuál es la principal diferencia entre células procariotas y eucariotas?</li>
+            <li>Da dos ejemplos de organismos con células procariotas.</li>
+            <li>Menciona en qué organismos encontramos células eucariotas.</li>
+          </ol>
         </div>
-    </div>
 
-    <footer>
-        <div class="footer-content">
-            <div class="footer-column">
-                <h3>BioExplora</h3>
-                <p>Explorando los misterios de la vida desde la célula hasta la evolución. Nuestra misión es hacer la biología accesible y fascinante para todos.</p>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-youtube"></i></a>
-                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                </div>
-                <button id="subscribeBtn" style="margin-top: 1.5rem; background: var(--accent-color); color: var(--dark-text); border: none; padding: 0.8rem 1.5rem; border-radius: 50px; cursor: pointer; font-weight: 600; transition: var(--transition);">Suscríbete</button>
-            </div>
-            <div class="footer-column">
-                <h3>Enlaces Rápidos</h3>
-                <ul class="footer-links">
-                    <li><a href="#inicio">Inicio</a></li>
-                    <li><a href="#celulas">Células</a></li>
-                    <li><a href="#genetica">Genética</a></li>
-                    <li><a href="#organismos">Organismos</a></li>
-                    <li><a href="#ecologia">Ecología</a></li>
-                    <li><a href="#evolucion">Evolución</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h3>Recursos</h3>
-                <ul class="footer-links">
-                    <li><a href="#" class="resource-link" data-resource="glosario">Glosario Biológico</a></li>
-                    <li><a href="#" class="resource-link" data-resource="infografias">Infografías</a></li>
-                    <li><a href="#" class="resource-link" data-resource="videos">Videos Educativos</a></li>
-                    <li><a href="#" class="resource-link" data-resource="articulos">Artículos Científicos</a></li>
-                    <li><a href="#" class="resource-link" data-resource="cursos">Cursos Online</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h3>Legal</h3>
-                <ul class="footer-links">
-                    <li><a href="#">Términos de uso</a></li>
-                    <li><a href="#">Política de privacidad</a></li>
-                    <li><a href="#">Cookies</a></li>
-                    <li><a href="#">Aviso legal</a></li>
-                </ul>
-            </div>
+        <div class="quiz" data-topic="tipos">
+          <h3>Quiz</h3>
+          <form>
+            <label>1. ¿Qué característica NO corresponde a las células procariotas?</label><br />
+            <input type="radio" name="q1" value="a" id="tipos-q1a" /> <label for="tipos-q1a">No tienen núcleo definido.</label><br />
+            <input type="radio" name="q1" value="b" id="tipos-q1b" /> <label for="tipos-q1b">Tienen núcleo definido.</label><br />
+            <input type="radio" name="q1" value="c" id="tipos-q1c" /> <label for="tipos-q1c">Su material genético está disperso en el citoplasma.</label><br />
+            <button type="button" class="check-quiz">Verificar respuestas</button>
+            <p class="quiz-result"></p>
+          </form>
         </div>
-        <div class="copyright">
-            <p>&copy; 2023 BioExplora. Todos los derechos reservados. Diseñado con <i class="fas fa-heart" style="color: #ff6b6b;"></i> para amantes de la ciencia.</p>
+      </section>
+
+      <section id="partes" tabindex="0">
+        <h2>Partes de la Célula</h2>
+        <p>Las células tienen varias estructuras principales que desempeñan funciones específicas:</p>
+        <ul>
+          <li><strong>Membrana plasmática:</strong> Capa que protege la célula y regula el intercambio de sustancias.</li>
+          <li><strong>Citoplasma:</strong> Material gelatinoso donde ocurren las reacciones celulares.</li>
+          <li><strong>Núcleo:</strong> Contiene el material genético y controla las actividades celulares (solo en células eucariotas).</li>
+          <li><strong>Pared celular:</strong> Presente en células vegetales y procariotas, proporciona soporte y protección.</li>
+        </ul>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Biological_cell.svg/800px-Biological_cell.svg.png" alt="Partes principales de la célula" class="ref-image" loading="lazy" />
+        
+        <div class="ejercicios">
+          <h3>Ejercicios</h3>
+          <ol>
+            <li>¿Cuál es la función de la membrana plasmática?</li>
+            <li>¿Qué es el citoplasma y qué función tiene?</li>
+            <li>¿Qué función tiene el núcleo en las células eucariotas?</li>
+          </ol>
         </div>
-    </footer>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Animación de células flotantes
-            const cellAnimation = document.querySelector('.cell-animation');
-            const cellTypes = ['animal-cell', 'plant-cell'];
+        <div class="quiz" data-topic="partes">
+          <h3>Quiz</h3>
+          <form>
+            <label>1. ¿Qué parte de la célula proporciona soporte y protección en células vegetales?</label><br />
+            <input type="radio" name="q1" value="a" id="partes-q1a" /> <label for="partes-q1a">Membrana plasmática</label><br />
+            <input type="radio" name="q1" value="b" id="partes-q1b" /> <label for="partes-q1b">Pared celular</label><br />
+            <input type="radio" name="q1" value="c" id="partes-q1c" /> <label for="partes-q1c">Citoplasma</label><br />
+            <button type="button" class="check-quiz">Verificar respuestas</button>
+            <p class="quiz-result"></p>
+          </form>
+        </div>
+      </section>
+
+      <section id="organelos" tabindex="0">
+        <h2>Organelos Celulares</h2>
+        <p>Los organelos son estructuras especializadas dentro de las células eucariotas:</p>
+        <ul>
+          <li><strong>Mitocondrias:</strong> Producen energía mediante la respiración celular.</li>
+          <li><strong>Cloroplastos:</strong> Realizan la fotosíntesis en células vegetales.</li>
+          <li><strong>Ribosomas:</strong> Sintetizan proteínas.</li>
+          <li><strong>Retículo endoplasmático:</strong> Síntesis y transporte de proteínas y lípidos.</li>
+          <li><strong>Aparato de Golgi:</strong> Modifica y empaca proteínas y lípidos para su transporte.</li>
+          <li><strong>Lisosomas:</strong> Degradan sustancias y organelos dañados.</li>
+        </ul>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Animal_cell_structure_es.svg/800px-Animal_cell_structure_es.svg.png" alt="Estructura básica de una célula animal" class="ref-image" loading="lazy" />
+        
+        <div class="ejercicios">
+          <h3>Ejercicios</h3>
+          <ol>
+            <li>¿Qué organelo es conocido como la "central energética" de la célula?</li>
+            <li>¿Qué organelo es exclusivo de las células vegetales y qué función cumple?</li>
+            <li>¿Cuál es la función del aparato de Golgi?</li>
+          </ol>
+        </div>
+
+        <div class="quiz" data-topic="organelos">
+          <h3>Quiz</h3>
+          <form>
+            <label>1. ¿Qué organelo es responsable de la síntesis de proteínas?</label><br />
+            <input type="radio" name="q1" value="a" id="organelos-q1a" /> <label for="organelos-q1a">Ribosomas</label><br />
+            <input type="radio" name="q1" value="b" id="organelos-q1b" /> <label for="organelos-q1b">Mitocondrias</label><br />
+            <input type="radio" name="q1" value="c" id="organelos-q1c" /> <label for="organelos-q1c">Lisosomas</label><br />
+            <button type="button" class="check-quiz">Verificar respuestas</button>
+            <p class="quiz-result"></p>
+          </form>
+        </div>
+      </section>
+
+      <section id="funciones" tabindex="0">
+        <h2>Funciones Celulares</h2>
+        <p>Las células realizan múltiples funciones esenciales para la vida, tales como:</p>
+        <ul>
+          <li><strong>Metabolismo:</strong> Transformación de energía y materiales para mantener la vida.</li>
+          <li><strong>Reproducción:</strong> Formación de nuevas células.</li>
+          <li><strong>Respuesta a estímulos:</strong> Adaptación a cambios en el ambiente.</li>
+          <li><strong>Transporte:</strong> Movimiento de sustancias dentro y fuera de la célula.</li>
+          <li><strong>Diferenciación:</strong> Especialización para realizar funciones específicas.</li>
+        </ul>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Cell_function.png/800px-Cell_function.png" alt="Funciones celulares básicas" class="ref-image" loading="lazy" />
+        
+        <div class="ejercicios">
+          <h3>Ejercicios</h3>
+          <ol>
+            <li>Define qué es el metabolismo celular.</li>
+            <li>¿Por qué es importante la respuesta a estímulos para las células?</li>
+            <li>Explica la diferencia entre transporte activo y pasivo.</li>
+          </ol>
+        </div>
+
+        <div class="quiz" data-topic="funciones">
+          <h3>Quiz</h3>
+          <form>
+            <label>1. ¿Cuál de estas NO es una función celular básica?</label><br />
+            <input type="radio" name="q1" value="a" id="funciones-q1a" /> <label for="funciones-q1a">Reproducción</label><br />
+            <input type="radio" name="q1" value="b" id="funciones-q1b" /> <label for="funciones-q1b">Fotosíntesis</label><br />
+            <input type="radio" name="q1" value="c" id="funciones-q1c" /> <label for="funciones-q1c">Transporte</label><br />
+            <button type="button" class="check-quiz">Verificar respuestas</button>
+            <p class="quiz-result"></p>
+          </form>
+        </div>
+      </section>
+
+      <section id="reproduccion" tabindex="0">
+        <h2>Reproducción Celular</h2>
+        <p>La reproducción celular puede ser de dos tipos principales:</p>
+        <ul>
+          <li><strong>Mitosis:</strong> División celular para crecimiento y reparación, produciendo dos células hijas idénticas.</li>
+          <li><strong>Meiosis:</strong> División celular para la formación de gametos, reduciendo a la mitad el número de cromosomas.</li>
+        </ul>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Mitosis_vs_Meiosis.png/800px-Mitosis_vs_Meiosis.png" alt="Comparación mitosis y meiosis" class="ref-image" loading="lazy" />
+        
+        <div class="ejercicios">
+          <h3>Ejercicios</h3>
+          <ol>
+            <li>Describe brevemente en qué consiste el proceso de mitosis.</li>
+            <li>¿Cuál es la principal diferencia entre mitosis y meiosis?</li>
+            <li>¿Por qué es importante la meiosis para la reproducción sexual?</li>
+          </ol>
+        </div>
+
+        <div class="quiz" data-topic="reproduccion">
+          <h3>Quiz</h3>
+          <form>
+            <label>1. ¿Qué tipo de división celular produce células hijas idénticas?</label><br />
+            <input type="radio" name="q1" value="a" id="reproduccion-q1a" /> <label for="reproduccion-q1a">Meiosis</label><br />
+            <input type="radio" name="q1" value="b" id="reproduccion-q1b" /> <label for="reproduccion-q1b">Mitosis</label><br />
+            <input type="radio" name="q1" value="c" id="reproduccion-q1c" /> <label for="reproduccion-q1c">Ambas</label><br />
+            <button type="button" class="check-quiz">Verificar respuestas</button>
+            <p class="quiz-result"></p>
+          </form>
+        </div>
+      </section>
+
+      <section id="transporte" tabindex="0">
+        <h2>Transporte Celular</h2>
+        <p>Las células intercambian sustancias mediante varios mecanismos:</p>
+        <ul>
+          <li><strong>Transporte pasivo:</strong> Movimiento sin gasto de energía, como difusión y ósmosis.</li>
+          <li><strong>Transporte activo:</strong> Movimiento que requiere energía para transportar moléculas contra su gradiente.</li>
+          <li><strong>Endocitosis y exocitosis:</strong> Procesos para incorporar o expulsar partículas grandes.</li>
+        </ul>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Figure_05_01_05.jpg/800px-Figure_05_01_05.jpg" alt="Tipos de transporte celular" class="ref-image" loading="lazy" />
+        
+        <div class="ejercicios">
+          <h3>Ejercicios</h3>
+          <ol>
+            <li>Explica la diferencia entre transporte activo y pasivo.</li>
+            <li>¿Qué es la ósmosis y por qué es importante para las células?</li>
+            <li>Describe brevemente el proceso de endocitosis.</li>
+          </ol>
+        </div>
+
+        <div class="quiz" data-topic="transporte">
+          <h3>Quiz</h3>
+          <form>
+            <label>1. ¿Qué tipo de transporte requiere energía?</label><br />
+            <input type="radio" name="q1" value="a" id="transporte-q1a" /> <label for="transporte-q1a">Difusión</label><br />
+            <input type="radio" name="q1" value="b" id="transporte-q1b" /> <label for="transporte-q1b">Transporte activo</label><br />
+            <input type="radio" name="q1" value="c" id="transporte-q1c" /> <label for="transporte-q1c">Ósmosis</label><br />
+            <button type="button" class="check-quiz">Verificar respuestas</button>
+            <p class="quiz-result"></p>
+          </form>
+        </div>
+      </section>
+
+      <section id="diferenciacion" tabindex="0">
+        <h2>Diferenciación Celular</h2>
+        <p>Es el proceso mediante el cual las células especializadas se desarrollan a partir de células madre. Esta especialización permite que las células realicen funciones específicas en tejidos y órganos.</p>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Stem_cell_differentiation.svg/800px-Stem_cell_differentiation.svg.png" alt="Diferenciación celular" class="ref-image" loading="lazy" />
+        
+        <div class="ejercicios">
+          <h3>Ejercicios</h3>
+          <ol>
+            <li>¿Qué son las células madre y por qué son importantes?</li>
+            <li>Explica con un ejemplo cómo la diferenciación celular permite la formación de tejidos especializados.</li>
+            <li>¿Qué ventajas tiene para un organismo multicelular la diferenciación celular?</li>
+          </ol>
+        </div>
+
+        <div class="quiz" data-topic="diferenciacion">
+          <h3>Quiz</h3>
+          <form>
+            <label>1. ¿Qué tipo de célula puede convertirse en cualquier tipo de célula especializada?</label><br />
+            <input type="radio" name="q1" value="a" id="diferenciacion-q1a" /> <label for="diferenciacion-q1a">Célula muscular</label><br />
+            <input type="radio" name="q1" value="b" id="diferenciacion-q1b" /> <label for="diferenciacion-q1b">Célula madre</label><br />
+            <input type="radio" name="q1" value="c" id="diferenciacion-q1c" /> <label for="diferenciacion-q1c">Neurona</label><br />
+            <button type="button" class="check-quiz">Verificar respuestas</button>
+            <p class="quiz-result"></p>
+          </form>
+        </div>
+      </section>
+
+      <section id="cultivo" tabindex="0">
+        <h2>Cultivo Celular</h2>
+        <p>El cultivo celular es una técnica para mantener y multiplicar células fuera del organismo en condiciones controladas. Es fundamental para investigación médica, desarrollo de fármacos y biotecnología.</p>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Cell_culture.jpg/800px-Cell_culture.jpg" alt="Cultivo celular en laboratorio" class="ref-image" loading="lazy" />
+        
+        <div class="ejercicios">
+          <h3>Ejercicios</h3>
+          <ol>
+            <li>¿Cuáles son las principales aplicaciones del cultivo celular?</li>
+            <li>Describe las condiciones necesarias para mantener células vivas en cultivo.</li>
+            <li>¿Por qué es importante el cultivo celular para el desarrollo de medicamentos?</li>
+          </ol>
+        </div>
+
+        <div class="quiz" data-topic="cultivo">
+          <h3>Quiz</h3>
+          <form>
+            <label>1. ¿Qué se necesita para mantener células en cultivo?</label><br />
+            <input type="radio" name="q1" value="a" id="cultivo-q1a" /> <label for="cultivo-q1a">Medio de cultivo adecuado</label><br />
+            <input type="radio" name="q1" value="b" id="cultivo-q1b" /> <label for="cultivo-q1b">Temperatura y pH controlados</label><br />
+            <input type="radio" name="q1" value="c" id="cultivo-q1c" /> <label for="cultivo-q1c">Ambas son correctas</label><br />
+            <button type="button" class="check-quiz">Verificar respuestas</button>
+            <p class="quiz-result"></p>
+          </form>
+        </div>
+      </section>
+
+      <section id="comparacion" tabindex="0">
+        <h2>Comparación Animal/Vegetal</h2>
+        <p>Las células animales y vegetales tienen similitudes y diferencias importantes:</p>
+        <ul>
+          <li><strong>Células vegetales:</strong> Tienen pared celular, cloroplastos y vacuolas grandes.</li>
+          <li><strong>Células animales:</strong> Carecen de pared celular y cloroplastos, tienen vacuolas pequeñas.</li>
+          <li>Ambas tienen núcleo, membrana plasmática y organelos comunes.</li>
+        </ul>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Animal_and_plant_cell_es.svg/800px-Animal_and_plant_cell_es.svg.png" alt="Comparación célula animal y vegetal" class="ref-image" loading="lazy" />
+        
+        <div class="ejercicios">
+          <h3>Ejercicios</h3>
+          <ol>
+            <li>Enumera tres diferencias entre células animales y vegetales.</li>
+            <li>¿Qué organelo es exclusivo de las células vegetales y qué función cumple?</li>
+            <li>¿Por qué las células vegetales necesitan una pared celular?</li>
+          </ol>
+        </div>
+
+        <div class="quiz" data-topic="comparacion">
+          <h3>Quiz</h3>
+          <form>
+            <label>1. ¿Qué estructura NO se encuentra en células animales?</label><br />
+            <input type="radio" name="q1" value="a" id="comparacion-q1a" /> <label for="comparacion-q1a">Cloroplastos</label><br />
+            <input type="radio" name="q1" value="b" id="comparacion-q1b" /> <label for="comparacion-q1b">Mitocondrias</label><br />
+            <input type="radio" name="q1" value="c" id="comparacion-q1c" /> <label for="comparacion-q1c">Núcleo</label><br />
+            <button type="button" class="check-quiz">Verificar respuestas</button>
+            <p class="quiz-result"></p>
+          </form>
+        </div>
+      </section>
+
+      <section id="videos" tabindex="0">
+        <h2>Videos Referenciales</h2>
+        <p>Explora estos videos para complementar tu aprendizaje sobre células y sus procesos:</p>
+        <div class="video-gallery">
+          <iframe src="https://www.youtube.com/embed/URUJD5NEXC8" title="Teoría celular" allowfullscreen></iframe>
+          <iframe src="https://www.youtube.com/embed/oHjCzD9zKVE" title="Tipos de células" allowfullscreen></iframe>
+          <iframe src="https://www.youtube.com/embed/VKk-YrZ9uVY" title="Organelos celulares" allowfullscreen></iframe>
+          <iframe src="https://www.youtube.com/embed/Lr3XQkXXuQ4" title="Transporte celular" allowfullscreen></iframe>
+          <iframe src="https://www.youtube.com/embed/NFf3Qp1Z6x4" title="Diferenciación celular" allowfullscreen></iframe>
+          <iframe src="https://www.youtube.com/embed/8QYVf0hoxzY" title="Cultivo celular" allowfullscreen></iframe>
+        </div>
+        
+        <div class="ejercicios">
+          <h3>Ejercicios</h3>
+          <ol>
+            <li>Elige uno de los videos y resume sus puntos principales.</li>
+            <li>¿Qué concepto nuevo aprendiste de los videos?</li>
+            <li>Elabora un esquema con la información más importante de los videos.</li>
+          </ol>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const startBtn = document.getElementById('start-btn');
+    const welcomeScreen = document.getElementById('welcome-screen');
+    const mainContent = document.getElementById('main-content');
+    const sections = document.querySelectorAll('main > section');
+    const links = document.querySelectorAll('.menu a');
+
+    startBtn.addEventListener('click', () => {
+      welcomeScreen.classList.add('hidden');
+      mainContent.classList.remove('hidden');
+      showSection('teoria');
+      links.forEach(link => link.classList.remove('active'));
+      links[0].classList.add('active');
+      sections[0].focus();
+    });
+
+    links.forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        const id = link.getAttribute('href').substring(1);
+        showSection(id);
+        links.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+        document.getElementById(id).focus();
+      });
+    });
+
+    function showSection(id) {
+      sections.forEach(sec => {
+        if (sec.id === id) {
+          sec.classList.add('active');
+        } else {
+          sec.classList.remove('active');
+        }
+      });
+    }
+
+    // Función para verificar quiz según respuesta correcta
+    const quizAnswers = {
+      teoria: "b",
+      tipos: "b",
+      partes: "b",
+      organelos: "a",
+      funciones: "b",
+      reproduccion: "b",
+      transporte: "b",
+      diferenciacion: "b",
+      cultivo: "c",
+      comparacion: "a"
+    };
+
+    document.querySelectorAll(".quiz button.check-quiz").forEach(button => {
+      button.addEventListener("click", () => {
+        const quizDiv = button.closest(".quiz");
+        const topic = quizDiv.getAttribute("data-topic");
+        const form = quizDiv.querySelector("form");
+        const selected = form.querySelector("input[name='q1']:checked")?.value;
+
+        const resultP = quizDiv.querySelector(".quiz-result");
+        if (!selected) {
+          resultP.textContent = "Por favor selecciona una opción antes de verificar.";
+          resultP.style.color = "red";
+          resultP.style.background = "rgba(255,0,0,0.1)";
+          resultP.style.padding = "10px 15px";
+          resultP.style.borderRadius = "6px";
+          return;
+        }
+
+        if (selected === quizAnswers[topic]) {
+          resultP.textContent = "¡Correcto! 👍";
+          resultP.style.color = "green";
+          resultP.style.background = "rgba(0,255,0,0.1)";
+          resultP.style.padding = "10px 15px";
+          resultP.style.borderRadius = "6px";
+        } else {
+          resultP.textContent = "Incorrecto. Intenta de nuevo.";
+          resultP.style.color = "red";
+          resultP.style.background = "rgba(255,0,0,0.1)";
+          resultP.style.padding = "10px 15px";
+          resultP.style.borderRadius = "6px";
+        }
+      });
+    });
+    document.getElementById('check-answers').addEventListener('click', function() {
+            const answers = {
+                q1: 'b', q2: 'c', q3: 'c', q4: 'b', q5: 'b',
+                q6: 'b', q7: 'b', q8: 'b', q9: 'b', q10: 'b'
+            };
             
-            for (let i = 0; i < 15; i++) {
-                const cell = document.createElement('div');
-                const randomType = cellTypes[Math.floor(Math.random() * cellTypes.length)];
-                cell.className = `floating-cell ${randomType}`;
-                
-                // Tamaño y posición aleatorios
-                const size = Math.random() * 80 + 50;
-                cell.style.width = `${size}px`;
-                cell.style.height = `${size}px`;
-                cell.style.left = `${Math.random() * 100}%`;
-                cell.style.bottom = `-${size}px`;
-                
-                // Animación aleatoria
-                cell.style.animationDelay = `${Math.random() * 25}s`;
-                cell.style.animationDuration = `${Math.random() * 20 + 20}s`;
-                
-                cellAnimation.appendChild(cell);
-            }
-
-            // Mostrar secciones al hacer scroll
-            const sections = document.querySelectorAll('section');
-            const timelineItems = document.querySelectorAll('.timeline-item');
+            const feedbacks = {
+                q1: 'Correcto! Robert Hooke fue quien en 1665 utilizó por primera vez el término "célula" al observar corcho.',
+                q2: 'Correcto! Que "todas las células tienen núcleo" no es un postulado de la teoría celular (las procariotas no tienen núcleo definido).',
+                q3: 'Correcto! Rudolf Virchow completó la teoría en 1855 con el principio "Toda célula proviene de otra célula".',
+                q4: 'Correcto! El ADN como portador de información hereditaria es un postulado moderno de la teoría celular.',
+                q5: 'Correcto! Theodor Schwann extendió en 1839 los descubrimientos de Schleiden (plantas) a los animales.',
+                q6: 'Correcto! Hooke observó las paredes celulares de células muertas en el corcho, no las células completas.',
+                q7: 'Correcto! La astrología no se ha beneficiado de la teoría celular, a diferencia de medicina, genética y biotecnología.',
+                q8: 'Correcto! El microscopio fue esencial para observar células y desarrollar la teoría.',
+                q9: 'Correcto! La similitud en composición química es un postulado moderno sobre estructura celular.',
+                q10: 'Correcto! Virchow refutó la generación espontánea con su principio sobre el origen celular.'
+            };
             
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, { threshold: 0.1 });
+            let score = 0;
+            let allAnswered = true;
             
-            sections.forEach(section => observer.observe(section));
-            timelineItems.forEach(item => observer.observe(item));
-
-            // Menú responsive
-            const menuBtn = document.querySelector('.menu-btn');
-            const menuList = document.querySelector('.menu-list');
-            const menuLinks = document.querySelectorAll('.menu-list a');
-
-            menuBtn.addEventListener('click', () => {
-                menuBtn.classList.toggle('active');
-                menuList.classList.toggle('show');
-            });
-
-            // Cerrar menú al hacer clic en un enlace (mobile)
-            menuLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    if (window.innerWidth <= 768) {
-                        menuList.classList.remove('show');
-                        menuBtn.classList.remove('active');
-                    }
-                });
-            });
-
-            // Cambiar ítem activo del menú al hacer scroll
-            window.addEventListener('scroll', () => {
-                const scrollPosition = window.scrollY;
+            // Verificar cada pregunta
+            for (let i = 1; i <= 10; i++) {
+                const questionName = 'q' + i;
+                const selectedOption = document.querySelector(`input[name="${questionName}"]:checked`);
+                const feedbackEl = document.getElementById(`feedback-${questionName}`);
                 
-                sections.forEach(section => {
-                    const sectionTop = section.offsetTop - 150;
-                    const sectionBottom = sectionTop + section.offsetHeight;
-                    
-                    if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
-                        const id = section.getAttribute('id');
-                        menuLinks.forEach(link => {
-                            link.classList.remove('active');
-                            if (link.getAttribute('href') === `#${id}`) {
-                                link.classList.add('active');
-                            }
-                        });
-                    }
-                });
+                if (!selectedOption) {
+                    allAnswered = false;
+                    feedbackEl.textContent = 'Por favor selecciona una respuesta.';
+                    feedbackEl.style.display = 'block';
+                    feedbackEl.className = 'feedback incorrect';
+                    continue;
+                }
                 
-                // Efecto de navbar al hacer scroll
-                if (window.scrollY > 50) {
-                    document.querySelector('nav').classList.add('scrolled');
+                if (selectedOption.value === answers[questionName]) {
+                    score++;
+                    feedbackEl.textContent = feedbacks[questionName];
+                    feedbackEl.className = 'feedback correct';
                 } else {
-                    document.querySelector('nav').classList.remove('scrolled');
+                    feedbackEl.textContent = 'Incorrecto. ' + feedbacks[questionName];
+                    feedbackEl.className = 'feedback incorrect';
                 }
-            });
-
-            // Smooth scroll para enlaces internos
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    const targetId = this.getAttribute('href');
-                    const targetElement = document.querySelector(targetId);
-                    
-                    if (targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 100,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
-
-            // Carrusel de imágenes
-            const carousel = document.querySelector('.carousel-inner');
-            const carouselItems = document.querySelectorAll('.carousel-item');
-            const prevBtn = document.querySelector('.carousel-control.prev');
-            const nextBtn = document.querySelector('.carousel-control.next');
-            const indicators = document.querySelectorAll('.carousel-indicator');
-            
-            let currentIndex = 0;
-            const itemCount = carouselItems.length;
-            
-            function updateCarousel() {
-                carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
-                
-                // Actualizar indicadores
-                indicators.forEach((indicator, index) => {
-                    if (index === currentIndex) {
-                        indicator.classList.add('active');
-                    } else {
-                        indicator.classList.remove('active');
-                    }
-                });
+                feedbackEl.style.display = 'block';
             }
             
-            nextBtn.addEventListener('click', () => {
-                currentIndex = (currentIndex + 1) % itemCount;
-                updateCarousel();
-            });
-            
-            prevBtn.addEventListener('click', () => {
-                currentIndex = (currentIndex - 1 + itemCount) % itemCount;
-                updateCarousel();
-            });
-            
-            // Navegación por indicadores
-            indicators.forEach((indicator, index) => {
-                indicator.addEventListener('click', () => {
-                    currentIndex = index;
-                    updateCarousel();
-                });
-            });
-            
-            // Autoavance del carrusel
-            let carouselInterval = setInterval(() => {
-                currentIndex = (currentIndex + 1) % itemCount;
-                updateCarousel();
-            }, 5000);
-            
-            // Pausar al pasar el mouse
-            carousel.parentElement.addEventListener('mouseenter', () => {
-                clearInterval(carouselInterval);
-            });
-            
-            carousel.parentElement.addEventListener('mouseleave', () => {
-                carouselInterval = setInterval(() => {
-                    currentIndex = (currentIndex + 1) % itemCount;
-                    updateCarousel();
-                }, 5000);
-            });
-
-            // Acordeón interactivo
-            const accordionHeaders = document.querySelectorAll('.accordion-header');
-            
-            accordionHeaders.forEach(header => {
-                header.addEventListener('click', () => {
-                    const item = header.parentElement;
-                    const content = header.nextElementSibling;
-                    
-                    // Cerrar otros items
-                    document.querySelectorAll('.accordion-item').forEach(otherItem => {
-                        if (otherItem !== item) {
-                            otherItem.querySelector('.accordion-header').classList.remove('active');
-                            otherItem.querySelector('.accordion-content').style.maxHeight = null;
-                        }
-                    });
-                    
-                    // Alternar el actual
-                    header.classList.toggle('active');
-                    
-                    if (header.classList.contains('active')) {
-                        content.style.maxHeight = content.scrollHeight + 'px';
-                    } else {
-                        content.style.maxHeight = null;
-                    }
-                });
-            });
-
-            // Pestañas interactivas
-            const tabBtns = document.querySelectorAll('.tab-btn');
-            const tabContents = document.querySelectorAll('.tab-content');
-            
-            tabBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const tabId = btn.getAttribute('data-tab');
-                    
-                    // Desactivar todos los botones y contenidos
-                    tabBtns.forEach(tabBtn => tabBtn.classList.remove('active'));
-                    tabContents.forEach(content => content.classList.remove('active'));
-                    
-                    // Activar el seleccionado
-                    btn.classList.add('active');
-                    document.getElementById(tabId).classList.add('active');
-                });
-            });
-
-            // Contador animado
-            function animateCounter(element, target, duration = 2000) {
-                const start = 0;
-                const increment = target / (duration / 16);
-                let current = start;
-                
-                const timer = setInterval(() => {
-                    current += increment;
-                    if (current >= target) {
-                        clearInterval(timer);
-                        current = target;
-                    }
-                    element.textContent = Math.floor(current).toLocaleString();
-                }, 16);
+            if (!allAnswered) {
+                document.getElementById('quiz-result').textContent = 'Por favor responde todas las preguntas.';
+                document.getElementById('quiz-result').className = 'result incorrect';
+                document.getElementById('quiz-result').style.display = 'block';
+                return;
             }
             
-            // Iniciar contadores cuando son visibles
-            const counterObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        animateCounter(document.getElementById('species-counter'), 8750000);
-                        animateCounter(document.getElementById('discoveries-counter'), 1243);
-                        animateCounter(document.getElementById('students-counter'), 56892);
-                        counterObserver.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.5 });
+            // Mostrar resultados
+            const resultEl = document.getElementById('quiz-result');
+            const percentage = (score / 10) * 100;
             
-            counterObserver.observe(document.querySelector('.counter-container'));
-
-            // Modal de suscripción
-            const subscribeModal = document.getElementById('subscribeModal');
-            const subscribeBtn = document.getElementById('subscribeBtn');
-            const modalClose = document.querySelector('.modal-close');
+            if (percentage >= 70) {
+                resultEl.textContent = `¡Excelente! Obtuviste ${score}/10 (${percentage}%) respuestas correctas.`;
+                resultEl.className = 'result correct';
+            } else if (percentage >= 40) {
+                resultEl.textContent = `Buen intento. Obtuviste ${score}/10 (${percentage}%) respuestas correctas. Sigue estudiando!`;
+                resultEl.className = 'result';
+            } else {
+                resultEl.textContent = `Obtuviste ${score}/10 (${percentage}%) respuestas correctas. Te recomiendo repasar la teoría celular.`;
+                resultEl.className = 'result incorrect';
+            }
             
-            subscribeBtn.addEventListener('click', () => {
-                subscribeModal.classList.add('show');
-                setTimeout(() => {
-                    subscribeModal.style.opacity = '1';
-                }, 10);
-            });
+            resultEl.style.display = 'block';
             
-            modalClose.addEventListener('click', () => {
-                subscribeModal.style.opacity = '0';
-                setTimeout(() => {
-                    subscribeModal.classList.remove('show');
-                }, 300);
-            });
-            
-            // Cerrar modal al hacer clic fuera del contenido
-            subscribeModal.addEventListener('click', (e) => {
-                if (e.target === subscribeModal) {
-                    subscribeModal.style.opacity = '0';
-                    setTimeout(() => {
-                        subscribeModal.classList.remove('show');
-                    }, 300);
-                }
-            });
-
-            // Formulario de contacto
-            const contactForm = document.getElementById('contactForm');
-            
-            contactForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                
-                // Simular envío
-                alert('Gracias por tu mensaje. Nos pondremos en contacto contigo pronto.');
-                contactForm.reset();
-            });
-
-            // Formulario de suscripción
-            const subscribeForm = document.getElementById('subscribeForm');
-            
-            subscribeForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                
-                // Simular suscripción
-                alert('¡Gracias por suscribirte a nuestro boletín!');
-                subscribeForm.reset();
-                subscribeModal.style.opacity = '0';
-                setTimeout(() => {
-                    subscribeModal.classList.remove('show');
-                }, 300);
-            });
-
-            // Enlaces de recursos
-            document.querySelectorAll('.resource-link').forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const resource = link.getAttribute('data-resource');
-                    
-                    // Simular carga de recurso
-                    alert(`Cargando recurso: ${resource}. En una implementación real, esto mostraría el contenido seleccionado.`);
-                });
-            });
-
-            // Mostrar modal de suscripción después de 30 segundos
-            setTimeout(() => {
-                if (!localStorage.getItem('subscriptionShown')) {
-                    subscribeModal.classList.add('show');
-                    setTimeout(() => {
-                        subscribeModal.style.opacity = '1';
-                    }, 10);
-                    localStorage.setItem('subscriptionShown', 'true');
-                }
-            }, 30000);
+            // Desplazarse al resultado
+            resultEl.scrollIntoView({ behavior: 'smooth' });
         });
-    </script>
+  </script>
 </body>
 </html>
