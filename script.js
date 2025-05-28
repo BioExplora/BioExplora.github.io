@@ -156,4 +156,3 @@
             // Desplazarse al resultado
             resultEl.scrollIntoView({ behavior: 'smooth' });
         });
-  </script>
