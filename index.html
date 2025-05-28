@@ -142,6 +142,9 @@
     .sidebar a[href="#videos"]::before {
       background-image: url('https://cdn-icons-png.flaticon.com/512/4392/4392553.png');
     }
+    .sidebar a[href="#evaluaciones"]::before {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/3652/3652281.png');
+    }
 
     /* Contenido principal */
     main {
@@ -232,6 +235,9 @@
     }
     section#videos h2::before {
       background-image: url('https://cdn-icons-png.flaticon.com/512/4392/4392553.png');
+    }
+    section#evaluaciones h2::before {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/3652/3652281.png');
     }
 
     /* Video gallery */
@@ -391,7 +397,7 @@
       width: 100%;
     }
 
-    .quiz h1 {
+    .quiz h3 {
       margin-top: 0;
       color: #b35e00;
       font-size: 1.3rem;
@@ -399,7 +405,7 @@
       align-items: center;
     }
     
-    .quiz h1::before {
+    .quiz h3::before {
       content: "❓";
       margin-right: 10px;
     }
@@ -685,7 +691,7 @@
           <li><a href="#cultivo">Cultivo Celular</a></li>
           <li><a href="#comparacion">Comparación Animal/Vegetal</a></li>
           <li><a href="#videos">Videos Referenciales</a></li>
-          <li><a href="#videos">Ejercicios</a></li>
+          <li><a href="#evaluaciones">Evaluaciones</a></li>
         </ul>
       </nav>
     </aside>
@@ -704,7 +710,7 @@ Esta teoría no solo describe la estructura de los seres vivos, sino que tambié
  el desarrollo de otras disciplinas, como la medicina celular, la genética, la inmunología, la embriología y la biotecnología.
 Origen y Desarrollo Histórico
 El desarrollo de la teoría celular fue posible gracias a la invención del microscopio óptico a finales del 
-siglo XVII. Robert Hooke, en 1665, fue el primero en utilizar el término “célula” al observar láminas 
+siglo XVII. Robert Hooke, en 1665, fue el primero en utilizar el término "célula" al observar láminas 
 delgadas de corcho. Aunque lo que vio eran solo las paredes celulares de células muertas, su hallazgo
  inició el camino hacia la comprensión del mundo microscópico.
 Durante el siglo XIX, el estudio de las células se intensificó gracias a los avances tecnológicos y 
@@ -729,13 +735,13 @@ Postulados de la Teoría Celular Clásica Los tres postulados originales que die
    </ol>
 <h3>Científicos que Contribuyeron a la Teoría Celular</h3>
 <ul>
- <li>Matthias Schleiden (1804–1881)
+ <li>Matthias Schleiden (1804-1881)
 Botánico alemán. En 1838 observó que todas las plantas están compuestas por células. Defendía la idea de que el crecimiento 
 vegetal ocurría por generación de nuevas células desde el núcleo.</li>
-<li>Theodor Schwann (1810–1882)
+<li>Theodor Schwann (1810-1882)
 Zoólogo alemán. En 1839 extendió los descubrimientos de Schleiden al reino animal, concluyendo que *todos los seres vivos 
 están formados por células. También introdujo el concepto de "unidad funcional" de la célula.</li>
- <li>Rudolf Virchow (1821–1902)
+ <li>Rudolf Virchow (1821-1902)
 Médico alemán. En 1855 completó la teoría con el tercer postulado: toda célula se origina de otra célula preexistente, 
 lo cual fue esencial para rechazar la teoría de la generación espontánea.</li>
 </ul>
@@ -760,136 +766,8 @@ sobre cómo funciona la vida a nivel microscópico, confirmando que la célula e
             <li>Explica con tus palabras qué significa que "la célula es la unidad básica de la vida".</li>
           </ol>
         </div>
-
-        <div class="quiz" data-topic="teoria">
-          <h3>Quiz</h3>
-          <form>
-            <label>1. ¿Quiénes fueron los principales contribuidores a la teoría celular?</label><br />
-            <input type="radio" name="q1" value="a" id="teoria-q1a" /> <label for="teoria-q1a">Darwin y Mendel</label><br />
-            <input type="radio" name="q1" value="b" id="teoria-q1b" /> <label for="teoria-q1b">Schleiden y Schwann</label><br />
-            <input type="radio" name="q1" value="c" id="teoria-q1c" /> <label for="teoria-q1c">Watson y Crick</label><br />
-            <button type="button" class="check-quiz">Verificar respuestas</button>
-            <p class="quiz-result"></p>
-          </form>
-        </div>
-        <h1>Mini Quiz: Teoría Celular</h1>
-    
-    <div class="quiz-container">
-        <div class="question">
-            <div class="question-text">1. ¿Quién fue el primer científico en utilizar el término "célula"?</div>
-            <div class="options">
-                <label><input type="radio" name="q1" value="a"> Matthias Schleiden</label>
-                <label><input type="radio" name="q1" value="b"> Robert Hooke</label>
-                <label><input type="radio" name="q1" value="c"> Theodor Schwann</label>
-                <label><input type="radio" name="q1" value="d"> Rudolf Virchow</label>
-            </div>
-            <div class="feedback" id="feedback-q1"></div>
-        </div>
-        
-        <div class="question">
-            <div class="question-text">2. ¿Cuál de estos NO es un postulado de la teoría celular clásica?</div>
-            <div class="options">
-                <label><input type="radio" name="q2" value="a"> Todos los seres vivos están compuestos por células</label>
-                <label><input type="radio" name="q2" value="b"> La célula es la unidad básica de la vida</label>
-                <label><input type="radio" name="q2" value="c"> Todas las células tienen núcleo</label>
-                <label><input type="radio" name="q2" value="d"> Las células provienen de células preexistentes</label>
-            </div>
-            <div class="feedback" id="feedback-q2"></div>
-        </div>
-        
-        <div class="question">
-            <div class="question-text">3. ¿Qué científico completó la teoría celular con el principio "Omnis cellula e cellula"?</div>
-            <div class="options">
-                <label><input type="radio" name="q3" value="a"> Louis Pasteur</label>
-                <label><input type="radio" name="q3" value="b"> Robert Hooke</label>
-                <label><input type="radio" name="q3" value="c"> Rudolf Virchow</label>
-                <label><input type="radio" name="q3" value="d"> Anton van Leeuwenhoek</label>
-            </div>
-            <div class="feedback" id="feedback-q3"></div>
-        </div>
-        
-        <div class="question">
-            <div class="question-text">4. ¿Qué postulado MODERNO de la teoría celular se refiere a la información hereditaria?</div>
-            <div class="options">
-                <label><input type="radio" name="q4" value="a"> Todas las células tienen una composición química similar</label>
-                <label><input type="radio" name="q4" value="b"> La célula contiene ADN que se transmite a descendientes</label>
-                <label><input type="radio" name="q4" value="c"> Las funciones vitales ocurren dentro de las células</label>
-                <label><input type="radio" name="q4" value="d"> Las células pueden generarse espontáneamente</label>
-            </div>
-            <div class="feedback" id="feedback-q4"></div>
-        </div>
-        
-        <div class="question">
-            <div class="question-text">5. ¿Qué científico extendió los descubrimientos celulares de las plantas a los animales?</div>
-            <div class="options">
-                <label><input type="radio" name="q5" value="a"> Matthias Schleiden</label>
-                <label><input type="radio" name="q5" value="b"> Theodor Schwann</label>
-                <label><input type="radio" name="q5" value="c"> Robert Brown</label>
-                <label><input type="radio" name="q5" value="d"> Gregor Mendel</label>
-            </div>
-            <div class="feedback" id="feedback-q5"></div>
-        </div>
-        
-        <div class="question">
-            <div class="question-text">6. ¿Qué estructura celular observó Robert Hooke en el corcho?</div>
-            <div class="options">
-                <label><input type="radio" name="q6" value="a"> Núcleos celulares</label>
-                <label><input type="radio" name="q6" value="b"> Paredes celulares de células muertas</label>
-                <label><input type="radio" name="q6" value="c"> Cloroplastos</label>
-                <label><input type="radio" name="q6" value="d"> Mitocondrias</label>
-            </div>
-            <div class="feedback" id="feedback-q6"></div>
-        </div>
-        
-        <div class="question">
-            <div class="question-text">7. ¿Cuál de estas áreas NO se ha beneficiado directamente de la teoría celular?</div>
-            <div class="options">
-                <label><input type="radio" name="q7" value="a"> Medicina</label>
-                <label><input type="radio" name="q7" value="b"> Astrología</label>
-                <label><input type="radio" name="q7" value="c"> Genética</label>
-                <label><input type="radio" name="q7" value="d"> Biotecnología</label>
-            </div>
-            <div class="feedback" id="feedback-q7"></div>
-        </div>
-        
-        <div class="question">
-            <div class="question-text">8. ¿Qué instrumento fue crucial para el desarrollo de la teoría celular?</div>
-            <div class="options">
-                <label><input type="radio" name="q8" value="a"> Telescopio</label>
-                <label><input type="radio" name="q8" value="b"> Microscopio</label>
-                <label><input type="radio" name="q8" value="c"> Termómetro</label>
-                <label><input type="radio" name="q8" value="d"> Barómetro</label>
-            </div>
-            <div class="feedback" id="feedback-q8"></div>
-        </div>
-        
-        <div class="question">
-            <div class="question-text">9. ¿Qué postulado moderno establece que todas las células tienen composición química similar?</div>
-            <div class="options">
-                <label><input type="radio" name="q9" value="a"> Postulado de estructura</label>
-                <label><input type="radio" name="q9" value="b"> Postulado de composición</label>
-                <label><input type="radio" name="q9" value="c"> Postulado de función</label>
-                <label><input type="radio" name="q9" value="d"> Postulado de origen</label>
-            </div>
-            <div class="feedback" id="feedback-q9"></div>
-        </div>
-        
-        <div class="question">
-            <div class="question-text">10. ¿Qué concepto refutó Virchow con su principio "Omnis cellula e cellula"?</div>
-            <div class="options">
-                <label><input type="radio" name="q10" value="a"> Evolución de las especies</label>
-                <label><input type="radio" name="q10" value="b"> Generación espontánea</label>
-                <label><input type="radio" name="q10" value="c"> Teoría atómica</label>
-                <label><input type="radio" name="q10" value="d"> Teoría de los gérmenes</label>
-            </div>
-            <div class="feedback" id="feedback-q10"></div>
-        </div>
-        
-        <button id="check-answers">Verificar Respuestas</button>
-        
-        <div class="result" id="quiz-result"></div>
-    </div>
       </section>
+
 <!--tipos de celula-->
       <section id="tipos" tabindex="0">
         <h2>Tipos de Células</h2>
@@ -907,18 +785,6 @@ sobre cómo funciona la vida a nivel microscópico, confirmando que la célula e
             <li>Da dos ejemplos de organismos con células procariotas.</li>
             <li>Menciona en qué organismos encontramos células eucariotas.</li>
           </ol>
-        </div>
-
-        <div class="quiz" data-topic="tipos">
-          <h3>Quiz</h3>
-          <form>
-            <label>1. ¿Qué característica NO corresponde a las células procariotas?</label><br />
-            <input type="radio" name="q1" value="a" id="tipos-q1a" /> <label for="tipos-q1a">No tienen núcleo definido.</label><br />
-            <input type="radio" name="q1" value="b" id="tipos-q1b" /> <label for="tipos-q1b">Tienen núcleo definido.</label><br />
-            <input type="radio" name="q1" value="c" id="tipos-q1c" /> <label for="tipos-q1c">Su material genético está disperso en el citoplasma.</label><br />
-            <button type="button" class="check-quiz">Verificar respuestas</button>
-            <p class="quiz-result"></p>
-          </form>
         </div>
       </section>
 
@@ -940,18 +806,6 @@ sobre cómo funciona la vida a nivel microscópico, confirmando que la célula e
             <li>¿Qué es el citoplasma y qué función tiene?</li>
             <li>¿Qué función tiene el núcleo en las células eucariotas?</li>
           </ol>
-        </div>
-
-        <div class="quiz" data-topic="partes">
-          <h3>Quiz</h3>
-          <form>
-            <label>1. ¿Qué parte de la célula proporciona soporte y protección en células vegetales?</label><br />
-            <input type="radio" name="q1" value="a" id="partes-q1a" /> <label for="partes-q1a">Membrana plasmática</label><br />
-            <input type="radio" name="q1" value="b" id="partes-q1b" /> <label for="partes-q1b">Pared celular</label><br />
-            <input type="radio" name="q1" value="c" id="partes-q1c" /> <label for="partes-q1c">Citoplasma</label><br />
-            <button type="button" class="check-quiz">Verificar respuestas</button>
-            <p class="quiz-result"></p>
-          </form>
         </div>
       </section>
 
@@ -976,18 +830,6 @@ sobre cómo funciona la vida a nivel microscópico, confirmando que la célula e
             <li>¿Cuál es la función del aparato de Golgi?</li>
           </ol>
         </div>
-
-        <div class="quiz" data-topic="organelos">
-          <h3>Quiz</h3>
-          <form>
-            <label>1. ¿Qué organelo es responsable de la síntesis de proteínas?</label><br />
-            <input type="radio" name="q1" value="a" id="organelos-q1a" /> <label for="organelos-q1a">Ribosomas</label><br />
-            <input type="radio" name="q1" value="b" id="organelos-q1b" /> <label for="organelos-q1b">Mitocondrias</label><br />
-            <input type="radio" name="q1" value="c" id="organelos-q1c" /> <label for="organelos-q1c">Lisosomas</label><br />
-            <button type="button" class="check-quiz">Verificar respuestas</button>
-            <p class="quiz-result"></p>
-          </form>
-        </div>
       </section>
 
       <section id="funciones" tabindex="0">
@@ -1010,18 +852,6 @@ sobre cómo funciona la vida a nivel microscópico, confirmando que la célula e
             <li>Explica la diferencia entre transporte activo y pasivo.</li>
           </ol>
         </div>
-
-        <div class="quiz" data-topic="funciones">
-          <h3>Quiz</h3>
-          <form>
-            <label>1. ¿Cuál de estas NO es una función celular básica?</label><br />
-            <input type="radio" name="q1" value="a" id="funciones-q1a" /> <label for="funciones-q1a">Reproducción</label><br />
-            <input type="radio" name="q1" value="b" id="funciones-q1b" /> <label for="funciones-q1b">Fotosíntesis</label><br />
-            <input type="radio" name="q1" value="c" id="funciones-q1c" /> <label for="funciones-q1c">Transporte</label><br />
-            <button type="button" class="check-quiz">Verificar respuestas</button>
-            <p class="quiz-result"></p>
-          </form>
-        </div>
       </section>
 
       <section id="reproduccion" tabindex="0">
@@ -1040,18 +870,6 @@ sobre cómo funciona la vida a nivel microscópico, confirmando que la célula e
             <li>¿Cuál es la principal diferencia entre mitosis y meiosis?</li>
             <li>¿Por qué es importante la meiosis para la reproducción sexual?</li>
           </ol>
-        </div>
-
-        <div class="quiz" data-topic="reproduccion">
-          <h3>Quiz</h3>
-          <form>
-            <label>1. ¿Qué tipo de división celular produce células hijas idénticas?</label><br />
-            <input type="radio" name="q1" value="a" id="reproduccion-q1a" /> <label for="reproduccion-q1a">Meiosis</label><br />
-            <input type="radio" name="q1" value="b" id="reproduccion-q1b" /> <label for="reproduccion-q1b">Mitosis</label><br />
-            <input type="radio" name="q1" value="c" id="reproduccion-q1c" /> <label for="reproduccion-q1c">Ambas</label><br />
-            <button type="button" class="check-quiz">Verificar respuestas</button>
-            <p class="quiz-result"></p>
-          </form>
         </div>
       </section>
 
@@ -1073,18 +891,6 @@ sobre cómo funciona la vida a nivel microscópico, confirmando que la célula e
             <li>Describe brevemente el proceso de endocitosis.</li>
           </ol>
         </div>
-
-        <div class="quiz" data-topic="transporte">
-          <h3>Quiz</h3>
-          <form>
-            <label>1. ¿Qué tipo de transporte requiere energía?</label><br />
-            <input type="radio" name="q1" value="a" id="transporte-q1a" /> <label for="transporte-q1a">Difusión</label><br />
-            <input type="radio" name="q1" value="b" id="transporte-q1b" /> <label for="transporte-q1b">Transporte activo</label><br />
-            <input type="radio" name="q1" value="c" id="transporte-q1c" /> <label for="transporte-q1c">Ósmosis</label><br />
-            <button type="button" class="check-quiz">Verificar respuestas</button>
-            <p class="quiz-result"></p>
-          </form>
-        </div>
       </section>
 
       <section id="diferenciacion" tabindex="0">
@@ -1100,18 +906,6 @@ sobre cómo funciona la vida a nivel microscópico, confirmando que la célula e
             <li>¿Qué ventajas tiene para un organismo multicelular la diferenciación celular?</li>
           </ol>
         </div>
-
-        <div class="quiz" data-topic="diferenciacion">
-          <h3>Quiz</h3>
-          <form>
-            <label>1. ¿Qué tipo de célula puede convertirse en cualquier tipo de célula especializada?</label><br />
-            <input type="radio" name="q1" value="a" id="diferenciacion-q1a" /> <label for="diferenciacion-q1a">Célula muscular</label><br />
-            <input type="radio" name="q1" value="b" id="diferenciacion-q1b" /> <label for="diferenciacion-q1b">Célula madre</label><br />
-            <input type="radio" name="q1" value="c" id="diferenciacion-q1c" /> <label for="diferenciacion-q1c">Neurona</label><br />
-            <button type="button" class="check-quiz">Verificar respuestas</button>
-            <p class="quiz-result"></p>
-          </form>
-        </div>
       </section>
 
       <section id="cultivo" tabindex="0">
@@ -1126,18 +920,6 @@ sobre cómo funciona la vida a nivel microscópico, confirmando que la célula e
             <li>Describe las condiciones necesarias para mantener células vivas en cultivo.</li>
             <li>¿Por qué es importante el cultivo celular para el desarrollo de medicamentos?</li>
           </ol>
-        </div>
-
-        <div class="quiz" data-topic="cultivo">
-          <h3>Quiz</h3>
-          <form>
-            <label>1. ¿Qué se necesita para mantener células en cultivo?</label><br />
-            <input type="radio" name="q1" value="a" id="cultivo-q1a" /> <label for="cultivo-q1a">Medio de cultivo adecuado</label><br />
-            <input type="radio" name="q1" value="b" id="cultivo-q1b" /> <label for="cultivo-q1b">Temperatura y pH controlados</label><br />
-            <input type="radio" name="q1" value="c" id="cultivo-q1c" /> <label for="cultivo-q1c">Ambas son correctas</label><br />
-            <button type="button" class="check-quiz">Verificar respuestas</button>
-            <p class="quiz-result"></p>
-          </form>
         </div>
       </section>
 
@@ -1158,18 +940,6 @@ sobre cómo funciona la vida a nivel microscópico, confirmando que la célula e
             <li>¿Qué organelo es exclusivo de las células vegetales y qué función cumple?</li>
             <li>¿Por qué las células vegetales necesitan una pared celular?</li>
           </ol>
-        </div>
-
-        <div class="quiz" data-topic="comparacion">
-          <h3>Quiz</h3>
-          <form>
-            <label>1. ¿Qué estructura NO se encuentra en células animales?</label><br />
-            <input type="radio" name="q1" value="a" id="comparacion-q1a" /> <label for="comparacion-q1a">Cloroplastos</label><br />
-            <input type="radio" name="q1" value="b" id="comparacion-q1b" /> <label for="comparacion-q1b">Mitocondrias</label><br />
-            <input type="radio" name="q1" value="c" id="comparacion-q1c" /> <label for="comparacion-q1c">Núcleo</label><br />
-            <button type="button" class="check-quiz">Verificar respuestas</button>
-            <p class="quiz-result"></p>
-          </form>
         </div>
       </section>
 
@@ -1192,6 +962,250 @@ sobre cómo funciona la vida a nivel microscópico, confirmando que la célula e
             <li>¿Qué concepto nuevo aprendiste de los videos?</li>
             <li>Elabora un esquema con la información más importante de los videos.</li>
           </ol>
+        </div>
+      </section>
+
+      <!-- Nueva sección de Evaluaciones -->
+      <section id="evaluaciones" tabindex="0">
+        <h2>Evaluaciones</h2>
+        <p>Realiza estas evaluaciones para poner a prueba tus conocimientos sobre la célula:</p>
+        
+        <div class="quiz" data-topic="teoria">
+          <h3>Teoría Celular</h3>
+          <form>
+            <label>1. ¿Quiénes fueron los principales contribuidores a la teoría celular?</label><br />
+            <input type="radio" name="q1" value="a" id="teoria-q1a" /> <label for="teoria-q1a">Darwin y Mendel</label><br />
+            <input type="radio" name="q1" value="b" id="teoria-q1b" /> <label for="teoria-q1b">Schleiden y Schwann</label><br />
+            <input type="radio" name="q1" value="c" id="teoria-q1c" /> <label for="teoria-q1c">Watson y Crick</label><br />
+            <button type="button" class="check-quiz">Verificar respuestas</button>
+            <p class="quiz-result"></p>
+          </form>
+        </div>
+
+        <div class="quiz" data-topic="tipos">
+          <h3>Tipos de Células</h3>
+          <form>
+            <label>1. ¿Qué característica NO corresponde a las células procariotas?</label><br />
+            <input type="radio" name="q1" value="a" id="tipos-q1a" /> <label for="tipos-q1a">No tienen núcleo definido.</label><br />
+            <input type="radio" name="q1" value="b" id="tipos-q1b" /> <label for="tipos-q1b">Tienen núcleo definido.</label><br />
+            <input type="radio" name="q1" value="c" id="tipos-q1c" /> <label for="tipos-q1c">Su material genético está disperso en el citoplasma.</label><br />
+            <button type="button" class="check-quiz">Verificar respuestas</button>
+            <p class="quiz-result"></p>
+          </form>
+        </div>
+
+        <div class="quiz" data-topic="partes">
+          <h3>Partes de la Célula</h3>
+          <form>
+            <label>1. ¿Qué parte de la célula proporciona soporte y protección en células vegetales?</label><br />
+            <input type="radio" name="q1" value="a" id="partes-q1a" /> <label for="partes-q1a">Membrana plasmática</label><br />
+            <input type="radio" name="q1" value="b" id="partes-q1b" /> <label for="partes-q1b">Pared celular</label><br />
+            <input type="radio" name="q1" value="c" id="partes-q1c" /> <label for="partes-q1c">Citoplasma</label><br />
+            <button type="button" class="check-quiz">Verificar respuestas</button>
+            <p class="quiz-result"></p>
+          </form>
+        </div>
+
+        <div class="quiz" data-topic="organelos">
+          <h3>Organelos Celulares</h3>
+          <form>
+            <label>1. ¿Qué organelo es responsable de la síntesis de proteínas?</label><br />
+            <input type="radio" name="q1" value="a" id="organelos-q1a" /> <label for="organelos-q1a">Ribosomas</label><br />
+            <input type="radio" name="q1" value="b" id="organelos-q1b" /> <label for="organelos-q1b">Mitocondrias</label><br />
+            <input type="radio" name="q1" value="c" id="organelos-q1c" /> <label for="organelos-q1c">Lisosomas</label><br />
+            <button type="button" class="check-quiz">Verificar respuestas</button>
+            <p class="quiz-result"></p>
+          </form>
+        </div>
+
+        <div class="quiz" data-topic="funciones">
+          <h3>Funciones Celulares</h3>
+          <form>
+            <label>1. ¿Cuál de estas NO es una función celular básica?</label><br />
+            <input type="radio" name="q1" value="a" id="funciones-q1a" /> <label for="funciones-q1a">Reproducción</label><br />
+            <input type="radio" name="q1" value="b" id="funciones-q1b" /> <label for="funciones-q1b">Fotosíntesis</label><br />
+            <input type="radio" name="q1" value="c" id="funciones-q1c" /> <label for="funciones-q1c">Transporte</label><br />
+            <button type="button" class="check-quiz">Verificar respuestas</button>
+            <p class="quiz-result"></p>
+          </form>
+        </div>
+
+        <div class="quiz" data-topic="reproduccion">
+          <h3>Reproducción Celular</h3>
+          <form>
+            <label>1. ¿Qué tipo de división celular produce células hijas idénticas?</label><br />
+            <input type="radio" name="q1" value="a" id="reproduccion-q1a" /> <label for="reproduccion-q1a">Meiosis</label><br />
+            <input type="radio" name="q1" value="b" id="reproduccion-q1b" /> <label for="reproduccion-q1b">Mitosis</label><br />
+            <input type="radio" name="q1" value="c" id="reproduccion-q1c" /> <label for="reproduccion-q1c">Ambas</label><br />
+            <button type="button" class="check-quiz">Verificar respuestas</button>
+            <p class="quiz-result"></p>
+          </form>
+        </div>
+
+        <div class="quiz" data-topic="transporte">
+          <h3>Transporte Celular</h3>
+          <form>
+            <label>1. ¿Qué tipo de transporte requiere energía?</label><br />
+            <input type="radio" name="q1" value="a" id="transporte-q1a" /> <label for="transporte-q1a">Difusión</label><br />
+            <input type="radio" name="q1" value="b" id="transporte-q1b" /> <label for="transporte-q1b">Transporte activo</label><br />
+            <input type="radio" name="q1" value="c" id="transporte-q1c" /> <label for="transporte-q1c">Ósmosis</label><br />
+            <button type="button" class="check-quiz">Verificar respuestas</button>
+            <p class="quiz-result"></p>
+          </form>
+        </div>
+
+        <div class="quiz" data-topic="diferenciacion">
+          <h3>Diferenciación Celular</h3>
+          <form>
+            <label>1. ¿Qué tipo de célula puede convertirse en cualquier tipo de célula especializada?</label><br />
+            <input type="radio" name="q1" value="a" id="diferenciacion-q1a" /> <label for="diferenciacion-q1a">Célula muscular</label><br />
+            <input type="radio" name="q1" value="b" id="diferenciacion-q1b" /> <label for="diferenciacion-q1b">Célula madre</label><br />
+            <input type="radio" name="q1" value="c" id="diferenciacion-q1c" /> <label for="diferenciacion-q1c">Neurona</label><br />
+            <button type="button" class="check-quiz">Verificar respuestas</button>
+            <p class="quiz-result"></p>
+          </form>
+        </div>
+
+        <div class="quiz" data-topic="cultivo">
+          <h3>Cultivo Celular</h3>
+          <form>
+            <label>1. ¿Qué se necesita para mantener células en cultivo?</label><br />
+            <input type="radio" name="q1" value="a" id="cultivo-q1a" /> <label for="cultivo-q1a">Medio de cultivo adecuado</label><br />
+            <input type="radio" name="q1" value="b" id="cultivo-q1b" /> <label for="cultivo-q1b">Temperatura y pH controlados</label><br />
+            <input type="radio" name="q1" value="c" id="cultivo-q1c" /> <label for="cultivo-q1c">Ambas son correctas</label><br />
+            <button type="button" class="check-quiz">Verificar respuestas</button>
+            <p class="quiz-result"></p>
+          </form>
+        </div>
+
+        <div class="quiz" data-topic="comparacion">
+          <h3>Comparación Animal/Vegetal</h3>
+          <form>
+            <label>1. ¿Qué estructura NO se encuentra en células animales?</label><br />
+            <input type="radio" name="q1" value="a" id="comparacion-q1a" /> <label for="comparacion-q1a">Cloroplastos</label><br />
+            <input type="radio" name="q1" value="b" id="comparacion-q1b" /> <label for="comparacion-q1b">Mitocondrias</label><br />
+            <input type="radio" name="q1" value="c" id="comparacion-q1c" /> <label for="comparacion-q1c">Núcleo</label><br />
+            <button type="button" class="check-quiz">Verificar respuestas</button>
+            <p class="quiz-result"></p>
+          </form>
+        </div>
+
+        <h1>Mini Quiz: Teoría Celular</h1>
+    
+        <div class="quiz-container">
+            <div class="question">
+                <div class="question-text">1. ¿Quién fue el primer científico en utilizar el término "célula"?</div>
+                <div class="options">
+                    <label><input type="radio" name="q1" value="a"> Matthias Schleiden</label>
+                    <label><input type="radio" name="q1" value="b"> Robert Hooke</label>
+                    <label><input type="radio" name="q1" value="c"> Theodor Schwann</label>
+                    <label><input type="radio" name="q1" value="d"> Rudolf Virchow</label>
+                </div>
+                <div class="feedback" id="feedback-q1"></div>
+            </div>
+            
+            <div class="question">
+                <div class="question-text">2. ¿Cuál de estos NO es un postulado de la teoría celular clásica?</div>
+                <div class="options">
+                    <label><input type="radio" name="q2" value="a"> Todos los seres vivos están compuestos por células</label>
+                    <label><input type="radio" name="q2" value="b"> La célula es la unidad básica de la vida</label>
+                    <label><input type="radio" name="q2" value="c"> Todas las células tienen núcleo</label>
+                    <label><input type="radio" name="q2" value="d"> Las células provienen de células preexistentes</label>
+                </div>
+                <div class="feedback" id="feedback-q2"></div>
+            </div>
+            
+            <div class="question">
+                <div class="question-text">3. ¿Qué científico completó la teoría celular con el principio "Omnis cellula e cellula"?</div>
+                <div class="options">
+                    <label><input type="radio" name="q3" value="a"> Louis Pasteur</label>
+                    <label><input type="radio" name="q3" value="b"> Robert Hooke</label>
+                    <label><input type="radio" name="q3" value="c"> Rudolf Virchow</label>
+                    <label><input type="radio" name="q3" value="d"> Anton van Leeuwenhoek</label>
+                </div>
+                <div class="feedback" id="feedback-q3"></div>
+            </div>
+            
+            <div class="question">
+                <div class="question-text">4. ¿Qué postulado MODERNO de la teoría celular se refiere a la información hereditaria?</div>
+                <div class="options">
+                    <label><input type="radio" name="q4" value="a"> Todas las células tienen una composición química similar</label>
+                    <label><input type="radio" name="q4" value="b"> La célula contiene ADN que se transmite a descendientes</label>
+                    <label><input type="radio" name="q4" value="c"> Las funciones vitales ocurren dentro de las células</label>
+                    <label><input type="radio" name="q4" value="d"> Las células pueden generarse espontáneamente</label>
+                </div>
+                <div class="feedback" id="feedback-q4"></div>
+            </div>
+            
+            <div class="question">
+                <div class="question-text">5. ¿Qué científico extendió los descubrimientos celulares de las plantas a los animales?</div>
+                <div class="options">
+                    <label><input type="radio" name="q5" value="a"> Matthias Schleiden</label>
+                    <label><input type="radio" name="q5" value="b"> Theodor Schwann</label>
+                    <label><input type="radio" name="q5" value="c"> Robert Brown</label>
+                    <label><input type="radio" name="q5" value="d"> Gregor Mendel</label>
+                </div>
+                <div class="feedback" id="feedback-q5"></div>
+            </div>
+            
+            <div class="question">
+                <div class="question-text">6. ¿Qué estructura celular observó Robert Hooke en el corcho?</div>
+                <div class="options">
+                    <label><input type="radio" name="q6" value="a"> Núcleos celulares</label>
+                    <label><input type="radio" name="q6" value="b"> Paredes celulares de células muertas</label>
+                    <label><input type="radio" name="q6" value="c"> Cloroplastos</label>
+                    <label><input type="radio" name="q6" value="d"> Mitocondrias</label>
+                </div>
+                <div class="feedback" id="feedback-q6"></div>
+            </div>
+            
+            <div class="question">
+                <div class="question-text">7. ¿Cuál de estas áreas NO se ha beneficiado directamente de la teoría celular?</div>
+                <div class="options">
+                    <label><input type="radio" name="q7" value="a"> Medicina</label>
+                    <label><input type="radio" name="q7" value="b"> Astrología</label>
+                    <label><input type="radio" name="q7" value="c"> Genética</label>
+                    <label><input type="radio" name="q7" value="d"> Biotecnología</label>
+                </div>
+                <div class="feedback" id="feedback-q7"></div>
+            </div>
+            
+            <div class="question">
+                <div class="question-text">8. ¿Qué instrumento fue crucial para el desarrollo de la teoría celular?</div>
+                <div class="options">
+                    <label><input type="radio" name="q8" value="a"> Telescopio</label>
+                    <label><input type="radio" name="q8" value="b"> Microscopio</label>
+                    <label><input type="radio" name="q8" value="c"> Termómetro</label>
+                    <label><input type="radio" name="q8" value="d"> Barómetro</label>
+                </div>
+                <div class="feedback" id="feedback-q8"></div>
+            </div>
+            
+            <div class="question">
+                <div class="question-text">9. ¿Qué postulado moderno establece que todas las células tienen composición química similar?</div>
+                <div class="options">
+                    <label><input type="radio" name="q9" value="a"> Postulado de estructura</label>
+                    <label><input type="radio" name="q9" value="b"> Postulado de composición</label>
+                    <label><input type="radio" name="q9" value="c"> Postulado de función</label>
+                    <label><input type="radio" name="q9" value="d"> Postulado de origen</label>
+                </div>
+                <div class="feedback" id="feedback-q9"></div>
+            </div>
+            
+            <div class="question">
+                <div class="question-text">10. ¿Qué concepto refutó Virchow con su principio "Omnis cellula e cellula"?</div>
+                <div class="options">
+                    <label><input type="radio" name="q10" value="a"> Evolución de las especies</label>
+                    <label><input type="radio" name="q10" value="b"> Generación espontánea</label>
+                    <label><input type="radio" name="q10" value="c"> Teoría atómica</label>
+                    <label><input type="radio" name="q10" value="d"> Teoría de los gérmenes</label>
+                </div>
+                <div class="feedback" id="feedback-q10"></div>
+            </div>
+            
+            <button id="check-answers">Verificar Respuestas</button>
+            
+            <div class="result" id="quiz-result"></div>
         </div>
       </section>
     </main>
