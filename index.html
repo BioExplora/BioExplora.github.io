@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <img src="https://github.com/BioExplora/BioExplora.github.io/blob/Bioexma/BIOEXMA.png?raw=true" alt="BIOEXMA" width="300" height="200">
   <title>BIOEXMA - Aplicación Educativa sobre Teoría Celular - Colegio San Alberto Magno</title>
-    <img src="https://github.com/BioExplora/BioExplora.github.io/blob/Bioexma/BIOEXMA.png?raw=true" alt="BIOEXMA" width="300" height="200">
   <link rel="icon" type="image/x-icon" href="https://colsam.edu.co/colsam_l.webp">
   <style>
     /* Reset y base */
@@ -21,6 +21,29 @@
     }
 
     /* Header fijo */
+    /* Estilos para el logo en el header */
+header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.header-logo {
+  height: 50px;
+  width: auto;
+  object-fit: contain;
+}
+
+@media(max-width: 768px) {
+  .header-logo {
+    height: 40px;
+  }
+  
+  header {
+    font-size: 1.2rem;
+    padding: 0 0.5rem;
+  }
+}
     header {
       position: fixed;
       top: 0;
