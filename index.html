@@ -5,7 +5,990 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>BIOEXMA - Aplicación Educativa sobre Teoría Celular - Colegio San Alberto Magno</title>
   <link rel="icon" type="image/x-icon" href="https://colsam.edu.co/colsam_l.webp">
-  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Reset y base */
+    * {
+      box-sizing: border-box;
+    }
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f0f5f2;
+      color: #2b2b2b;
+      scroll-behavior: smooth;
+    }
+
+    /* Header fijo */
+    header {
+      position: fixed;
+      top: 0;
+      left: 100;
+      width: 100%;
+      height: 70px;
+      background: linear-gradient(135deg, #64ad64, #47d082);
+      color: white;
+      display: flex;
+      align-items: center;
+      padding: 0 2rem;
+      font-size: 1.6rem;
+      font-weight: 700;
+      z-index: 200;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      border-bottom: 3px solid #f7d060;
+    }
+    header .highlight {
+      color: #f7d060;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    }
+
+    /* Contenedor principal */
+    #main-content {
+      display: flex;
+      margin-top: 70px; /* para no tapar por el header */
+      height: calc(100vh - 70px);
+    }
+
+    /* Sidebar */
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 70px;
+      width: 300px;
+      height: calc(100vh - 70px);
+      background: linear-gradient(145deg, #47d082, #64ad64);
+      overflow-y: auto;
+      padding: 1.5rem 1rem;
+      box-shadow: -3px 0 12px rgba(0,0,0,0.1);
+      border-left: 4px solid #f7d060;
+      z-index: 150;
+      font-weight: 600;
+    }
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .sidebar li + li {
+      margin-top: 0.5rem;
+    }
+    .sidebar a {
+      color: white;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      padding: 0.8rem 1rem;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      font-size: 1rem;
+      background: rgba(255,255,255,0.1);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    .sidebar a:hover {
+      background: rgba(255,255,255,0.2);
+      transform: translateX(-5px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .sidebar a.active {
+      background: #f7d060;
+      color: #64ad64;
+      font-weight: 700;
+    }
+    .sidebar a::before {
+      content: "";
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      margin-right: 12px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      filter: brightness(0) invert(1);
+    }
+    .sidebar a.active::before {
+      filter: none;
+    }
+
+    /* Iconos para cada enlace */
+    .sidebar a[href="#teoria"]::before {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/2913/2913059.png');
+    }
+    .sidebar a[href="#tipos"]::before {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/4392/4392525.png');
+    }
+    .sidebar a[href="#partes"]::before {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/4392/4392529.png');
+    }
+    .sidebar a[href="#organelos"]::before {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/3652/3652191.png');
+    }
+    .sidebar a[href="#funciones"]::before {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/3652/3652286.png');
+    }
+    .sidebar a[href="#reproduccion"]::before {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/4392/4392545.png');
+    }
+    .sidebar a[href="#transporte"]::before {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/3652/3652271.png');
+    }
+    .sidebar a[href="#diferenciacion"]::before {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/3652/3652261.png');
+    }
+    .sidebar a[href="#cultivo"]::before {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/4392/4392539.png');
+    }
+    .sidebar a[href="#comparacion"]::before {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/4392/4392533.png');
+    }
+    .sidebar a[href="#videos"]::before {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/4392/4392553.png');
+    }
+    .sidebar a[href="#evaluaciones"]::before {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/3652/3652281.png');
+    }
+
+    /* Contenido principal */
+    main {
+      flex: 1;
+      overflow-y: auto;
+      padding: 2rem 3rem 2rem 3rem;
+      max-width: calc(100vw - 300px);
+      background-color: #fff;
+      box-shadow: inset 0 0 20px rgba(0,0,0,0.05);
+    }
+
+    main > section {
+      display: none;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+      max-width: 900px;
+      margin: 0 auto;
+      animation: fadeIn 0.5s ease forwards;
+    }
+    main > section.active {
+      display: flex;
+    }
+    main > section h2 {
+      color: #64ad64;
+      font-size: 2.3rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 3px solid #f7d060;
+      width: 100%;
+      display: flex;
+      align-items: center;
+    }
+    main > section h2::before {
+      content: "";
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      margin-right: 15px;
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+    main > section p {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+      color: #444;
+    }
+    main > section ul {
+      padding-left: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    main > section li {
+      margin-bottom: 0.8rem;
+      line-height: 1.6;
+    }
+
+    /* Iconos para cada sección */
+    section#teoria h2::before {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/2913/2913059.png');
+    }
+    section#tipos h2::before {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/4392/4392525.png');
+    }
+    section#partes h2::before {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/4392/4392529.png');
+    }
+    section#organelos h2::before {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/3652/3652191.png');
+    }
+    section#funciones h2::before {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/3652/3652286.png');
+    }
+    section#reproduccion h2::before {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/4392/4392545.png');
+    }
+    section#transporte h2::before {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/3652/3652271.png');
+    }
+    section#diferenciacion h2::before {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/3652/3652261.png');
+    }
+    section#cultivo h2::before {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/4392/4392539.png');
+    }
+    section#comparacion h2::before {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/4392/4392533.png');
+    }
+    section#videos h2::before {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/4392/4392553.png');
+    }
+    section#evaluaciones h2::before {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/3652/3652281.png');
+    }
+
+    /* Video gallery */
+    .video-gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    .video-gallery iframe {
+      flex-shrink: 0;
+      width: 420px;
+      height: 236px;
+      border-radius: 12px;
+      border: 0;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .video-gallery iframe:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+
+    /* Botón de inicio */
+    #welcome-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: linear-gradient(135deg, #1a5d1a, #7fb77e);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+      text-align: center;
+      z-index: 300;
+    }
+    #welcome-screen.hidden {
+      display: none;
+    }
+    #welcome-screen h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    }
+    #welcome-screen .highlight {
+      color: #f7d060;
+    }
+    #welcome-screen p {
+      font-size: 1.35rem;
+      max-width: 600px;
+      margin-bottom: 2.5rem;
+      font-weight: 500;
+      line-height: 1.6;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    }
+    #start-btn {
+      padding: 1.2rem 3rem;
+      background: #f7d060;
+      color: #1a5d1a;
+      border: none;
+      border-radius: 50px;
+      font-size: 1.3rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+      position: relative;
+      overflow: hidden;
+    }
+    #start-btn:hover {
+      background: #ffdf73;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.25);
+    }
+    #start-btn:active {
+      transform: translateY(1px);
+    }
+    #start-btn::after {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: rgba(255,255,255,0.1);
+      transform: rotate(45deg);
+      transition: all 0.5s ease;
+    }
+    #start-btn:hover::after {
+      left: 100%;
+    }
+
+    /* Animación */
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(15px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    /* Imágenes de referencia */
+    .ref-image {
+      display: block;
+      margin: 1.5rem auto;
+      max-width: 90%;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+      border: 2px solid #e0e0e0;
+      transition: transform 0.3s ease;
+    }
+    .ref-image:hover {
+      transform: scale(1.02);
+    }
+
+    /* Estilos para ejercicios y quizzes */
+    .ejercicios {
+      background: linear-gradient(to right, #f0f8ff, #e6f2ff);
+      border-left: 6px solid #4682B4;
+      padding: 20px 25px;
+      margin: 25px 0;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      width: 100%;
+    }
+
+    .ejercicios h3 {
+      margin-top: 0;
+      color: #1e3c72;
+      font-size: 1.3rem;
+      display: flex;
+      align-items: center;
+    }
+    .ejercicios h3::before {
+      content: "📝";
+      margin-right: 10px;
+    }
+
+    .ejercicios ol {
+      padding-left: 25px;
+    }
+    .ejercicios li {
+      margin-bottom: 12px;
+      padding-left: 5px;
+    }
+
+    .quiz {
+      background: linear-gradient(to right, #fff3e0, #ffebcc);
+      border-left: 6px solid #ff8c00;
+      padding: 20px 25px;
+      margin: 25px 0 40px 0;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      width: 100%;
+    }
+
+    .quiz h3 {
+      margin-top: 0;
+      color: #b35e00;
+      font-size: 1.3rem;
+      display: flex;
+      align-items: center;
+    }
+    
+    .quiz h3::before {
+      content: "❓";
+      margin-right: 10px;
+    }
+
+    .quiz label {
+      cursor: pointer;
+      display: block;
+      margin: 8px 0 15px 25px;
+      user-select: none;
+      position: relative;
+      padding-left: 30px;
+      transition: color 0.2s ease;
+    }
+    .quiz label:hover {
+      color: #ff8c00;
+    }
+
+    .quiz input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+    }
+    
+    .quiz input[type="radio"] + label::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 2px;
+      width: 18px;
+      height: 18px;
+      border: 2px solid #ff8c00;
+      border-radius: 50%;
+      background-color: white;
+    }
+    
+    .quiz input[type="radio"]:checked + label::before {
+      background-color: #ff8c00;
+      box-shadow: inset 0 0 0 3px white;
+    }
+
+    .quiz button.check-quiz {
+      background: linear-gradient(to bottom, #ff8c00, #e67e00);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-weight: 600;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+      font-size: 1rem;
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+    }
+    .quiz button.check-quiz::before {
+      content: "✓";
+      margin-right: 8px;
+      font-size: 1.1rem;
+    }
+    .quiz button.check-quiz:hover {
+      background: linear-gradient(to bottom, #ff9500, #f57c00);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+    }
+    .quiz button.check-quiz:active {
+      transform: translateY(1px);
+    }
+
+    .quiz-result {
+      margin-top: 15px;
+      font-weight: 700;
+      padding: 10px 15px;
+      border-radius: 6px;
+      display: inline-block;
+    } 
+   
+   /* Responsive básico */
+    @media(max-width: 1024px) {
+      .sidebar {
+        width: 250px;
+      }
+      main {
+        max-width: calc(100vw - 250px);
+        padding: 1.5rem 2rem;
+      }
+    }
+
+    @media(max-width: 768px) {
+      #main-content {
+        flex-direction: column;
+        margin-top: 70px;
+        height: auto;
+      }
+      .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+        border-left: none;
+        border-top: 3px solid #f7d060;
+        padding: 1rem;
+        display: flex;
+        justify-content: center;
+      }
+      .sidebar ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        width: 100%;
+        justify-content: center;
+      }
+      .sidebar li {
+        width: 45%;
+        margin-top: 0;
+      }
+      .sidebar a {
+        padding: 0.7rem;
+        font-size: 0.9rem;
+      }
+      .sidebar a:hover {
+        transform: translateY(-3px);
+      }
+      main {
+        max-width: 100vw;
+        padding: 1.5rem 1rem;
+        height: auto;
+      }
+      .video-gallery iframe {
+        width: 100%;
+        height: 225px;
+      }
+      #welcome-screen h1 {
+        font-size: 2.5rem;
+      }
+      #welcome-screen p {
+        font-size: 1.1rem;
+      }
+    }
+
+    @media(max-width: 480px) {
+      header {
+        height: 60px;
+        font-size: 1.3rem;
+        padding: 0 1rem;
+      }
+      #main-content {
+        margin-top: 60px;
+      }
+      .sidebar li {
+        width: 100%;
+      }
+      main > section h2 {
+        font-size: 1.8rem;
+      }
+      .ejercicios, .quiz {
+        padding: 15px;
+      }
+    }
+        :root {
+            --verde-medio: #2E8B57;
+            --verde-claro: #7FB77E;
+            --amarillo: #F7D060;
+            --blanco: #F8F9FA;
+        }
+        
+    
+        
+        h1 {
+            color: var(--verde-oscuro);
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .quiz-container {
+            background-color: white;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .question {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .question-text {
+            font-weight: 500;
+            margin-bottom: 15px;
+            color: var(--verde-oscuro);
+        }
+        
+        .options label {
+            display: block;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 4px;
+            background-color: #f5f5f5;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .options label:hover {
+            background-color: #e9e9e9;
+        }
+        
+        .options input[type="radio"] {
+            margin-right: 10px;
+        }
+        
+        button {
+            background-color: var(--verde-medio);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            display: block;
+            margin: 30px auto 0;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: var(--verde-oscuro);
+        }
+        
+        .result {
+            text-align: center;
+            margin-top: 20px;
+            font-weight: bold;
+            font-size: 18px;
+            padding: 15px;
+            border-radius: 4px;
+            display: none;
+        }
+        
+        .correct {
+            background-color: #E8F5E9;
+            color: var(--verde-oscuro);
+            border-left: 4px solid var(--verde-medio);
+        }
+        
+        .incorrect {
+            background-color: #FFEBEE;
+            color: #D32F2F;
+            border-left: 4px solid #E53935;
+        }
+        
+        .feedback {
+            font-size: 14px;
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 4px;
+            display: none;
+        }
+           /* Estilos base */
+
+   
+    /* Contenedor principal */
+  
+
+    /* Contenido principal */
+    
+      * {
+      box-sizing: border-box;
+    }
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f0f5f2;
+      color: #000000;
+      scroll-behavior: smooth;
+    }
+
+    /* Header fijo */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      background: linear-gradient(135deg, #64ad64, #47d082);
+      color: white;
+      display: flex;
+      align-items: center;
+      padding: 0 1rem;
+      font-size: 1.3rem;
+      font-weight: 700;
+      z-index: 200;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      border-bottom: 3px solid #f7d060;
+    }
+    header .highlight {
+      color: #f7d060;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    }
+
+    /* Contenedor principal */
+    #main-content {
+      display: flex;
+      flex-direction: column;
+      margin-top: 60px;
+      min-height: calc(100vh - 60px);
+    }
+
+    /* Sidebar - Versión móvil */
+    .sidebar {
+      position: relative;
+      width: 100%;
+      background: linear-gradient(145deg, #47d082, #64ad64);
+      overflow-x: auto;
+      padding: 1rem;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      border-top: 3px solid #f7d060;
+      z-index: 150;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .sidebar li {
+      flex: 0 0 auto;
+      margin-right: 0.5rem;
+    }
+    .sidebar a {
+      color: white;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      padding: 0.6rem 0.8rem;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      font-size: 0.9rem;
+      background: rgba(255,255,255,0.1);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    .sidebar a:hover {
+      background: rgba(255,255,255,0.2);
+      transform: translateY(-3px);
+    }
+    .sidebar a.active {
+      background: #f7d060;
+      color: #64ad64;
+      font-weight: 700;
+    }
+    .sidebar a::before {
+      content: "";
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      margin-right: 8px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      filter: brightness(0) invert(1);
+    }
+    .sidebar a.active::before {
+      filter: none;
+    }
+
+    /* Contenido principal - Versión móvil */
+    main {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1.5rem 1rem;
+      background-color: #fff;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+    }
+
+    main > section {
+      display: none;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+      margin: 0 auto;
+      animation: fadeIn 0.5s ease forwards;
+    }
+    main > section.active {
+      display: flex;
+    }
+    main > section h2 {
+      color: #64ad64;
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid #f7d060;
+      width: 100%;
+      display: flex;
+      align-items: center;
+    }
+    main > section h2::before {
+      content: "";
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      margin-right: 10px;
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+    main > section p {
+      font-size: 1rem;
+      line-height: 1.6;
+      margin-bottom: 1.2rem;
+      color: #444;
+    }
+    main > section ul, main > section ol {
+      padding-left: 1.2rem;
+      margin-bottom: 1.2rem;
+      width: 100%;
+    }
+    main > section li {
+      margin-bottom: 0.6rem;
+      line-height: 1.5;
+    }
+
+    /* Video gallery - Versión móvil */
+    .video-gallery {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .video-gallery iframe {
+      width: 100%;
+      height: 200px;
+      border-radius: 8px;
+      border: 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    /* Botón de inicio - Versión móvil */
+    #welcome-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: linear-gradient(135deg, #1a5d1a, #7fb77e);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 1.5rem;
+      text-align: center;
+      z-index: 300;
+    }
+    #welcome-screen.hidden {
+      display: none;
+    }
+    #welcome-screen h1 {
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    }
+    #welcome-screen .highlight {
+      color: #f7d060;
+    }
+    #welcome-screen p {
+      font-size: 1.1rem;
+      max-width: 100%;
+      margin-bottom: 2rem;
+      line-height: 1.5;
+    }
+    #start-btn {
+      padding: 1rem 2rem;
+      background: #f7d060;
+      color: #1a5d1a;
+      border: none;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    /* Ejercicios y quizzes - Versión móvil */
+    .ejercicios, .quiz {
+      padding: 15px;
+      margin: 20px 0;
+      width: 100%;
+    }
+    .ejercicios h3, .quiz h3 {
+      font-size: 1.1rem;
+    }
+    .quiz label {
+      margin: 6px 0 12px 15px;
+      padding-left: 25px;
+    }
+
+    /* Imágenes de referencia - Versión móvil */
+    .ref-image {
+      margin: 1rem auto;
+      max-width: 100%;
+      border-radius: 8px;
+    }
+
+    /* Animación */
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(10px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    /* Estilos para pantallas más grandes (tablets y desktop) */
+    @media(min-width: 768px) {
+      header {
+        height: 70px;
+        font-size: 1.6rem;
+        padding: 0 2rem;
+      }
+      #main-content {
+        flex-direction: row;
+        margin-top: 70px;
+        height: calc(100vh - 70px);
+      }
+      .sidebar {
+        position: fixed;
+        left: 0;
+        top: 70px;
+        width: 250px;
+        height: calc(100vh - 70px);
+        padding: 1.5rem 1rem;
+        border-top: none;
+        border-left: 4px solid #f7d060;
+      }
+      .sidebar ul {
+        display: block;
+        overflow-x: visible;
+      }
+      .sidebar li {
+        margin-right: 0;
+        margin-bottom: 0.5rem;
+      }
+      .sidebar a {
+        padding: 0.8rem 1rem;
+        font-size: 1rem;
+      }
+      main {
+        margin-left: 250px;
+        padding: 2rem;
+        max-width: calc(100vw - 250px);
+      }
+      main > section h2 {
+        font-size: 2rem;
+      }
+      .video-gallery {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .video-gallery iframe {
+        width: 45%;
+        min-width: 300px;
+      }
+      #welcome-screen h1 {
+        font-size: 2.8rem;
+      }
+    }
+
+    /* Estilos para pantallas muy grandes */
+    @media(min-width: 1024px) {
+      .sidebar {
+        width: 300px;
+      }
+      main {
+        margin-left: 300px;
+        max-width: calc(100vw - 300px);
+        padding: 2rem 3rem;
+      }
+      main > section {
+        max-width: 900px;
+      }
+    }
+    
+  </style>
 </head>
 <body>
 
@@ -67,8 +1050,7 @@ Postulados de la Teoría Celular Clásica Los tres postulados originales que die
  <li>La célula es la unidad estructural y funcional de los seres vivos.
    Schwann sostuvo que las células no solo forman los tejidos, sino que también realizan todas las funciones vitales.
   <li>Todas las células provienen de otras células preexistentes.En 1855, Rudolf Virchow refutó la teoría de la
-     generación espontánea y afirmó que cada célula se origina por división de otra célula. Esta idea se resume en la frase "Omnis cellula e cellula". 
-    Postulados de la Teoría Celular Moderna Con los avances en microscopía electrónica, biología molecular y genética, la teoría celular fue actualizada para incluir nuevos principios:
+     generación espontánea y afirmó que cada célula se origina por división de otra célula. Esta idea se resume en la frase "Omnis cellula e cellula". Postulados de la Teoría Celular Moderna Con los avances en microscopía electrónica, biología molecular y genética, la teoría celular fue actualizada para incluir nuevos principios:
    <li>La célula contiene la información hereditaria en su ADN, que se transmite de generación en generación.
    Gracias a los estudios sobre la estructura del ADN, se comprendió que las células son portadoras del material genético.</li>
    <li>Todas las funciones vitales ocurren dentro de las células o en su entorno inmediato.</li>
@@ -292,8 +1274,8 @@ sobre cómo funciona la vida a nivel microscópico, confirmando que la célula e
         <p>Explora estos videos para complementar tu aprendizaje sobre células y sus procesos:</p>
         <div class="video-gallery">
           <iframe src="https://www.youtube.com/embed/URUJD5NEXC8" title="Teoría celular" allowfullscreen></iframe>
-          <iframe src="https://youtu.be/rKS-vvhMV6E?si=ucnckDZDjTu_h3lg" Title="Tipos celula" allowfullscreen></iframe>
-          <iframe src="https://youtu.be/8IlzKri08kk?si=O-0GPHCYB9iqHZqs" <allowfullscreen></iframe>
+          <iframe src="https://youtu.be/LiR0wNi1JHg?si=Jm_tqSefnf-H8aLs" title="Tipos de células" allowfullscreen></iframe>
+          <iframe src="https://www.youtube.com/embed/VKk-YrZ9uVY" title="Organelos celulares" allowfullscreen></iframe>
           <iframe src="https://www.youtube.com/embed/Lr3XQkXXuQ4" title="Transporte celular" allowfullscreen></iframe>
           <iframe src="https://www.youtube.com/embed/NFf3Qp1Z6x4" title="Diferenciación celular" allowfullscreen></iframe>
           <iframe src="https://www.youtube.com/embed/8QYVf0hoxzY" title="Cultivo celular" allowfullscreen></iframe>
@@ -321,19 +1303,11 @@ sobre cómo funciona la vida a nivel microscópico, confirmando que la célula e
             <input type="radio" name="q1" value="a" id="teoria-q1a" /> <label for="teoria-q1a">Darwin y Mendel</label><br />
             <input type="radio" name="q1" value="b" id="teoria-q1b" /> <label for="teoria-q1b">Schleiden y Schwann</label><br />
             <input type="radio" name="q1" value="c" id="teoria-q1c" /> <label for="teoria-q1c">Watson y Crick</label><br />
-
-            <label>1. ¿Quiénes fueron los principales contribuidores a la teoría celular?</label><br />
-            <input type="radio" name="q1" value="a" id="teoria-q1a" /> <label for="teoria-q1a">Darwin y Mendel</label><br />
-            <input type="radio" name="q1" value="b" id="teoria-q1b" /> <label for="teoria-q1b">Schleiden y Schwann</label><br />
-            <input type="radio" name="q1" value="c" id="teoria-q1c" /> <label for="teoria-q1c">Watson y Crick</label><br />
             <button type="button" class="check-quiz">Verificar respuestas</button>
-          
             <p class="quiz-result"></p>
           </form>
         </div>
-        
-         <!--Separación guía-->
-        
+
         <div class="quiz" data-topic="tipos">
           <h3>Tipos de Células</h3>
           <form>
@@ -563,8 +1537,7 @@ sobre cómo funciona la vida a nivel microscópico, confirmando que la célula e
     </main>
   </div>
 
-  <scritp>
-  
+  <script>
     const startBtn = document.getElementById('start-btn');
     const welcomeScreen = document.getElementById('welcome-screen');
     const mainContent = document.getElementById('main-content');
@@ -603,8 +1576,7 @@ sobre cómo funciona la vida a nivel microscópico, confirmando que la célula e
 
     // Función para verificar quiz según respuesta correcta
     const quizAnswers = {
-      teoria: "b"
-      teoria:"c",
+      teoria: "b",
       tipos: "b",
       partes: "b",
       organelos: "a",
@@ -718,11 +1690,10 @@ sobre cómo funciona la vida a nivel microscópico, confirmando que la célula e
             }
             
             resultEl.style.display = 'block';
-
-              
+            
             // Desplazarse al resultado
             resultEl.scrollIntoView({ behavior: 'smooth' });
-        });  
-  </scritp>
+        });
+  </script>
 </body>
 </html>
