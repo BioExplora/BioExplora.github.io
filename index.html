@@ -204,7 +204,7 @@
     }
 
     /* Iconos para cada sección */
-    section#teoria h2::before {
+    /* section#teoria h2::before {
       background-image: url('https://cdn-icons-png.flaticon.com/512/2913/2913059.png');
     }
     section#tipos h2::before {
@@ -239,7 +239,7 @@
     }
     section#evaluaciones h2::before {
       background-image: url('https://cdn-icons-png.flaticon.com/512/3652/3652281.png');
-    }
+    } */
 
     /* Video gallery */
     .video-gallery {
@@ -989,6 +989,15 @@
       }
     }
     
+    .chat-input input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #dfdfdf;
+      border-radius: 20px;
+      font-size: 16px;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+
+    }
   </style>
 </head>
 <body>
@@ -1014,10 +1023,10 @@
           <li><a href="#funciones">Funciones Celulares</a></li>
           <li><a href="#reproduccion">Reproducción Celular</a></li>
           <li><a href="#transporte">Transporte Celular</a></li>
-          <li><a href="#diferenciacion">Diferenciación Celular</a></li>
-          <li><a href="#cultivo">Cultivo Celular</a></li>
+          <!-- <li><a href="#diferenciacion">Diferenciación Celular</a></li>
+          <li><a href="#cultivo">Cultivo Celular</a></li> -->
           <li><a href="#comparacion">Comparación Animal/Vegetal</a></li>
-          <li><a href="#videos">Videos Referenciales</a></li>
+          <li><a href="#videos">Chat Bot</a></li>
           <li><a href="#evaluaciones">Evaluaciones</a></li>
         </ul>
       </nav>
@@ -1025,8 +1034,10 @@
 <!--teoria celular primera parte-->
     <main>
       <section id="teoria" class="active" tabindex="0">
+        
         <h2>Teoría Celular</h2>
-            <h3>¿Qué es la Teoría Celular?</h3><br>
+        <h3>¿Qué es la Teoría Celular?</h3><br>
+        <iframe width="950" height="515" src="https://www.youtube.com/embed/4inO1AA0yxg?si=RuILh9SJvM402m-6" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
  <p>La teoría celular es uno de los principios fundamentales de la biología moderna.
  Establece que la célula es la unidad básica de estructura, función y organización
   de todos los seres vivos. Gracias a esta teoría, los científicos comprenden que 
@@ -1085,14 +1096,7 @@ sobre cómo funciona la vida a nivel microscópico, confirmando que la célula e
 </p>
         <img src="https://es-static.z-dn.net/files/df3/f1ffe9fb81e213ad47e8e3b016737839.jpg" alt="Fundadores de la teoría celular" class="ref-image" loading="lazy" />
         
-        <div class="ejercicios">
-          <h3>Ejercicios</h3>
-          <ol>
-            <li>Enumera los tres postulados de la teoría celular.</li>
-            <li>¿Por qué es importante la teoría celular para la biología?</li>
-            <li>Explica con tus palabras qué significa que "la célula es la unidad básica de la vida".</li>
-          </ol>
-        </div>
+
       </section>
 
 <!--tipos de celula-->
@@ -1101,18 +1105,12 @@ sobre cómo funciona la vida a nivel microscópico, confirmando que la célula e
         <p>Existen dos tipos principales de células:</p>
         <ul>
           <li><strong>Células procariotas:</strong> Son células simples, sin núcleo definido, y su material genético está disperso en el citoplasma. Ejemplos: bacterias y arqueas.</li>
+          <div class="sketchfab-embed-wrapper"> <iframe title="EVE3D - Célula Procariota" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="740" height="480" src="https://sketchfab.com/models/5a7917054d26462ba1b49a4ce2d3b7ae/embed"> </iframe> </div>
           <li><strong>Células eucariotas:</strong> Son más complejas y tienen un núcleo definido que contiene el ADN. Se encuentran en plantas, animales, hongos y protistas.</li>
+          <div class="sketchfab-embed-wrapper"> <iframe title="EVE3D Célula Eucariota Animal" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="750" height="480" src="https://sketchfab.com/models/fb3311da5c9a4572bda870f6d356d83a/embed"> </iframe> </div>
         </ul>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Prokaryote_vs_Eukaryote_cell.svg/800px-Prokaryote_vs_Eukaryote_cell.svg.png" alt="Comparación células procariotas y eucariotas" class="ref-image" loading="lazy" />
 
-        <div class="ejercicios">
-          <h3>Ejercicios</h3>
-          <ol>
-            <li>¿Cuál es la principal diferencia entre células procariotas y eucariotas?</li>
-            <li>Da dos ejemplos de organismos con células procariotas.</li>
-            <li>Menciona en qué organismos encontramos células eucariotas.</li>
-          </ol>
-        </div>
+
       </section>
 
       <section id="partes" tabindex="0">
@@ -1120,20 +1118,16 @@ sobre cómo funciona la vida a nivel microscópico, confirmando que la célula e
         <p>Las células tienen varias estructuras principales que desempeñan funciones específicas:</p>
         <ul>
           <li><strong>Membrana plasmática:</strong> Capa que protege la célula y regula el intercambio de sustancias.</li>
+          <div class="sketchfab-embed-wrapper"> <iframe title="Membrana Plasmática" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="740" height="480" src="https://sketchfab.com/models/d052f6892768415a8457e77f559f16ab/embed"> </iframe> </div>
           <li><strong>Citoplasma:</strong> Material gelatinoso donde ocurren las reacciones celulares.</li>
+          <div class="sketchfab-embed-wrapper"> <iframe title="EVE3D Citoplasma" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="740" height="480" src="https://sketchfab.com/models/ed1f469973564889b1d9cce56e68d27b/embed"> </iframe> </div>
           <li><strong>Núcleo:</strong> Contiene el material genético y controla las actividades celulares (solo en células eucariotas).</li>
+          <div class="sketchfab-embed-wrapper"> <iframe title="Núcleo" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="740" height="480" src="https://sketchfab.com/models/f352d13aafad414c96ea5deec2127345/embed?ui_infos=0"> </iframe> </div>
           <li><strong>Pared celular:</strong> Presente en células vegetales y procariotas, proporciona soporte y protección.</li>
+          <div class="sketchfab-embed-wrapper"> <iframe title="Pared Celular (Vegetal)" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="740" height="480" src="https://sketchfab.com/models/c80677e0d32a4e7eb19268ca3eb6d538/embed?ui_infos=0"> </iframe> </div>
         </ul>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Biological_cell.svg/800px-Biological_cell.svg.png" alt="Partes principales de la célula" class="ref-image" loading="lazy" />
         
-        <div class="ejercicios">
-          <h3>Ejercicios</h3>
-          <ol>
-            <li>¿Cuál es la función de la membrana plasmática?</li>
-            <li>¿Qué es el citoplasma y qué función tiene?</li>
-            <li>¿Qué función tiene el núcleo en las células eucariotas?</li>
-          </ol>
-        </div>
+
       </section>
 
       <section id="organelos" tabindex="0">
@@ -1141,27 +1135,27 @@ sobre cómo funciona la vida a nivel microscópico, confirmando que la célula e
         <p>Los organelos son estructuras especializadas dentro de las células eucariotas:</p>
         <ul>
           <li><strong>Mitocondrias:</strong> Producen energía mediante la respiración celular.</li>
+          <div class="sketchfab-embed-wrapper"> <iframe title="Mitocondrias" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="740" height="480" src="https://sketchfab.com/models/646844cf2b4b4d8081641b59573820a9/embed?ui_infos=0"> </iframe> </div>
           <li><strong>Cloroplastos:</strong> Realizan la fotosíntesis en células vegetales.</li>
+          <div class="sketchfab-embed-wrapper"> <iframe title="EVE3D Cloroplasto" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="740" height="480" src="https://sketchfab.com/models/fc317fec13d54b35becf29791f3e54b6/embed"> </iframe> </div>
           <li><strong>Ribosomas:</strong> Sintetizan proteínas.</li>
+          <div class="sketchfab-embed-wrapper"> <iframe title="Ribosoma" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="740" height="480" src="https://sketchfab.com/models/c586d726ef6344699fcbb2589845026e/embed?ui_infos=0"> </iframe> </div>
           <li><strong>Retículo endoplasmático:</strong> Síntesis y transporte de proteínas y lípidos.</li>
+          <div class="sketchfab-embed-wrapper"> <iframe title="Retículo endoplasmático" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="740" height="480" src="https://sketchfab.com/models/1546395980f64c3e9384790628230ace/embed?ui_infos=0"> </iframe> </div>
           <li><strong>Aparato de Golgi:</strong> Modifica y empaca proteínas y lípidos para su transporte.</li>
+          <div class="sketchfab-embed-wrapper"> <iframe title="Aparato de Golgi" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="740" height="480" src="https://sketchfab.com/models/f6e68999789244b48fe620e3f6c75626/embed?ui_infos=0"> </iframe> </div>
           <li><strong>Lisosomas:</strong> Degradan sustancias y organelos dañados.</li>
+          <div class="sketchfab-embed-wrapper"> <iframe title="Lisosomas" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="740" height="480" src="https://sketchfab.com/models/8fafcf0b41f14bbe8409ef008e2ea7c6/embed?ui_infos=0"></iframe> </div>
+
         </ul>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Animal_cell_structure_es.svg/800px-Animal_cell_structure_es.svg.png" alt="Estructura básica de una célula animal" class="ref-image" loading="lazy" />
         
-        <div class="ejercicios">
-          <h3>Ejercicios</h3>
-          <ol>
-            <li>¿Qué organelo es conocido como la "central energética" de la célula?</li>
-            <li>¿Qué organelo es exclusivo de las células vegetales y qué función cumple?</li>
-            <li>¿Cuál es la función del aparato de Golgi?</li>
-          </ol>
-        </div>
+
       </section>
 
       <section id="funciones" tabindex="0">
         <h2>Funciones Celulares</h2>
         <p>Las células realizan múltiples funciones esenciales para la vida, tales como:</p>
+        <iframe width="950" height="515" src="https://www.youtube.com/embed/_ejQaAsna3k?si=36zJypuieL7X8Iw_" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
         <ul>
           <li><strong>Metabolismo:</strong> Transformación de energía y materiales para mantener la vida.</li>
           <li><strong>Reproducción:</strong> Formación de nuevas células.</li>
@@ -1169,16 +1163,8 @@ sobre cómo funciona la vida a nivel microscópico, confirmando que la célula e
           <li><strong>Transporte:</strong> Movimiento de sustancias dentro y fuera de la célula.</li>
           <li><strong>Diferenciación:</strong> Especialización para realizar funciones específicas.</li>
         </ul>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Cell_function.png/800px-Cell_function.png" alt="Funciones celulares básicas" class="ref-image" loading="lazy" />
         
-        <div class="ejercicios">
-          <h3>Ejercicios</h3>
-          <ol>
-            <li>Define qué es el metabolismo celular.</li>
-            <li>¿Por qué es importante la respuesta a estímulos para las células?</li>
-            <li>Explica la diferencia entre transporte activo y pasivo.</li>
-          </ol>
-        </div>
+
       </section>
 
       <section id="reproduccion" tabindex="0">
@@ -1186,53 +1172,38 @@ sobre cómo funciona la vida a nivel microscópico, confirmando que la célula e
         <p>La reproducción celular puede ser de dos tipos principales:</p>
         <ul>
           <li><strong>Mitosis:</strong> División celular para crecimiento y reparación, produciendo dos células hijas idénticas.</li>
+          <iframe width="950" height="515" src="https://www.youtube.com/embed/u2WZp9p4jr4?si=MO5oVQ1yGC269x9w" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
           <li><strong>Meiosis:</strong> División celular para la formación de gametos, reduciendo a la mitad el número de cromosomas.</li>
+          <iframe width="950" height="515" src="https://www.youtube.com/embed/AUnJuvHdt3E?si=xrbCnFXk9_COzepo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          
+          <div class="ejercicios">
+          <h3>Juegos</h3>
+            <iframe style="max-width:100%" src="https://wordwall.net/es/embed/320f6e96a0014a6cbbcf5c02e857c0c2?themeId=48&templateId=36&fontStackId=0" width="750" height="580" frameborder="0" allowfullscreen></iframe>
+
+          </div>
         </ul>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Mitosis_vs_Meiosis.png/800px-Mitosis_vs_Meiosis.png" alt="Comparación mitosis y meiosis" class="ref-image" loading="lazy" />
         
-        <div class="ejercicios">
-          <h3>Ejercicios</h3>
-          <ol>
-            <li>Describe brevemente en qué consiste el proceso de mitosis.</li>
-            <li>¿Cuál es la principal diferencia entre mitosis y meiosis?</li>
-            <li>¿Por qué es importante la meiosis para la reproducción sexual?</li>
-          </ol>
-        </div>
+
       </section>
 
       <section id="transporte" tabindex="0">
         <h2>Transporte Celular</h2>
         <p>Las células intercambian sustancias mediante varios mecanismos:</p>
+        <iframe width="950" height="515" src="https://www.youtube.com/embed/hhRXOMWpiyU?si=8bAyOUG-QgCeo6R9" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
         <ul>
           <li><strong>Transporte pasivo:</strong> Movimiento sin gasto de energía, como difusión y ósmosis.</li>
           <li><strong>Transporte activo:</strong> Movimiento que requiere energía para transportar moléculas contra su gradiente.</li>
           <li><strong>Endocitosis y exocitosis:</strong> Procesos para incorporar o expulsar partículas grandes.</li>
         </ul>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Figure_05_01_05.jpg/800px-Figure_05_01_05.jpg" alt="Tipos de transporte celular" class="ref-image" loading="lazy" />
         
-        <div class="ejercicios">
-          <h3>Ejercicios</h3>
-          <ol>
-            <li>Explica la diferencia entre transporte activo y pasivo.</li>
-            <li>¿Qué es la ósmosis y por qué es importante para las células?</li>
-            <li>Describe brevemente el proceso de endocitosis.</li>
-          </ol>
-        </div>
+
       </section>
 
       <section id="diferenciacion" tabindex="0">
         <h2>Diferenciación Celular</h2>
         <p>Es el proceso mediante el cual las células especializadas se desarrollan a partir de células madre. Esta especialización permite que las células realicen funciones específicas en tejidos y órganos.</p>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Stem_cell_differentiation.svg/800px-Stem_cell_differentiation.svg.png" alt="Diferenciación celular" class="ref-image" loading="lazy" />
         
-        <div class="ejercicios">
-          <h3>Ejercicios</h3>
-          <ol>
-            <li>¿Qué son las células madre y por qué son importantes?</li>
-            <li>Explica con un ejemplo cómo la diferenciación celular permite la formación de tejidos especializados.</li>
-            <li>¿Qué ventajas tiene para un organismo multicelular la diferenciación celular?</li>
-          </ol>
-        </div>
+
       </section>
 
       <section id="cultivo" tabindex="0">
@@ -1240,14 +1211,7 @@ sobre cómo funciona la vida a nivel microscópico, confirmando que la célula e
         <p>El cultivo celular es una técnica para mantener y multiplicar células fuera del organismo en condiciones controladas. Es fundamental para investigación médica, desarrollo de fármacos y biotecnología.</p>
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Cell_culture.jpg/800px-Cell_culture.jpg" alt="Cultivo celular en laboratorio" class="ref-image" loading="lazy" />
         
-        <div class="ejercicios">
-          <h3>Ejercicios</h3>
-          <ol>
-            <li>¿Cuáles son las principales aplicaciones del cultivo celular?</li>
-            <li>Describe las condiciones necesarias para mantener células vivas en cultivo.</li>
-            <li>¿Por qué es importante el cultivo celular para el desarrollo de medicamentos?</li>
-          </ol>
-        </div>
+
       </section>
 
       <section id="comparacion" tabindex="0">
@@ -1255,42 +1219,47 @@ sobre cómo funciona la vida a nivel microscópico, confirmando que la célula e
         <p>Las células animales y vegetales tienen similitudes y diferencias importantes:</p>
         <ul>
           <li><strong>Células vegetales:</strong> Tienen pared celular, cloroplastos y vacuolas grandes.</li>
+          <div class="sketchfab-embed-wrapper">
+             <iframe title="Structure of a Plant Cell" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" width="750" height="580" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/ebd0a1bbccb14e3d8f6cb73d75d6f69d/embed"> </iframe>
+            
+            </div>
           <li><strong>Células animales:</strong> Carecen de pared celular y cloroplastos, tienen vacuolas pequeñas.</li>
+          <div class="sketchfab-embed-wrapper"> <iframe title="Celula" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="750" height="480" src="https://sketchfab.com/models/23c9bccc33cb4d2f8ec3a0903262bf29/embed"> </iframe> </div>
           <li>Ambas tienen núcleo, membrana plasmática y organelos comunes.</li>
         </ul>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Animal_and_plant_cell_es.svg/800px-Animal_and_plant_cell_es.svg.png" alt="Comparación célula animal y vegetal" class="ref-image" loading="lazy" />
-        
+
         <div class="ejercicios">
-          <h3>Ejercicios</h3>
-          <ol>
-            <li>Enumera tres diferencias entre células animales y vegetales.</li>
-            <li>¿Qué organelo es exclusivo de las células vegetales y qué función cumple?</li>
-            <li>¿Por qué las células vegetales necesitan una pared celular?</li>
-          </ol>
+          <h3>Juegos</h3>
+          <div>
+           <iframe style="max-width:100%" src="https://wordwall.net/es/embed/e508332a38bd4d868aae89e952e858a9?themeId=52&templateId=2&fontStackId=0" width="850" height="580" frameborder="0" allowfullscreen></iframe>
+            <iframe style="max-width:100%" src="https://wordwall.net/es/embed/e74628dff1c74cb6ba97e4153317919a?themeId=65&templateId=3&fontStackId=1" width="850" height="580" frameborder="0" allowfullscreen></iframe>
+            <iframe style="max-width:100%" src="https://wordwall.net/es/embed/e74628dff1c74cb6ba97e4153317919a?themeId=65&templateId=3&fontStackId=1" width="950" height="380" frameborder="0" allowfullscreen></iframe>
+          </div>
         </div>
       </section>
-
+      
       <section id="videos" tabindex="0">
-        <h2>Videos Referenciales</h2>
-        <p>Explora estos videos para complementar tu aprendizaje sobre células y sus procesos:</p>
-        <div class="video-gallery">
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/4inO1AA0yxg?si=RuILh9SJvM402m-6" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/bXVAc38JXYM?si=te6kzXEvoTquYjC7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/ygm9InJ141E?si=zO3E0Vxdh1Grup5h" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/8IlzKri08kk?si=fC6VZJa2ICo_2ybm" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/qBCVVszQQNs?si=I1OzQaR7x8Ldk14T" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/Pxujitlv8wc?si=7ZZ4qt5Ri3sa9RWw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/4OpBylwH9DU?si=Rfepcpa1lDB6w9J6" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <div style="margin: 20px 0;">
+          <h2>Chat Bot</h2>
+          <p>Interactúa con nuestro chat bot para resolver dudas sobre la célula:</p>
+              <div class="chat-container">
+        <div class="chat-header">
+            <h1>Chat</h1>
+            <img src="https://www.autoportero.com/trabajo-en-proceso1.jpg" alt="Chat Icon" class="chat-icon">
         </div>
+        <div class="chat-messages" id="chat-messages">
+            <!-- Mensajes aparecerán aquí -->
+        </div>
+        <div class="chat-input">
+            <input type="text" id="message-input" placeholder="Escribe un mensaje...">
+            <button id="send-button">Enviar</button>
+        </div>
+    </div>
+
+        </div>
+      
         
-        <div class="ejercicios">
-          <h3>Ejercicios</h3>
-          <ol>
-            <li>Elige uno de los videos y resume sus puntos principales.</li>
-            <li>¿Qué concepto nuevo aprendiste de los videos?</li>
-            <li>Elabora un esquema con la información más importante de los videos.</li>
-          </ol>
-        </div>
+   
       </section>
 
       <!-- Nueva sección de Evaluaciones -->
